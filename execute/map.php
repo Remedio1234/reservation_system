@@ -68,17 +68,46 @@
         </text>
 
         <!-- =================== START TABLES ============================= -->
-        <rect class="cottages" x="471.5" y="480.5" fill="<?php echo ($total_tables <= 0 ? '#de0000' : '#0dd00d') ?>" stroke="#000000" stroke-miterlimit="10" width="153" height="77"/>
-        <text transform="matrix(1 0 0 1 509.7852 503.1602)" font-family="'ArialMT'" font-size="20">TABLES</text>
-        <text transform="matrix(1 0 0 1 520 544.2559)" font-family="'ArialMT'" font-size="41.5568">
+        <rect 
+            data-type="tables"
+            class="cottages book_now" 
+            x="471.5" 
+            y="480.5" 
+            fill="<?php echo ($total_tables <= 0 ? '#de0000' : '#0dd00d') ?>" 
+            stroke="#000000" 
+            stroke-miterlimit="10" 
+            width="153" 
+            height="77"/>
+        <text 
+            transform="matrix(1 0 0 1 509.7852 503.1602)" 
+            font-family="'ArialMT'" 
+            font-size="20">TABLES</text>
+        <text 
+            transform="matrix(1 0 0 1 520 544.2559)" 
+            font-family="'ArialMT'" 
+            font-size="41.5568">
             <?php echo $total_tables; ?>
         </text>
         <!-- =================== END TABLES =============================== -->
         
         <!-- =================== START CHAIRS ============================= -->
-        <rect class="cottages" x="639.5" y="481.5" fill="<?php echo ($total_chairs <= 0 ? '#de0000' : '#0dd00d') ?>" stroke="#000000" stroke-miterlimit="10" width="157" height="77"/>
-        <text transform="matrix(1 0 0 1 688.8379 506.1602)" font-family="'ArialMT'" font-size="20">CHAIRS</text>
-        <text transform="matrix(1 0 0 1 692.2793 546.2559)" font-family="'ArialMT'" font-size="41.5568">
+        <rect 
+            class="cottages" 
+            x="639.5" 
+            y="481.5" 
+            fill="<?php echo ($total_chairs <= 0 ? '#de0000' : '#0dd00d') ?>" 
+            stroke="#000000" 
+            stroke-miterlimit="10" 
+            width="157" 
+            height="77"/>
+        <text 
+            transform="matrix(1 0 0 1 688.8379 506.1602)" 
+            font-family="'ArialMT'" 
+            font-size="20">CHAIRS</text>
+        <text 
+            transform="matrix(1 0 0 1 692.2793 546.2559)" 
+            font-family="'ArialMT'" 
+            font-size="41.5568">
             <?php echo $total_chairs; ?>
         </text>
         <!-- =================== END CHAIRS =============================== -->
@@ -98,9 +127,9 @@
         <?php 
         while ($room = $rooms->fetch(PDO::FETCH_OBJ)) { ?>
             <rect 
-                id="rooms_click"
+                data-type="rooms"
                 data-status="<?php echo (isset($room->r_a_id) && $room->r_a_id == $room->amenities_id ? '0' : '1')?>"
-                class="cottages" 
+                class="cottages book_now" 
                 x="<?php echo $room->x ?>" 
                 y="<?php echo $room->y ?>" 
                 fill="<?php echo (isset($room->r_a_id) && $room->r_a_id == $room->amenities_id ? '#de0000' : '#0dd00d')?>"
@@ -119,7 +148,8 @@
         <?php 
         while ($cottage = $cottages->fetch(PDO::FETCH_OBJ)) { ?>
             <rect 
-                class="cottages" 
+                data-type="cottages"
+                class="cottages book_now" 
                 x="<?php echo $cottage->x ?>" 
                 y="<?php echo $cottage->y ?>" 
                 fill="<?php echo (isset($cottage->r_a_id) && $cottage->r_a_id == $cottage->amenities_id ? '#de0000' : '#0dd00d')?>"
@@ -135,9 +165,23 @@
         <!-- =================== END COTTAGES =================================== -->
         
         <!-- =================== START TENTS ==================================== -->
-        <rect class="cottages" x="25.5" y="101.5" fill="<?php echo ($total_tents <= 0 ? '#de0000' : '#0dd00d') ?>" stroke="#000000" stroke-miterlimit="10" width="232" height="77"/>
-        <text transform="matrix(1 0 0 1 104.7847 124.1606)" font-family="'ArialMT'" font-size="20">TENTS</text>
-        <text transform="matrix(1 0 0 1 112.0005 163.2559)" font-family="'ArialMT'" font-size="41.5568">
+        <rect 
+            class="cottages" 
+            x="25.5" 
+            y="101.5" 
+            fill="<?php echo ($total_tents <= 0 ? '#de0000' : '#0dd00d') ?>" 
+            stroke="#000000" 
+            stroke-miterlimit="10" 
+            width="232" 
+            height="77"/>
+        <text 
+            transform="matrix(1 0 0 1 104.7847 124.1606)" 
+            font-family="'ArialMT'" 
+            font-size="20">TENTS</text>
+        <text 
+            transform="matrix(1 0 0 1 112.0005 163.2559)"
+            font-family="'ArialMT'" 
+            font-size="41.5568">
             <?php echo $total_tents; ?>
         </text>
         <!-- =================== END TENTS ======================================= -->

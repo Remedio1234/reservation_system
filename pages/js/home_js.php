@@ -27,7 +27,7 @@
         var mapData = new myClass();
         mapData.loadMap({a:1}); 
 
-        $(document).on('click', '#rooms_click', function(e){
+        $(document).on('click', '.book_now', function(e){
             e.preventDefault()
             var status      = $(this).data('status')
             var dateFrom    = $("#txtDateFrom").val(); 
@@ -67,7 +67,6 @@
                     if(parseFloat(hours) > 1 ){
                         total_hours = hours
                     }
-
                     mapData.loadMap({
                         txtDateFrom: dateFrom,
                         txtDateTo  : dateTo
