@@ -1,22 +1,16 @@
 <?php
     
-     /* database connection */
+    /* database connection */
     require_once('library/config.php');
     /* user api requirements */
     require_once('api/user.api.php');
     /* library template */
     require_once('library/Templates.php');
 
-    /* check user account */
-    // $db->customerCheckIsLogin(@$_SESSION['customer']['isLoggedIn']);
-
     $data = array(); 
     
     /* get page view  */
     $view = (isset($_GET['v']) && !empty($_GET['v']) ? $_GET['v'] : '');
-    
-    /* get company profile */
-    $profile = $dbConn->query("SELECT * FROM tbl_profile ")->fetch(PDO::FETCH_ASSOC);
     
     /* get cdn loaded */
     $cdn = $temp->_cdn(array('a.css', 'b.css'));
@@ -199,13 +193,13 @@
             ];
         break;
 
-        case 'venues':
+        case 'about':
             $page = 'pages/venues/page-index.php';
             $data = [
                 'conn'      => $dbConn,
                 'page'      => 'venues',
                 'active'    => 'venues',
-                'title'     => 'Venues | '.$site_title,
+                'title'     => 'About Us | '.$site_title,
                 'css'       =>  $temp->_css(
                             [
                             'vendor/font-awesome/css/font-awesome.min.css',    
@@ -276,7 +270,9 @@
         break;
 
         case 'login':
-            
+            if (isset($_SESSION['customer']['isLoggedIn'])) {
+				header("location:?v=home");
+			}
             $page = 'pages/account/page-login.php';
             $data = [
                 'conn'      => $dbConn,
@@ -302,6 +298,9 @@
         break;
 
         case 'register':
+            if (isset($_SESSION['customer']['isLoggedIn'])) {
+				header("location:?v=home");
+			}
             $page = 'pages/account/page-register.php';
             $data = [
                 'conn'      => $dbConn,
@@ -330,7 +329,8 @@
         header("location:?v=home");
         break;
     }
-
+    /* get company profile */
+    $profile = $dbConn->query("SELECT * FROM tbl_profile ")->fetch(PDO::FETCH_ASSOC);
     $data = array_merge($data, $profile);
 
     $temp->_render('',$page, $data);

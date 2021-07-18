@@ -38,6 +38,9 @@
                                     $("form[id='form-register']").trigger("reset");
                                     $("#registerErrorModal").find('.modal-body').html(data.message);
                                     $("#registerErrorModal").modal('show');
+                                    setTimeout(() => {
+                                        window.location.href = window.location.href
+                                    }, 1000);
                                 } else if(data.response == 'exist'){
                                     $("#registerErrorModal").find('.modal-body').html(data.message);
                                     $("#registerErrorModal").modal('show');

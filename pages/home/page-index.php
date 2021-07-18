@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 search-form">
             <h4 class="text-center text-secondary mb-3">Happiness is a day at the beach. Book Now!</h4>
-                <form action="" method="post" name="frmVenue" id="frmVenue">
+                <form action="" method="post" name="frmBeachSearch" id="frmBeachSearch">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">

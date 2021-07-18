@@ -8,8 +8,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$a = 1;
-
 //database connection setup
 $dbHost = "mysql:host=localhost;dbname=db_dbror";
 $dbUser = 'root';

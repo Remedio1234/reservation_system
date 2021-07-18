@@ -25,18 +25,18 @@
 			$query = $this->db->query("SELECT * FROM tbl_customers WHERE username = '" . $post['username'] . "' AND password = '".md5($post['password'])."' ");
 			$row = $query->fetch(PDO::FETCH_OBJ);
 			if ($query->rowCount() > 0) {
-				if($row->status == 'pen') {
-					$response = ['response' => 'pending', 'message' => '<div class="alert alert-danger" role="alert">Your registration has not been confirmed.</div>'];
-				} else if($row->status == 'na'){
-					$response = ['response' => 'pending', 'message' => '<div class="alert alert-danger" role="alert">Your account has been Inactive.Please check and try again.!</div>'];
-				} else {
+				// if($row->status == 'pen') {
+				// 	$response = ['response' => 'pending', 'message' => '<div class="alert alert-danger" role="alert">Your registration has not been confirmed.</div>'];
+				// } else if($row->status == 'na'){
+				// 	$response = ['response' => 'pending', 'message' => '<div class="alert alert-danger" role="alert">Your account has been Inactive.Please check and try again.!</div>'];
+				// } else {
 					$response = ['response' => 'success'];
 					$_SESSION['customer'] = [
 							'customer_id' => $row->customer_id,
 							'username'    => $row->username,
 							"isLoggedIn" => true
 					];
-				}
+				// }
 			} else {
 				$response = ['response' => 'failed', 'message' => '<div class="alert alert-danger" role="alert">Account not Exist. Please check and try again.!</div>'];
 			}
@@ -50,6 +50,14 @@
 			} else {
 				$register = $this->db->query("INSERT INTO tbl_customers(fullname,username,password,email_address,profile)VALUES('".$post['fullname']."','" . $post['username'] . "','" . md5($post['password']) . "','" . $post['email_address'] . "','default.jpg')");
 				if ($register) {
+					$query = $this->db->query("SELECT * FROM tbl_customers WHERE username = '" . $post['username'] . "' AND password = '".md5($post['password'])."' ");
+					$row = $query->fetch(PDO::FETCH_OBJ);
+					$response = ['response' => 'success'];
+					$_SESSION['customer'] = [
+							'customer_id' => $row->customer_id,
+							'username'    => $row->username,
+							"isLoggedIn" => true
+					];
 					$response = ['response' => 'success', 'message' => '<div class="alert alert-success" role="alert">You have been successfully registered.</div>'];
 				} else {
 					$response = ['response' => 'failed'];
