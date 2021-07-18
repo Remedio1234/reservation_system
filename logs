@@ -1,0 +1,7 @@
+select *
+from tbl_reservation 
+where 
+      (('2018-09-24 18:43' BETWEEN date_from AND date_to) OR
+('2018-09-24 18:43' BETWEEN date_from AND date_to))
+
+select time_to_sec(timediff(date_to, date_from)) / 3600 as hour from tbl_reservation

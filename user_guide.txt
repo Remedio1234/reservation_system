@@ -1,0 +1,68 @@
+=============================================================
+Frontend modules functionality
+=============================================================
+http://localhost/project-name/?v=home
+    - login - OK
+    - register - OK
+    - logout - OK
+    - My account
+        - View dashboard - Ongoing (only layout)
+    - Reservations - Ongoing
+    - Personal details - Ongoing
+    - Change password - Ongoing
+    - contact us - Ongoing
+    - about us - Ongoing
+    - Blogs - Ongoing
+    - FAQ - Ongoing
+
+    - Home page - OK
+        - show list of venues with thumbnail
+        - filter venue name,type of venue,location
+
+    - click single venue - OK
+        - Show list of photos
+        - show venues list
+        - show caterers list
+        - click reserve - Ongoing
+            - check availability
+                - Select type of Events
+                - DateTimePicker(From,To) 
+                
+============================================================                
+    Backend/Admin Panel
+============================================================
+http://localhost/mini-project/admin-panel/
+
+    - login - OK
+    - Logout - OK
+    - dashboard - Ongoing
+        - no of records
+        - display current reservations
+    - Events - OK
+        - Add,Edit Events
+        - status (active,Inactive)
+     
+    - caterers - OK
+         - Add,Edit caterers
+        - status (active,Inactive)
+        - no. pax
+        - total price
+
+    Customers - OK
+        - Add,Edit
+        - change password
+        - Status(Active,Pending,In-Active)
+
+    Settings
+        - Company Profile
+            - Site name
+            - Site Logo
+        - User Profile
+            - Change password,username,fullname,email address    
+
+    Reports - Ongoing
+        - layout
+        - Functionality         
+
+
+                    
