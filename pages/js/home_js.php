@@ -47,7 +47,7 @@
             }
 
             // alert('available')   
-            toastr.success('available', {
+            toastr.success('available', 'Success', {
                     positionClass:'toast-bottom-right',
                 })
  
@@ -58,19 +58,26 @@
             e.preventDefault()
             var dateFrom = $("#txtDateFrom").val(); 
             var dateTo   = $("#txtDateTo").val()
-
+            $("#txt_result").hide()
             if(dateFrom != "" && dateTo != ""){
                 var date1 = new Date(dateFrom);
                 var date2 = new Date(dateTo);
                 if(date1.getTime() === date2.getTime()){
-                    alert("Invalid date");
+                    toastr.error('Invalid date.Please try again!','Message',{
+                        positionClass:'toast-bottom-right',
+                    })
                     return;
                 }
 
                 else if(date1.getTime() > date2.getTime()){
-                    alert("Invalid date");
+                    toastr.error('Invalid date.Please try again!','Message',{
+                        positionClass:'toast-bottom-right',
+                    })
                     return;
                 } else {
+                    $("#txt_result").show()
+                    $("#txt_date_from").text(dateFrom)
+                    $("#txt_date_to").text(dateTo)
                     var total_hours = 1;
                     var hours    = (date2 - date1) / 1000 / 60 / 60;
                     if(parseFloat(hours) > 1 ){
@@ -82,7 +89,9 @@
                     }); 
                 }
             } else {
-                alert("Please select a date")
+                toastr.warning('Please select a date.','Message',{
+                        positionClass:'toast-bottom-right',
+                    })
                 return
             }
         })

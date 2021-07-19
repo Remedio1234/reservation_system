@@ -29,7 +29,19 @@
         </div>
     </header>
     <div class="row mb-5">
-        <h1>Beach Map</h1>
+        <div class="col-md-4">
+            <h1>Beach Map</h1>
+        </div>
+        <div class="col-md-8">
+        <p id="txt_result" style="display:none;font-size:18px;">
+            <em>
+                Search Result:
+                <strong>Date From: </strong><span id="txt_date_from"></span>
+                <strong>Date To: </strong><span id="txt_date_to"></span>
+            </em>
+        </p>
+        </div>
+        
         <div class="col-md-12" style="border: 1px solid #f3f3f3;background:#f9f9f9;">
             <div id="load_map"></div>
         </div>

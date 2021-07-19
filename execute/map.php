@@ -91,6 +91,7 @@
         <rect 
             data-type="tables"
             class="cottages book_now" 
+            data-status="<?php echo ($total_tables <= 0 ? '0' : '1') ?>"
             x="557.5" 
             y="480.5" 
             fill="<?php echo ($total_tables <= 0 ? '#de0000' : '#0dd00d') ?>" 
@@ -114,6 +115,7 @@
         <rect 
         data-type="chairs"
             class="cottages book_now" 
+            data-status="<?php echo ($total_chairs <= 0 ? '0' : '1') ?>"
             x="777.5" 
             y="480.5" 
             fill="<?php echo ($total_chairs <= 0 ? '#de0000' : '#0dd00d') ?>" 
