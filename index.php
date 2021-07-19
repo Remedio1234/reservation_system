@@ -29,6 +29,7 @@
                         'vendor/bootstrap/css/bootstrap.min.css',
                         'css/heroic-features.css',
                         'vendor/datepicker/css/datetimepicker.css',
+                        'vendor/toastr/toastr.css'
                                     ]
                     ),
                     'js' => $temp->_js(
@@ -36,7 +37,8 @@
                                         'vendor/jquery/jquery.min.js',
                                         'vendor/bootstrap/js/bootstrap.bundle.min.js',
                         'vendor/datepicker/js/moment-with-locales.min.js',
-                        'vendor/datepicker/js/datetimepicker.js'
+                        'vendor/datepicker/js/datetimepicker.js',
+                        'vendor/toastr/toastr.js'
                                     ]
                     )
                 ];    

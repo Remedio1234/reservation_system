@@ -26,22 +26,31 @@
 
         var mapData = new myClass();
         mapData.loadMap({a:1}); 
-
+        // https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html
         $(document).on('click', '.book_now', function(e){
             e.preventDefault()
             var status      = $(this).data('status')
             var dateFrom    = $("#txtDateFrom").val(); 
             var dateTo      = $("#txtDateTo").val()
             if(status == 0){
-                alert("Not Available")
-                return;
-            }
-            if(dateFrom == "" && dateTo == ""){
-                alert("Please select a date")
+                toastr.error('Not Available','Message', {
+                    positionClass:'toast-bottom-right',
+                })
                 return;
             }
 
-            alert('start')    
+            if(dateFrom == "" && dateTo == ""){
+                toastr.error('Please select a date','Message',{
+                    positionClass:'toast-bottom-right',
+                })
+                return;
+            }
+
+            // alert('available')   
+            toastr.success('available', {
+                    positionClass:'toast-bottom-right',
+                })
+ 
         })
         
         
