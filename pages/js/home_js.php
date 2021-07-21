@@ -2,6 +2,12 @@
     $(document).ready(function() {  
         $('#dateFrom').dateTimePicker();
         $('#dateTo').dateTimePicker();
+        var dateFrom = $("#dateFrom").text();
+        var dateTo = $("#dateFrom").text();
+        var a = dateFrom.replace(/(<([^>]+)>)/gi, "");
+        var b = dateFrom.replace(/(<([^>]+)>)/gi, "");
+        $("#txtDateFrom").val(a)
+       $("#txtDateTo").val(b)
 
         var myClass = function() {}
             myClass.prototype = {
@@ -22,16 +28,75 @@
                         });
                     return false;
                 },
+                checkAuth: function(obj){
+                    $.ajax({
+                            type: "POST",
+                             url: "<?php echo WEB_ROOT . 'execute/checker.php' ?>",
+                            dataType: "json",
+                            cache: false,
+                            success: function(data) {
+                                console.log(obj)
+                                $("#input_amenity_id").val(obj.amenity_id)
+                                $("#input_category_id").val(obj.category_id)
+                                $("#input_quantity").val(obj.quantity)
+                                $("#input_name").val(obj.name)
+                                $("#input_type").val(obj.type)
+                                $("#input_date_from").val(obj.date_from)
+                                $("#input_date_to").val(obj.date_to)
+                                $("#input_total_hour").val(obj.per_hour)
+                                $("#input_amount_hour").val(obj.amount)
+                                
+                                var total = parseFloat(obj.per_hour * obj.amount)
+                                $("#input_total_amount").val(parseFloat(total).toFixed(2))
+                                // if(data.login){
+                                //     console.log('true')
+                                // } else {
+                                //     console.log('false')
+                                // }
+                                $("#reservationModal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                })
+                            },
+                            error: function(xhr, status, error) {
+                                console.log("Error : " + xhr.status)
+                            }
+                        });
+                        return false
+                }
             }
 
         var mapData = new myClass();
-        mapData.loadMap({a:1}); 
+            mapData.loadMap({}); 
         // https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html
         $(document).on('click', '.book_now', function(e){
             e.preventDefault()
+
             var status      = $(this).data('status')
             var dateFrom    = $("#txtDateFrom").val(); 
             var dateTo      = $("#txtDateTo").val()
+            var type        = $(this).data('type')
+            var name        = $(this).data('name')
+            var amount      = $(this).data('amount')
+            var quantity    = $(this).data('quantity')
+            var amenity_id  = $(this).data('amenityid')
+            var category_id  = $(this).data('categoryid')
+            
+            mapData.checkAuth({
+                type        : type,
+                name        : name,
+                date_from   : dateFrom,
+                date_to     : dateTo,
+                amount      : amount,
+                quantity    : quantity,
+                amenity_id  : amenity_id,
+                category_id : category_id,
+                per_hour    : 1
+            })
+            
+
+            return
+          
             if(status == 0){
                 toastr.error('Not Available','Message', {
                     positionClass:'toast-bottom-right',
@@ -44,12 +109,12 @@
                     positionClass:'toast-bottom-right',
                 })
                 return;
-            }
+            }   
 
-            // alert('available')   
+            // $("#reservationModal").modal('show')
             toastr.success('available', 'Success', {
-                    positionClass:'toast-bottom-right',
-                })
+                positionClass:'toast-bottom-right',
+            })
  
         })
         
@@ -87,6 +152,7 @@
                         txtDateFrom: dateFrom,
                         txtDateTo  : dateTo
                     }); 
+                    $("#txt_total_hour").text(total_hours)
                 }
             } else {
                 toastr.warning('Please select a date.','Message',{

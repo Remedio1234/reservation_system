@@ -220,32 +220,32 @@
         break;
 
 
-        case 'venue':
-            $page = 'pages/home/page-per-venue.php';
-            $data = [
-                'conn'      => $dbConn,
-                'page'      => 'venue',
-                'active'    => 'home',
-                'title'     => 'Venue Reservation | ' . $site_title,
-                'css'       => $temp->_css(
-                                [
-                                    'vendor/font-awesome/css/font-awesome.min.css',   
-                                    'vendor/bootstrap/css/bootstrap.min.css',
-                                    'css/heroic-features.css',
-                    'vendor/datepicker/css/datetimepicker.css',
-                                ]
-                ),
-                'js' => $temp->_js(
-                                [
-                                    'vendor/jquery/jquery.min.js',
-                                    'vendor/bootstrap/js/bootstrap.bundle.min.js',
-                    'vendor/datepicker/js/moment-with-locales.min.js',
-                    'vendor/datepicker/js/datetimepicker.js'
-                                ]
-                ),
+        // case 'venue':
+        //     $page = 'pages/home/page-per-venue.php';
+        //     $data = [
+        //         'conn'      => $dbConn,
+        //         'page'      => 'venue',
+        //         'active'    => 'home',
+        //         'title'     => 'Venue Reservation | ' . $site_title,
+        //         'css'       => $temp->_css(
+        //                         [
+        //                             'vendor/font-awesome/css/font-awesome.min.css',   
+        //                             'vendor/bootstrap/css/bootstrap.min.css',
+        //                             'css/heroic-features.css',
+        //             'vendor/datepicker/css/datetimepicker.css',
+        //                         ]
+        //         ),
+        //         'js' => $temp->_js(
+        //                         [
+        //                             'vendor/jquery/jquery.min.js',
+        //                             'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        //             'vendor/datepicker/js/moment-with-locales.min.js',
+        //             'vendor/datepicker/js/datetimepicker.js'
+        //                         ]
+        //         ),
 
-            ];
-        break;
+        //     ];
+        // break;
 
         case 'receipt':
             $page = 'pages/receipt/receipt.php';
