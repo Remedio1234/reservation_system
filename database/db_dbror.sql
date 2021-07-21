@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2021 at 03:17 PM
+-- Generation Time: Jul 21, 2021 at 02:35 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -87,7 +87,7 @@ INSERT INTO `tbl_amenities` (`amenities_id`, `category_id`, `name`, `details`, `
 (35, 5, 'Room 3', 'Room 3', 10, 1, 1, 'default.jpg', '98.5', '751.5', 'matrix(1 0 0 1 114.2637 781)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
 (36, 5, 'Room 2', 'Room 2', 10, 1, 1, 'default.jpg', '98.5', '810.5', 'matrix(1 0 0 1 114.2637 837)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
 (37, 5, 'Room 1', 'Room 1', 10, 1, 1, 'default.jpg', '98.5', '865.5', 'matrix(1 0 0 1 113.2637 894.4736)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
-(38, 2, '1', 'Tent 1', 1, 1, 1, 'default.jpg', '21.5', '103.5', 'matrix(0.8035 0 0 1 35.5015 131.3696)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
+(38, 2, '1', 'Tent 1', 1, 1, 5, 'default.jpg', '21.5', '103.5', 'matrix(0.8035 0 0 1 35.5015 131.3696)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
 (39, 2, '2', 'Tent 2', 1, 1, 1, 'default.jpg', '69.5', '103.5', 'matrix(0.8035 0 0 1 82.0479 131.3696)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
 (40, 2, '3', 'Tent 3', 1, 1, 1, 'default.jpg', '114.5', '103.5', 'matrix(0.8035 0 0 1 128.5942 131.3696)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
 (41, 2, '4', 'Tent 4', 1, 1, 1, 'default.jpg', '161.5', '103.5', 'matrix(0.8035 0 0 1 175.1416 131.3696)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
@@ -147,33 +147,6 @@ INSERT INTO `tbl_categories` (`category_id`, `name`, `details`, `status`, `creat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_caterers`
---
-
-CREATE TABLE `tbl_caterers` (
-  `caterers_id` int(11) NOT NULL,
-  `caterers_name` varchar(255) NOT NULL,
-  `details` text NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `contact` varchar(50) NOT NULL,
-  `pax` int(11) NOT NULL,
-  `total_price` double NOT NULL,
-  `status` enum('av','na') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_caterers`
---
-
-INSERT INTO `tbl_caterers` (`caterers_id`, `caterers_name`, `details`, `address`, `contact`, `pax`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Caterer - 12', 'Caterer - 2', 'Caterer - 2', '090901565656', 50, 1000, 'av', '2018-09-17 02:38:44', '0000-00-00 00:00:00'),
-(2, 'Caterer - 1', 'Caterer - 1', 'Caterer - 1', '1234556666', 100, 1500, 'na', '2018-09-17 02:41:42', '0000-00-00 00:00:00');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_customers`
 --
 
@@ -196,36 +169,8 @@ CREATE TABLE `tbl_customers` (
 --
 
 INSERT INTO `tbl_customers` (`customer_id`, `username`, `password`, `email_address`, `fullname`, `contact`, `address`, `status`, `profile`, `created_at`, `updated_at`) VALUES
-(1, 'test', '96e79218965eb72c92a549dd5a330112', 'test@yahoo.com', 'Testing', '', '', 'pen', 'default.jpg', '2021-07-18 05:04:16', '0000-00-00 00:00:00'),
+(1, 'test', '96e79218965eb72c92a549dd5a330112', 'test@yahoo.com', 'Testing', '', '', 'pen', '1626864055_homepage.png', '2021-07-21 10:40:55', '0000-00-00 00:00:00'),
 (2, 'sasasa', '9fc58423aa0341dd75c031e1b2fabe0a', 'ping@yahoo.com', 'aasas', '', '', 'pen', 'default.jpg', '2021-07-18 05:06:47', '0000-00-00 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_gallery`
---
-
-CREATE TABLE `tbl_gallery` (
-  `gallery_id` int(11) NOT NULL,
-  `venues_id` int(11) NOT NULL,
-  `photos` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_gallery`
---
-
-INSERT INTO `tbl_gallery` (`gallery_id`, `venues_id`, `photos`, `created_at`) VALUES
-(13, 12, '15375357101.jpg', '2018-09-21 13:15:10'),
-(14, 12, '15375357113.jpg', '2018-09-21 13:15:11'),
-(15, 12, '15375357114.jpg', '2018-09-21 13:15:11'),
-(16, 12, '15375357116.jpg', '2018-09-21 13:15:11'),
-(17, 13, '15375357422.jpg', '2018-09-21 13:15:42'),
-(18, 13, '15375357425.jpg', '2018-09-21 13:15:42'),
-(19, 13, '1537535742t.png', '2018-09-21 13:15:42'),
-(20, 13, '1537535742uuuu.png', '2018-09-21 13:15:42'),
-(21, 13, '1537535742yyy.png', '2018-09-21 13:15:42');
 
 -- --------------------------------------------------------
 
@@ -265,26 +210,27 @@ CREATE TABLE `tbl_reservations` (
   `category_id` int(11) DEFAULT NULL,
   `amenities_name` varchar(255) DEFAULT NULL,
   `category_name` varchar(255) DEFAULT NULL,
+  `details` varchar(55) DEFAULT NULL,
   `date_from` varchar(55) DEFAULT NULL,
   `date_to` varchar(55) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `total_hours` double DEFAULT NULL,
   `total_amount` double DEFAULT NULL,
   `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('pending','approved','cancelled') DEFAULT NULL
+  `status` enum('pending','approved','cancelled') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_reservations`
 --
 
-INSERT INTO `tbl_reservations` (`id`, `customer_id`, `guest_id`, `reservation_id`, `amenities_id`, `category_id`, `amenities_name`, `category_name`, `date_from`, `date_to`, `quantity`, `total_hours`, `total_amount`, `date_applied`, `status`) VALUES
-(29, 2, NULL, NULL, 3, 3, 'Cottage 1', 'Cottages', '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(30, 2, NULL, NULL, 1, 1, 'Chairs', 'Chairs', '2021-07-19 13:26', '2021-07-20 13:26', 2, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(31, 2, NULL, NULL, 1, 6, 'Tables', 'Tables', '2021-07-19 13:26', '2021-07-20 13:26', 3, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(32, 2, NULL, NULL, 1, 2, 'Tents', 'Tents', '2021-07-19 13:26', '2021-07-20 13:26', 4, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(33, 2, NULL, NULL, 34, 5, 'Room 1', 'rooms', '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(34, 2, NULL, NULL, 66, 2, 'Tent 1', 'Tents', '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending');
+INSERT INTO `tbl_reservations` (`id`, `customer_id`, `guest_id`, `reservation_id`, `amenities_id`, `category_id`, `amenities_name`, `category_name`, `details`, `date_from`, `date_to`, `quantity`, `total_hours`, `total_amount`, `date_applied`, `status`) VALUES
+(29, NULL, NULL, NULL, 3, 3, 'Cottage 1', 'Cottages', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
+(30, 2, NULL, NULL, 1, 1, 'Chairs', 'Chairs', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 299, 1, 100, '2021-07-18 05:28:08', 'pending'),
+(31, 2, NULL, NULL, 1, 6, 'Tables', 'Tables', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 50, 1, 100, '2021-07-18 05:28:08', 'pending'),
+(32, 2, NULL, NULL, 1, 2, 'Tents', 'Tents', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 4, 1, 100, '2021-07-18 05:28:08', 'pending'),
+(33, 2, NULL, NULL, 34, 5, 'Room 1', 'rooms', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
+(34, 2, NULL, NULL, 66, 2, 'Tent 1', 'Tents', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending');
 
 -- --------------------------------------------------------
 
@@ -330,22 +276,10 @@ ALTER TABLE `tbl_categories`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `tbl_caterers`
---
-ALTER TABLE `tbl_caterers`
-  ADD PRIMARY KEY (`caterers_id`);
-
---
 -- Indexes for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
   ADD PRIMARY KEY (`customer_id`);
-
---
--- Indexes for table `tbl_gallery`
---
-ALTER TABLE `tbl_gallery`
-  ADD PRIMARY KEY (`gallery_id`);
 
 --
 -- Indexes for table `tbl_profile`
@@ -384,22 +318,10 @@ ALTER TABLE `tbl_categories`
   MODIFY `category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tbl_caterers`
---
-ALTER TABLE `tbl_caterers`
-  MODIFY `caterers_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
   MODIFY `customer_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tbl_gallery`
---
-ALTER TABLE `tbl_gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_profile`
