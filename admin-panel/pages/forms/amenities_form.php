@@ -37,7 +37,7 @@
     </div>
 
     <div class="form-group">
-        <label for="details" class="control-label">Price (per hour)</label>
+        <label for="details" class="control-label">Price (per day)</label>
         <input type="number" value="<?php echo @$row['amount_per_hour']; ?>" class="form-control" id="amount_per_hour" name="amount_per_hour" required placeholder="0.00">
     </div>
 

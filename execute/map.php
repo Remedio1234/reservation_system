@@ -91,6 +91,12 @@
         <rect 
             data-type="Table"
             class="cottages book_now" 
+            data-amenityid="<?php echo @$tables['amenities_id'] ?>"
+            data-categoryid="<?php echo @$tables['category_id'] ?>"
+            data-available="<?php echo $total_tables ?>"
+            data-quantity="<?php echo @$tables['quantity'] ?>"
+            data-amount="<?php echo @$tables['amount_per_hour'] ?>"
+            data-name="<?php echo @$tables['name'] ?>"
             data-status="<?php echo ($total_tables <= 0 ? '0' : '1') ?>"
             x="557.5" 
             y="480.5" 
@@ -113,8 +119,14 @@
 
         <!-- =================== START CHAIRS ============================= -->
         <rect 
-        data-type="Chair"
+            data-type="Chair"
             class="cottages book_now" 
+            data-amenityid="<?php echo @$chairs['amenities_id'] ?>"
+            data-categoryid="<?php echo @$chairs['category_id'] ?>"
+            data-available="<?php echo $total_chairs ?>"
+            data-quantity="<?php echo @$chairs['quantity'] ?>"
+            data-amount="<?php echo @$chairs['amount_per_hour'] ?>"
+            data-name="<?php echo @$chairs['name'] ?>"
             data-status="<?php echo ($total_chairs <= 0 ? '0' : '1') ?>"
             x="777.5" 
             y="480.5" 

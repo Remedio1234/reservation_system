@@ -37,7 +37,8 @@
                     arrF[1] = 'HH:mm';
                 }
                 var $s = $('<span id="time_span">');
-                $s.text(lastSelected.format(arrF[0]));
+                // $s.text(lastSelected.format(arrF[0]));
+                $s.text('');
                 elem.empty();
                 elem.append($s);
                 $s = $('<i>');
@@ -45,10 +46,11 @@
                 elem.append($s);
                 if (settings.showTime) {
                     $s = $('<span id="time_span">');
-                    $s.text(' '+ lastSelected.format(arrF[1]));
+                    // $s.text(lastSelected.format(arrF[1]));
+                    $s.text('');
                     elem.append($s);
                     $s = $('<i>');
-                    $s.addClass('fa fa-clock-o ico-size');
+                    // $s.addClass('fa fa-clock-o ico-size');
                     elem.append($s);
                 }
             }
