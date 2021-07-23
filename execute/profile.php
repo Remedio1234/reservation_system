@@ -15,11 +15,11 @@ if (!empty($_FILES['picture']['name'])) {
                 //Get current user ID from session
         $userId = @$_SESSION['customer']['customer_id'];
         
-        $old_file_photo = $dbConn->query("SELECT profile FROM tbl_customers WHERE customer_id = '" . $userId . "' ")->fetch(PDO::FETCH_OBJ)->profile;
+        $old_file_photo = $dbConn->query("SELECT profile FROM tbl_customers WHERE id = '" . $userId . "' ")->fetch(PDO::FETCH_OBJ)->profile;
         @unlink('../profile/' . $old_file_photo); // delete file
         
                 //Update picture name in the database
-        $update = $dbConn->query("UPDATE tbl_customers SET profile = '" . $profile . "' WHERE customer_id = $userId");
+        $update = $dbConn->query("UPDATE tbl_customers SET profile = '" . $profile . "' WHERE id = $userId");
         
             //Update status
         if ($update) {

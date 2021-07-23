@@ -19,21 +19,16 @@
             ];
         break;
         case 'reservation':
-            $customer_id = NULL; 
-            $guest_id    = NULL;
+            $customer_id = 0; 
+            $guest_id    = 0;
 
             if (isset($_SESSION['customer']['isLoggedIn'])) {
                 $customer_id = $_SESSION['customer']['customer_id'];
             } else {
                 $guest_id    = time();
-                $dbConn->query("INSERT INTO tbl_customers(guest_id, fullname, email_address, contact, address)
-                VALUES('" . $guest_id . "'
-                ,'" . $_POST['info']['fullname'] . "'
-                ,'" . $_POST['info']['email_address'] . "'
-                ,'" . $_POST['info']['contact'] . "'
-                ,'" . $_POST['info']['address'] . "')");
+                $dbConn->query("INSERT INTO tbl_customers(guest_id, fullname, email_address, contact, address)VALUES('" . $guest_id . "','" . $_POST['info']['fullname'] . "','" . $_POST['info']['email_address'] . "','" . $_POST['info']['contact'] . "','" . $_POST['info']['address'] . "')");
             }
-            $query          = $dbConn->query("INSERT INTO tbl_reservations(customer_id, guest_id, reservation_id)VALUES('" . $customer_id . "', '" . $guest_id . "', 0)");
+            $query          = $dbConn->query("INSERT INTO tbl_reservations(customer_id, guest_id, reservation_id)VALUES('" . $customer_id . "', '" . $guest_id . "', '0')");
             $LAST_ID        = $dbConn->lastInsertId();
 
             $count          = 0;
@@ -42,21 +37,12 @@
             $uId            = sprintf("%04s", $count);
             $reservation_id = '01' . date('ymd') . $uId;
 
-            if($LAST_ID)
+            if($LAST_ID){
                 $dbConn->query("UPDATE tbl_reservations SET reservation_id = '" . $reservation_id . "' WHERE id = " . $LAST_ID . " ");
+            }
             
             foreach ($_POST['cart'] as $key => $value) {
-               $dbConn->query("INSERT INTO tbl_details(reservation_id, amenities_id, name, category, date_from, date_to, price, quantity, total_days, total_amount)
-               VALUES('" . $LAST_ID . "'
-               ,'" . $value['id'] . "'
-                ,'" . $value['name'] . "'
-                ,'" . $value['category'] . "'
-                ,'" . $value['date_from'] . "'
-                ,'" . $value['date_to'] . "'
-                ,'" . $value['price'] . "'
-                ,'" . ($value['quantity'] == 0 ? 1 : $value['quantity']) . "'
-                ,'" . $value['days'] . "'
-                ,'" . $value['total'] . "')");
+               $dbConn->query("INSERT INTO tbl_details(reservation_id, amenities_id, name, category, date_from, date_to, price, quantity, total_days, total_amount)VALUES('" . $LAST_ID . "','" . $value['id'] . "','" . $value['name'] . "','" . $value['category'] . "','" . $value['date_from'] . "','" . $value['date_to'] . "','" . $value['price'] . "','" . ($value['quantity'] == 0 ? 1 : $value['quantity']) . "','" . $value['days'] . "','" . $value['total'] . "')");
             }
 
             $response = [
@@ -70,7 +56,7 @@
         /* ============= END EVENTS MODULE =========== */
 
         case 'information' :
-            $query = $dbConn->query("UPDATE " . $tables['customer'] . " SET address = '" . $address . "',contact = '" . $contact . "',email_address = '" . $email_address . "',fullname = '" . $fullname . "',username = '" . $username . "'  WHERE customer_id = " . $_SESSION['customer']['customer_id'] . " ");
+            $query = $dbConn->query("UPDATE " . $tables['customer'] . " SET address = '" . $address . "',contact = '" . $contact . "',email_address = '" . $email_address . "',fullname = '" . $fullname . "',username = '" . $username . "'  WHERE id = " . $_SESSION['customer']['customer_id'] . " ");
 
             if ($query) :
                 $_SESSION['customer']['username'] =$username;

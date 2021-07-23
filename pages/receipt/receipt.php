@@ -1,24 +1,24 @@
-    <?php
-        if(!isset($_GET['reservation_id']))
-            header("location:?v=home");
-            $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE id  = '".@$_GET['reservation_id']."'");
-            $row = $query->fetch(PDO::FETCH_OBJ);
-        if(!$row) 
-            header("location:?v=home");
+<?php
+    if(!isset($_GET['reservation_id']))
+        header("location:?v=home");
+        $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE id  = '".@$_GET['reservation_id']."'");
+        $row = $query->fetch(PDO::FETCH_OBJ);
+    if(!$row) {
+        header("location:?v=home");
+    }
 
-        if (isset($_SESSION['customer']['isLoggedIn'])) {
-            $profile = $data['conn']->query("SELECT * FROM tbl_customers WHERE id = '".$_SESSION['customer']['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);    
-        } else {
-            $profile = $data['conn']->query("SELECT * FROM tbl_customers WHERE guest_id = '".@$_GET['guest_id']."' ")->fetch(PDO::FETCH_ASSOC);    
-        }
+    if (isset($_SESSION['customer']['isLoggedIn'])) {
+        $profile = $data['conn']->query("SELECT * FROM tbl_customers WHERE id = '".$_SESSION['customer']['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);    
+    } else {
+        $profile = $data['conn']->query("SELECT * FROM tbl_customers WHERE guest_id = '".@$_GET['guest_id']."' ")->fetch(PDO::FETCH_ASSOC);    
+    }
 
-         if(!isset($profile))
-            header("location:?v=home");
-
-
-        $details = $data['conn']->query("SELECT * FROM tbl_details WHERE reservation_id   = '".@$_GET['reservation_id']."'");  
+    if(!isset($profile)){
+        header("location:?v=home");
+    }
+    $details = $data['conn']->query("SELECT * FROM tbl_details WHERE reservation_id   = '".@$_GET['reservation_id']."'");  
         
-    ?>
+?>
     <div class="container">
         <div class="card mt-5 my-5" id="printArea">
             <div class="card-header">
