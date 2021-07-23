@@ -30,6 +30,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Reservation ID</th>
+                            <th>Total</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -44,6 +45,11 @@
                             <tr>
                                 <td><?php echo $row->id; ?></td>
                                 <td><?php echo $row->reservation_id; ?></td>
+                                <td>
+								<strong>
+									<?php echo @number_format($data['conn']->query("SELECT SUM(total_amount) AS total FROM tbl_details WHERE reservation_id = '".$row->id."' ")->fetch(PDO::FETCH_OBJ)->total,2); ?> 
+								</strong>
+							</td>
                                 <td><?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></td>
                                 <td><?php echo status($row->status); ?></td>
                                 <td>

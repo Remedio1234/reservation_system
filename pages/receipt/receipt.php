@@ -23,7 +23,8 @@
         <div class="card mt-5 my-5" id="printArea">
             <div class="card-header">
                 Reservation ID:
-                <strong><?php echo $row->reservation_id; ?> <em style="color:green;"><?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></em></strong> 
+                <strong><?php echo $row->reservation_id; ?> &nbsp; Date:  <em style="color:darkred;">
+                <?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></em></strong> 
                 <span class="float-right"> <strong>Status:</strong> <span class="text-warning">Pending</span> </span>
             </div>
             <div class="card-body">
