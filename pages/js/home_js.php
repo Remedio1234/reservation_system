@@ -71,18 +71,21 @@
             },
             checkAuth: function(obj){
                 console.log(obj)
+                var qty = 0;
                 if(['Table','Chair'].indexOf(obj.category) !== -1){
+                    var qty = 1;
                     $("#label_quantity").show()
                     $("#label_name").hide()
                 } else {
                     $("#label_quantity").hide()
                     $("#label_name").show()
                     if(obj.category == 'Function Hall'){
+                        var qty = 1;
                          $("#label_name").hide()
                     }
                 }
                 $("#input_amenity_id").val(obj.amenity_id)
-                $("#input_quantity").val(0)
+                $("#input_quantity").val(qty)
                 $("#input_available").val(obj.available)
                 $("#input_name").val(obj.name)
                 $("#input_category").val(obj.category)

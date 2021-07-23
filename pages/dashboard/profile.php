@@ -61,7 +61,7 @@
     $userId = @$_SESSION['customer']['customer_id'];
 
     //Get user data from database
-    $row = $data['conn']->query("SELECT * FROM tbl_customers WHERE customer_id = $userId")->fetch(PDO::FETCH_ASSOC);
+    $row = $data['conn']->query("SELECT * FROM tbl_customers WHERE id = $userId")->fetch(PDO::FETCH_ASSOC);
                 
     //User profile picture
     $userPicture    = $row['profile'];

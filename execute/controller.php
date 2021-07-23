@@ -7,6 +7,17 @@
     ];
     switch ($action) {
         /* ============= RESERVATIONS MODULE =========== */
+        case 'details':
+            $details = $dbConn->query("SELECT * FROM tbl_details WHERE reservation_id   = '".$_POST['reservation_id']."'"); 
+            $data    = array();
+            while ($detail = $details->fetch(PDO::FETCH_OBJ)) {
+                $data[] = $detail;
+            }
+            $response = [
+                'response'  => 'success',
+                'data'      => $data
+            ];
+        break;
         case 'reservation':
             $customer_id = NULL; 
             $guest_id    = NULL;

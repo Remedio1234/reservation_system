@@ -58,9 +58,9 @@
         <div class="modal-body">
         
         </div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
             <button class="btn btn-danger" type="button" data-dismiss="modal">Close</button>
-        </div>
+        </div> -->
         </div>
     </div>
     </div>

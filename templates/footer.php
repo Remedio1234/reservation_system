@@ -207,7 +207,6 @@
             displayCart()
 
             function displayCart() {
-                console.log(cart)
                 var cartArray = shoppingCart.listCart();
                 var output = "";
                 for(var i in cartArray) {
@@ -261,48 +260,52 @@
             })
 
             $(document).on('click', '#guest_checkout', function(e){
-                $("#guest_modal").modal({
-                    backdrop: 'static',
-                    keyboard: false
-                })
+                if(cart.length){
+                    $("#guest_modal").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    })
+                }
             })
 
             function reservationData(guest){
-                var fullname        = $("#fullname").val()
-                var email_address   = $("#email_address").val()
-                var contact         = $("#contact").val()
-                var address         = $("#fullname").val()
-                if(guest){
-                    var info = {
-                            fullname: fullname,
-                            email_address: email_address,
-                            contact:contact,
-                            address: address
-                        }
-                }
-                
-                $.ajax({
-                    url: "execute/controller.php",
-                    type: "post",
-                    data: {
-                        action:'reservation',
-                        info:info, 
-                        cart : cart
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        if(data.response == 'success'){
-                            shoppingCart.clearCart();
-                            location.replace("?v=receipt&reservation_id="+data.reservation_id+'&guest_id='+data.guest_id)
-                        } else {
-                            location.reload();
-                        }
-                    // You will get response from your PHP page (what you echo or print)
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
+                if(confirm("Are you sure?")) {
+                    var fullname        = $("#fullname").val()
+                    var email_address   = $("#email_address").val()
+                    var contact         = $("#contact").val()
+                    var address         = $("#fullname").val()
+                    if(guest){
+                        var info = {
+                                fullname: fullname,
+                                email_address: email_address,
+                                contact:contact,
+                                address: address
+                            }
                     }
-                });
+                    
+                    $.ajax({
+                        url: "execute/controller.php",
+                        type: "post",
+                        data: {
+                            action:'reservation',
+                            info:info, 
+                            cart : cart
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.response == 'success'){
+                                shoppingCart.clearCart();
+                                location.replace("?v=receipt&reservation_id="+data.reservation_id+'&guest_id='+data.guest_id)
+                            } else {
+                                location.reload();
+                            }
+                        // You will get response from your PHP page (what you echo or print)
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                }
             }
 
             $(document).on('submit', '#form-guest-submit', function(e){
