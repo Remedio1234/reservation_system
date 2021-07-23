@@ -1,5 +1,4 @@
 <?php
-
   class Templates {
     
     public function _render($module, $content, $data = array()) {

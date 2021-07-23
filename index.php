@@ -1,5 +1,4 @@
 <?php
-    
     /* database connection */
     require_once('library/config.php');
     /* user api requirements */
@@ -323,12 +322,12 @@
         break;
         
         default:
-        header("location:?v=home");
+            header("location: ?v=home ");
         break;
     }
     /* get company profile */
     $profile = $dbConn->query("SELECT * FROM tbl_profile ")->fetch(PDO::FETCH_ASSOC);
     $data = array_merge($data, $profile);
 
-    $temp->_render('',$page, $data);
+    $temp->_render('',@$page, $data);
 ?>
