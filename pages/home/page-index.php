@@ -2,26 +2,55 @@
     <header class="jumbotron my-5 header-jombo">
         <div class="row">
             <div class="col-md-12 search-form">
-            <h4 class="text-center text-secondary mb-3">Happiness is a day at the beach. Book Now!</h4>
-                <form action="" method="post" name="frmBeachSearch" id="frmBeachSearch">
+                <h4 
+                    class="text-center text-secondary mb-3">Happiness is a day at the beach. Reserve Now!</h4>
+                <form 
+                    method="post" 
+                    name="frmBeachSearch" 
+                    id="frmBeachSearch">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="date-from-name" class="control-label"><strong>Date From</strong></label>
-                            <!-- <div id="dateFrom"> </div> -->
-                            <input type="date" id="txtDateFrom" class="form-control" name="txtDateFrom" value="" />
+                            <label 
+                                for="date-from-name" 
+                                class="control-label">
+                                <strong>Date From</strong>
+                        </label>
+                            <input 
+                                type="date" 
+                                id="txtDateFrom" 
+                                class="form-control" 
+                                name="txtDateFrom"  
+                                style="padding:11px;"
+                                />
                         </div>      
                     </div>      
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="date-to-name" class="control-label"><strong>Date To</strong></label>
-                            <!-- <div id="dateTo"> </div> -->
-                            <input type="date" id="txtDateTo" class="form-control" name="txtDateTo" value="" />
+                            <label 
+                                for="date-to-name" 
+                                class="control-label">
+                                <strong>Date To</strong>
+                            </label>
+                            <input 
+                                type="date" 
+                                id="txtDateTo" 
+                                class="form-control" 
+                                name="txtDateTo"
+                                style="padding:11px;"
+                            />
                         </div>       
                     </div>   
                     <div class="col-md-2">
-                    <label for="date-to-name" class="control-label"><strong>&nbsp;</strong></label>
-                        <button type="submit" name="btn_submit_venue" class="btn btn-block btn-primary btn-lg">Check</button>
+                    <label 
+                        for="date-to-name" 
+                        class="control-label">
+                        <strong>&nbsp;</strong></label>
+                        <button 
+                            type="submit" 
+                            name="btn_submit_venue" 
+                            class="btn btn-block btn-success btn-lg">
+                        Check</button>
                     </div>             
                 </div>  
                 </form>
@@ -125,11 +154,11 @@
                     </div>
 
                     <div class="form-label-group mb-2">
-                        <label for="input_amount_day">Price (Per Day)</label>
+                        <label for="input_price_per_day">Price (Per Day)</label>
                         <input 
                             type="text" 
-                            id="input_amount_day" 
-                            name="input_amount_day" 
+                            id="input_price_per_day" 
+                            name="input_price_per_day" 
                             class="form-control" 
                             style="background:#ffffff;"
                             readonly 

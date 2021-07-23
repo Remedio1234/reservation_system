@@ -5,7 +5,7 @@
                 <h5 class="card-title text-center">Register</h5>
                 <form class="form-signin" id="form-register" method="post">
                     <div class="form-label-group">
-                        <label for="username">Fullname</label>
+                        <label for="username">FullName</label>
                         <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter Fullname" required autofocus>
                     </div>
                     <div class="form-label-group">
@@ -21,6 +21,16 @@
                     <div class="form-label-group">
                         <label for="email_address">Email address</label>
                         <input type="email" id="email_address" name="email_address" class="form-control" placeholder="Email address" required >
+                    </div>
+
+                    <div class="form-label-group">
+                        <label for="contact">Mobile No</label>
+                        <input type="number" id="contact" name="contact" class="form-control" placeholder="Ex.0932xxxxxx" required >
+                    </div>
+
+                    <div class="form-label-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" class="form-control" placeholder="Address" required ></textarea>
                     </div>
 
 

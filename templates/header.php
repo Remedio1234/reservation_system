@@ -41,7 +41,9 @@
                 </ul>
                 <ul class="navbar-nav ml-auto" id="head-menu">
                     <li class="nav-item">
-                        <a class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'items' ? 'active' : ''); ?>" href="<?php echo WEB_ROOT ?>?v=items">Items (0)</a>
+                        <a 
+                            class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'items' ? 'active' : ''); ?>" 
+                            href="<?php echo WEB_ROOT ?>?v=items">Item\s (<span class="total-count">0</span>)</a>
                     </li>
                     <?php if(!isset($_SESSION['customer']['isLoggedIn'])) : ?>
                     <li class="nav-item">

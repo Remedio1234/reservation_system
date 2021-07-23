@@ -29,6 +29,7 @@
     var month = dtToday.getMonth() + 1;
     var day = dtToday.getDate();
     var year = dtToday.getFullYear();
+
     if(month < 10)
         month = '0' + month.toString();
     if(day < 10)
@@ -37,6 +38,13 @@
     var minDate= year + '-' + month + '-' + day;
     $('#txtDateTo').attr('min', minDate);
     $('#txtDateFrom').attr('min', minDate);
+
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+
     document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
     document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
 
@@ -66,22 +74,25 @@
             },
             checkAuth: function(obj){
                 console.log(obj)
-                if(obj.category == 'Table' || obj.category == 'Chair'){
+                if(['Table','Chair'].indexOf(obj.category) !== -1){
                     $("#label_quantity").show()
                     $("#label_name").hide()
                 } else {
                     $("#label_quantity").hide()
                     $("#label_name").show()
+                    if(obj.category == 'Function Hall'){
+                         $("#label_name").hide()
+                    }
                 }
                 $("#input_amenity_id").val(obj.amenity_id)
-                $("#input_quantity").val('')
+                $("#input_quantity").val(0)
                 $("#input_available").val(obj.available)
                 $("#input_name").val(obj.name)
                 $("#input_category").val(obj.category)
                 $("#input_date_from").val(obj.date_from)
                 $("#input_date_to").val(obj.date_to)
                 $("#input_total_days").val(obj.days)
-                $("#input_amount_day").val(obj.amount)
+                $("#input_price_per_day").val(obj.amount)
                 
                 var total = parseFloat(obj.days * obj.amount)
 
@@ -92,7 +103,7 @@
                     backdrop: 'static',
                     keyboard: false
                 })
-                    return false
+                return false
             }
         }
 
@@ -105,7 +116,7 @@
             }
 
             var qty1 = $('#input_quantity').val()
-            var price = $("#input_amount_day").val()
+            var price = $("#input_price_per_day").val()
             var days = $("#input_total_days").val()
 
             var total = parseFloat(price) * parseFloat(days)
@@ -137,11 +148,10 @@
             var amenity_id  = $(this).data('amenityid')
             var category_id = $(this).data('categoryid')
             var available   = 0;
-            if(category == 'Table' || category == 'Chair'){
+            if(['Table','Chair'].indexOf(category) !== -1){
                 available = $(this).data('available')
             }
             
-          
             if(status == 0){
                 toastr.error('Not Available','Message', {
                     positionClass:'toast-bottom-right',
@@ -174,7 +184,6 @@
  
         })
         
-        
         $(document).on('submit', '#frmBeachSearch', function(e){
             e.preventDefault()
             $("#txt_result").hide()
@@ -196,145 +205,6 @@
                     })
                 return
             }
-        })
-        /**
-         * Reservation here
-         */
-        // ************************************************
-        // Shopping Cart API
-        // ************************************************
-
-        var shoppingCart = (function() {
-            // =============================
-            // Private methods and propeties
-            // =============================
-            cart = [];
-            
-            // Constructor
-            function Item(name, price, count) {
-                this.name = name;
-                this.price = price;
-                this.count = count;
-            }
-            
-            // Save cart
-            function saveCart() {
-                console.log(cart)
-                sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-            }
-            
-                // Load cart
-            function loadCart() {
-                cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
-            }
-            if (sessionStorage.getItem("shoppingCart") != null) {
-                loadCart();
-            }
-            
-
-            // =============================
-            // Public methods and propeties
-            // =============================
-            var obj = {};
-            
-            // Add to cart
-            obj.addItemToCart = function(amenities_id, date_from, date_to, price, quantity, total_days, total_amount) {
-                for(var item in cart) {
-                    // if(cart[item].name === name) {
-                    //     cart[item].count ++;
-                    //     saveCart();
-                    //     return;
-                    // }
-                    if(cart[item].amenities_id === amenities_id && cart[item].date_from === date_from && cart[item].date_to === date_to){
-                        toastr.error('Amenity Already added','Message', {
-                            positionClass:'toast-bottom-right',
-                        })
-                        return;
-                    }
-                }
-                var item = new Item(amenities_id, date_from, date_to, price, quantity, total_days, total_amount);
-                cart.push(item);
-                saveCart();
-            }
-            // Set count from item
-            obj.setCountForItem = function(name, count) {
-                for(var i in cart) {
-                if (cart[i].name === name) {
-                    cart[i].count = count;
-                    break;
-                }
-                }
-            };
-            // Remove item from cart
-            obj.removeItemFromCart = function(name) {
-                for(var item in cart) {
-                    if(cart[item].name === name) {
-                    cart[item].count --;
-                    if(cart[item].count === 0) {
-                        cart.splice(item, 1);
-                    }
-                    break;
-                    }
-                }
-                saveCart();
-            }
-            // Remove all items from cart
-            obj.removeItemFromCartAll = function(name) {
-                for(var item in cart) {
-                if(cart[item].name === name) {
-                    cart.splice(item, 1);
-                    break;
-                }
-                }
-                saveCart();
-            }
-            // Clear cart
-            obj.clearCart = function() {
-                cart = [];
-                saveCart();
-            }
-            // Count cart 
-            obj.totalCount = function() {
-                var totalCount = 0;
-                for(var item in cart) {
-                totalCount += cart[item].count;
-                }
-                return totalCount;
-            }
-            // Total cart
-            obj.totalCart = function() {
-                var totalCart = 0;
-                for(var item in cart) {
-                totalCart += cart[item].price * cart[item].count;
-                }
-                return Number(totalCart.toFixed(2));
-            }
-            // List cart
-            obj.listCart = function() {
-                var cartCopy = [];
-                for(i in cart) {
-                item = cart[i];
-                itemCopy = {};
-                for(p in item) {
-                    itemCopy[p] = item[p];
-
-                }
-                itemCopy.total = Number(item.price * item.count).toFixed(2);
-                cartCopy.push(itemCopy)
-                }
-                return cartCopy;
-            }
-            return obj;
-        })();
-
-        $(document).on('submit', '#form-reservation', function(e){
-            e.preventDefault()
-            var formData = new FormData();
-            console.log($(this).serializeArray())
-
-            var name = $(this).data('name');
-            var price = Number($(this).data('price'));
-            shoppingCart.addItemToCart('test1', 20, 1);
         })
     });
 </script>

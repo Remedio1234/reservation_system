@@ -43,6 +43,29 @@
                     )
                 ];    
         break;
+        case 'items':
+            $page = 'pages/items/items.php';
+            $data = [
+                'conn' => $dbConn,
+                'page' => 'items',
+                'active' => 'items',
+                'title' => 'Items | ' . $site_title,
+                'css' => $temp->_css(
+                    [
+                        'vendor/font-awesome/css/font-awesome.min.css',
+                        'vendor/bootstrap/css/bootstrap.min.css',
+                        'css/heroic-features.css'
+                    ]
+                ),
+                'js' => $temp->_js(
+                    [
+                        'vendor/jquery/jquery.min.js',
+                        'vendor/bootstrap/js/bootstrap.bundle.min.js'
+                    ]
+                ),
+
+            ];
+        break;
         case 'contact-us':
             $page = 'pages/contactus/contact.php';
             $data = [
@@ -196,11 +219,11 @@
         break;
 
         case 'about':
-            $page = 'pages/venues/page-index.php';
+            $page = 'pages/about/page-index.php';
             $data = [
                 'conn'      => $dbConn,
-                'page'      => 'venues',
-                'active'    => 'venues',
+                'page'      => 'about',
+                'active'    => 'about',
                 'title'     => 'About Us | '.$site_title,
                 'css'       =>  $temp->_css(
                             [
@@ -218,34 +241,6 @@
 
             ];    
         break;
-
-
-        // case 'venue':
-        //     $page = 'pages/home/page-per-venue.php';
-        //     $data = [
-        //         'conn'      => $dbConn,
-        //         'page'      => 'venue',
-        //         'active'    => 'home',
-        //         'title'     => 'Venue Reservation | ' . $site_title,
-        //         'css'       => $temp->_css(
-        //                         [
-        //                             'vendor/font-awesome/css/font-awesome.min.css',   
-        //                             'vendor/bootstrap/css/bootstrap.min.css',
-        //                             'css/heroic-features.css',
-        //             'vendor/datepicker/css/datetimepicker.css',
-        //                         ]
-        //         ),
-        //         'js' => $temp->_js(
-        //                         [
-        //                             'vendor/jquery/jquery.min.js',
-        //                             'vendor/bootstrap/js/bootstrap.bundle.min.js',
-        //             'vendor/datepicker/js/moment-with-locales.min.js',
-        //             'vendor/datepicker/js/datetimepicker.js'
-        //                         ]
-        //         ),
-
-        //     ];
-        // break;
 
         case 'receipt':
             $page = 'pages/receipt/receipt.php';

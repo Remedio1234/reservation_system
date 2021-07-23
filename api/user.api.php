@@ -32,7 +32,7 @@
 				// } else {
 					$response = ['response' => 'success'];
 					$_SESSION['customer'] = [
-							'customer_id' => $row->customer_id,
+							'customer_id' => $row->id,
 							'username'    => $row->username,
 							"isLoggedIn" => true
 					];
@@ -48,13 +48,13 @@
 			if($check_customer->rowCount() > 0) {
 					$response = ['response' => 'exist', 'message' => '<div class="alert alert-danger" role="alert">Username already taken. Please check and try again.!</div>'];
 			} else {
-				$register = $this->db->query("INSERT INTO tbl_customers(fullname,username,password,email_address,profile)VALUES('".$post['fullname']."','" . $post['username'] . "','" . md5($post['password']) . "','" . $post['email_address'] . "','default.jpg')");
+				$register = $this->db->query("INSERT INTO tbl_customers(fullname,username,password,email_address,profile, contact, address)VALUES('".$post['fullname']."','" . $post['username'] . "','" . md5($post['password']) . "','" . $post['email_address'] . "','default.jpg','" . $post['contact'] . "','" . $post['address'] . "')");
 				if ($register) {
 					$query = $this->db->query("SELECT * FROM tbl_customers WHERE username = '" . $post['username'] . "' AND password = '".md5($post['password'])."' ");
 					$row = $query->fetch(PDO::FETCH_OBJ);
 					$response = ['response' => 'success'];
 					$_SESSION['customer'] = [
-							'customer_id' => $row->customer_id,
+							'customer_id' => $row->id,
 							'username'    => $row->username,
 							"isLoggedIn" => true
 					];

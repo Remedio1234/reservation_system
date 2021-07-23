@@ -37,17 +37,27 @@ try {
 
 
 if (!get_magic_quotes_gpc()) {
-	if (isset($_POST)) {
-		foreach ($_POST as $key => $value) {
-			$_POST[$key] =  trim(addslashes($value));
+	if (isset($_REQUEST)) {
+		// foreach ($_REQUEST as $key => $value) {
+		// 	$_REQUEST[$key] =  trim(addslashes($value));
+		// }
+		$stillNotSafeData = array();
+		foreach ($_REQUEST as $key => $value) {
+			if (!is_array($value)) {
+				$stillNotSafeData[$key] = @trim(addslashes($value));
+			} else {
+				foreach ($value as $innerKey => $innerValue) {
+					$stillNotSafeData[$key][$innerKey] = @trim(addslashes($innerValue));
+				}
+			}
 		}
 	}
 	
-	if (isset($_GET)) {
-		foreach ($_GET as $key => $value) {
-			$_GET[$key] = trim(addslashes($value));
-		}
-	}
+	// if (isset($_GET)) {
+	// 	foreach ($_GET as $key => $value) {
+	// 		$_GET[$key] = trim(addslashes($value));
+	// 	}
+	// }
 }
 
 	
