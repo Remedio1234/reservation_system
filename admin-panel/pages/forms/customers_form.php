@@ -29,8 +29,8 @@
     <div class="form-group">
         <label for="message-text" class="control-label">Status</label>
        <select class="form-control" name="status" id="status" required>
-           <option <?php echo (isset($row['status']) && $row['status'] == 'active' ? 'selected' : ''); ?> value="av">Active</option>
-           <option <?php echo (isset($row['status']) && $row['status'] == 'inactive' ? 'selected' : ''); ?> value="na">In-active</option>
+           <option <?php echo (isset($row['status']) && $row['status'] == 'active' ? 'selected' : ''); ?> value="active">Active</option>
+           <option <?php echo (isset($row['status']) && $row['status'] == 'inactive' ? 'selected' : ''); ?> value="inactive">In-active</option>
        </select>
     </div>
     <button type="submit" class="btn btn-primary pull-right" id="btnAction">Submit</button>
