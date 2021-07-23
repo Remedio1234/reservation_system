@@ -48,7 +48,11 @@
     document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
     document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
 
-
+    var d1      = $("#txtDateFrom").val(); 
+    var d2      = $("#txtDateTo").val()     
+    $("#txt_result").show()
+    $("#txt_date_from").text(d1)
+    $("#txt_date_to").text(d2)
 
     var myClass = function() {}
         myClass.prototype = {
@@ -213,6 +217,9 @@
                     })
                     return;
                 } else {
+                    $("#txt_result").show()
+                    $("#txt_date_from").text(dateFrom)
+                    $("#txt_date_to").text(dateTo)
                     mapData.loadMap({
                         txtDateFrom: dateFrom,
                         txtDateTo  : dateTo

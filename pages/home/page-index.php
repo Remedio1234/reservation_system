@@ -67,7 +67,7 @@
                 Search Result:
                 <strong>Date From: </strong><span id="txt_date_from"></span>
                 <strong>Date To: </strong><span id="txt_date_to"></span>
-                <strong>Total Hour: </strong><span id="txt_total_hour"></span>
+                <!-- <strong>Total Hour: </strong><span id="txt_total_hour"></span> -->
             </em>
         </p>
         </div>
