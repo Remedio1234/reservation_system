@@ -84,7 +84,7 @@ section .section-title{
 <div id="what-we-do">
   <form class="my-5" style="margin-bottom:10em!important;">
   <section>
-    <h2 class="section-title mb-2 h1">Contact Us</h2>
+    <h3>Contact Us</h3>
     <hr>
 
     <div class="row mt-5">

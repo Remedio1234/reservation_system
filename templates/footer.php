@@ -307,12 +307,16 @@
 
             $(document).on('submit', '#form-guest-submit', function(e){
                 e.preventDefault()
-               reservationData(1)
+                if(cart.length){
+                    reservationData(1)
+                }
             })
 
             $(document).on('click', '#user_checkout', function(e){
                 e.preventDefault()
-               reservationData(0)
+                if(cart.length){
+                    reservationData(0)
+                }
             })
 
             
