@@ -21,7 +21,7 @@
 
         case 'amenities':
             if(isset($amenities_id)) :
-                $row = $dbConn->query("SELECT * FROM ".$tables['amenities']." WHERE amenities_id = '".$amenities_id."' ")->fetch(PDO::FETCH_ASSOC);
+                $row = $dbConn->query("SELECT * FROM ".$tables['amenities']." WHERE id = '".$amenities_id."' ")->fetch(PDO::FETCH_ASSOC);
             endif;
             $query = $dbConn->query("SELECT * FROM tbl_categories WHERE status = 'av'");
             include('../pages/forms/amenities_form.php');
@@ -60,7 +60,7 @@
 
         case 'customers':
             if (isset($customer_id)) :
-                $row = $dbConn->query("SELECT * FROM " . $tables['customers'] . " WHERE customer_id = '" . $customer_id . "' ")->fetch(PDO::FETCH_ASSOC);
+                $row = $dbConn->query("SELECT * FROM " . $tables['customers'] . " WHERE id = '" . $customer_id . "' ")->fetch(PDO::FETCH_ASSOC);
             endif;
             include('../pages/forms/customers_form.php');
         break;

@@ -74,7 +74,7 @@
 
         /* ============= CUSTOMERS MODULE =========== */
     case 'customers':
-        if (empty($customer_id)) :
+        if (empty($id)) :
             $check_exist = $dbConn->query("SELECT * FROM " . $tables['customers'] . " WHERE username = '" . $username . "' ");
             if ($check_exist->rowCount() > 0) :
                 $response = [
@@ -101,9 +101,9 @@
                 ];
                 else :
                     if(empty($password)){
-                        $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE customer_id = " . $customer_id . " ");
+                        $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE id = " . $id . " ");
                     } else {
-                        $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',password='".md5($password)."',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE customer_id = " . $customer_id . " ");    
+                        $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',password='".md5($password)."',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE id = " . $id . " ");    
                     }
                     if ($query) :
                             $response = [
@@ -114,9 +114,9 @@
                 endif;
             else :
                 if (empty($password)) {
-                    $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE customer_id = " . $customer_id . " ");
+                    $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE id = " . $id . " ");
                 } else {
-                    $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',password='" . md5($password) . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE customer_id = " . $customer_id . " ");
+                    $query = $dbConn->query("UPDATE " . $tables['customers'] . " SET fullname = '" . $fullname . "',username = '" . $username . "',password='" . md5($password) . "',email_address = '" . $email_address . "',contact = '" . $contact . "',address = '" . $address . "',status = '" . $status . "' WHERE id = " . $id . " ");
                 }
                 if ($query) :
                     $response = [
@@ -340,7 +340,7 @@
                             'message'  => 'Amenity already exist.'
                         ];
                     else :
-                        $old_file_photo = $dbConn->query("SELECT photo FROM " . $tables['amenities'] . " WHERE amenities_id = '" . $amenities_id . "' ")->fetch(PDO::FETCH_OBJ)->photo;
+                        $old_file_photo = $dbConn->query("SELECT photo FROM " . $tables['amenities'] . " WHERE id = '" . $amenities_id . "' ")->fetch(PDO::FETCH_OBJ)->photo;
                         // if ($_FILES['image']['name']) {
                         //     if (in_array($ext, $valid_extensions)) {
                         //         $path = $path . strtolower($final_image);
@@ -366,7 +366,7 @@
                         capacity = '" . $capacity . "',
                         quantity = '" . $quantity . "',
                         amount_per_hour = '" . $amount_per_hour . "',
-                        status = '".$status."' WHERE amenities_id = ".$amenities_id." ");
+                        status = '".$status."' WHERE id = ".$amenities_id." ");
                         if($query) :
                             $response = [
                                 'response' => 'success',
@@ -375,7 +375,7 @@
                         endif;
                     endif;
                 else :
-                    $old_file_photo = $dbConn->query("SELECT photo FROM " . $tables['amenities'] . " WHERE amenities_id = '" . $amenities_id . "' ")->fetch(PDO::FETCH_OBJ)->photo;
+                    $old_file_photo = $dbConn->query("SELECT photo FROM " . $tables['amenities'] . " WHERE id = '" . $amenities_id . "' ")->fetch(PDO::FETCH_OBJ)->photo;
                     // if ($_FILES['image']['name']) {
                     //     if (in_array($ext, $valid_extensions)) {
                     //         $path = $path . strtolower($final_image);
@@ -401,7 +401,7 @@
                         capacity = '" . $capacity . "',
                         quantity = '" . $quantity . "',
                         amount_per_hour = '" . $amount_per_hour . "',
-                        status = '".$status."' WHERE amenities_id = ".$amenities_id." ");
+                        status = '".$status."' WHERE id = ".$amenities_id." ");
                     if($query) :
                         $response = [
                             'response' => 'success',
@@ -413,57 +413,7 @@
         break;
         /* ============= END AMENITIES MODULE =========== */
 
-         /* ============= CATERERS MODULE =========== */
-    case 'caterers':
-        if (empty($caterers_id)) :
-            $check_exist = $dbConn->query("SELECT * FROM " . $tables['caterer'] . " WHERE caterers_name = '" . $caterers_name . "' ");
-            if ($check_exist->rowCount() > 0) :
-                $response = [
-                'response' => 'exist',
-                'message' => 'Caterer already exist.'
-            ];
-        else :
-            $query = $dbConn->query("INSERT INTO " . $tables['caterer'] . " (caterers_name,details,address,contact,pax,total_price,status)VALUES('" . $caterers_name . "','" . $details . "','" . $address . "','" . $contact . "','" . $pax . "','" . $total_price . "','" . $status . "')");
-            if ($query) :
-                $response = [
-                'response' => 'success',
-                'message' => 'Caterer successfully saved.'
-            ];
-            endif;
-        endif;
-
-        else :
-            if ($caterers_name != $caterers_name_1) :
-                $check_exist = $dbConn->query("SELECT * FROM " . $tables['caterer'] . " WHERE caterers_name = '" . $caterers_name . "' ");
-                if ($check_exist->rowCount() > 0) :
-                    $response = [
-                    'response' => 'exist',
-                    'message' => 'Caterer already exist.'
-                ];
-                else :
-                    $query = $dbConn->query("UPDATE " . $tables['caterer'] . " SET caterers_name = '" . $caterers_name . "',details = '" . $details . "',address = '" . $address . "',contact = '" . $contact . "',pax = '" . $pax . "',total_price = '" . $total_price . "',status = '" . $status . "' WHERE caterers_id = " . $caterers_id . " ");
-                    if ($query) :
-                        $response = [
-                        'response' => 'success',
-                        'message' => 'Caterer successfully updated.'
-                    ];
-                    endif;
-                endif;
-                else :
-                    $query = $dbConn->query("UPDATE " . $tables['caterer'] . " SET caterers_name = '" . $caterers_name . "',details = '" . $details . "',address = '" . $address . "',contact = '" . $contact . "',pax = '" . $pax . "',total_price = '" . $total_price . "',status = '" . $status . "' WHERE caterers_id = " . $caterers_id . " ");
-                    if ($query) :
-                        $response = [
-                        'response' => 'success',
-                        'message' => 'Caterer successfully updated.'
-                    ];
-                    endif;
-                endif;
-            endif;
-        break;
-        /* ============= END CATERERS MODULE =========== */
-
-        
-        
+      
         default:
             # code...
             break;

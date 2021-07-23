@@ -62,12 +62,12 @@
             </a>
             </li>
 
-            <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'caterers' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Caterers">
+            <!-- <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'caterers' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Caterers">
             <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=caterers'; ?>">
                 <i class="fa fa-fw fa-users"></i>
                 <span class="nav-link-text">Users</span>
             </a>
-            </li>
+            </li> -->
             
             <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'settings' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Link">
             <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=settings'; ?>">

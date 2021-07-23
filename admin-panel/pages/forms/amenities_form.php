@@ -1,6 +1,6 @@
 <form id="FormAction" name="FormAction" method="post" enctype="multipart/form-data">
     <input type="hidden" name="action" id="action" value="amenities">
-    <input type="hidden" value="<?php echo @$row['amenities_id']; ?>" name="amenities_id" id="amenities_id" >
+    <input type="hidden" value="<?php echo @$row['id']; ?>" name="amenities_id" id="amenities_id" >
     <!-- <div class="form-group">
         <label for="recipient-name" class="control-label">Image</label>
         <input type="file"  class="form-control" accept="image/*" name="image" id="image">
@@ -12,7 +12,7 @@
             <option>Select Category..</option>
            <?php 
             while ($val = $query->fetch(PDO::FETCH_OBJ)) { ?>
-            <option <?php echo ((@$row['id'] == $val->id) ? 'selected' : ''); ?> value="<?php echo $val->id; ?>"><?php echo $val->name?></option>
+            <option <?php echo ((@$row['category_id'] == $val->id) ? 'selected' : ''); ?> value="<?php echo $val->id; ?>"><?php echo $val->name?></option>
             <?php } ?>
        </select>
     </div>

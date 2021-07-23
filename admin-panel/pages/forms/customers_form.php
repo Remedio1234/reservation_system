@@ -1,6 +1,6 @@
 <form id="FormAction" name="FormAction" method="post">
     <input type="hidden" name="action" id="action" value="customers">
-    <input type="hidden" value="<?php echo @$row['customer_id']; ?>" name="customer_id" id="customer_id" >
+    <input type="hidden" value="<?php echo @$row['id']; ?>" name="id" id="id" >
     <div class="form-group">
         <label for="fullname" class="control-label">Fullname</label>
         <input type="text" value="<?php echo @$row['fullname']; ?>" class="form-control" id="fullname" name="fullname" required placeholder="Enter Fullname">
@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
         <label for="password" class="control-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" <?php echo (@$row['customer_id']) ? '' : 'required'; ?> placeholder="Enter Password">
+        <input type="password" class="form-control" id="password" name="password" <?php echo (@$row['id']) ? '' : 'required'; ?> placeholder="Enter Password">
     </div>
     <div class="form-label-group">
         <label for="email_address">Email address</label>
@@ -29,9 +29,8 @@
     <div class="form-group">
         <label for="message-text" class="control-label">Status</label>
        <select class="form-control" name="status" id="status" required>
-           <option <?php echo (isset($row['status']) && $row['status'] == 'av' ? 'selected' : ''); ?> value="av">Active</option>
-           <option <?php echo (isset($row['status']) && $row['status'] == 'pen' ? 'selected' : ''); ?> value="pen">Pending</option>
-           <option <?php echo (isset($row['status']) && $row['status'] == 'na' ? 'selected' : ''); ?> value="na">In-active</option>
+           <option <?php echo (isset($row['status']) && $row['status'] == 'active' ? 'selected' : ''); ?> value="av">Active</option>
+           <option <?php echo (isset($row['status']) && $row['status'] == 'inactive' ? 'selected' : ''); ?> value="na">In-active</option>
        </select>
     </div>
     <button type="submit" class="btn btn-primary pull-right" id="btnAction">Submit</button>

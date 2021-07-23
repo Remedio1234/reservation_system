@@ -8,7 +8,7 @@
     <!-- Example DataTables Card-->
     <?php if(isset($_GET['id'])) : ?>
      <?php
-        $query = $data['conn']->query("SELECT * FROM tbl_amenities WHERE amenities_id = '".$_GET['id']."' ");
+        $query = $data['conn']->query("SELECT * FROM tbl_amenities WHERE id = '".$_GET['id']."' ");
         $photo = $query->fetch(PDO::FETCH_OBJ);
     ?>
     <?php if(!$query->rowCount() > 0) { ?>
@@ -26,7 +26,7 @@
         </div>
          <div class="card-body">
                 <?php 
-                    $gallery = $data['conn']->query("SELECT * FROM tbl_gallery where amenities_id = '".$_GET['id']."' ORDER BY gallery_id DESC");
+                    $gallery = $data['conn']->query("SELECT * FROM tbl_gallery where id = '".$_GET['id']."' ORDER BY gallery_id DESC");
                     if ($gallery->rowCount() > 0) : 
                 ?>
                 <div class="row text-center text-lg-left">
@@ -63,7 +63,6 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <!-- <th style="width:10%;">Image</th> -->
                     <th>Name</th>
                     <th>Category</th>
                     <th>Details</th>
@@ -77,12 +76,12 @@
                 </thead>
                 <tbody>
                     <?php
-                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a JOIN tbl_categories c ON a.category_id = c.id ORDER BY amenities_id DESC");
+                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a 
+                        JOIN tbl_categories c ON a.category_id = c.id ORDER BY a.id DESC");
                         while ($row = $query->fetch(PDO::FETCH_OBJ)) { 
                     ?>
                 <tr>
-                    <td><?php echo $row->amenities_id; ?></td>
-                    <!-- <td><img style="width:30%;" src="<?php echo WEB_ROOT.'admin-panel/uploads/'.$row->photo; ?>"/></td> -->
+                    <td><?php echo $row->id; ?></td>
                     <td><?php echo ucfirst($row->name); ?></td>
                     <td><?php echo ucfirst($row->category); ?></td>
                     <td><?php echo ucfirst($row->details); ?></td>
@@ -92,9 +91,9 @@
                     <td><span class="<?php echo ($row->status == 'av' ? 'text-success' : 'text-danger'); ?>"><?php echo ($row->status == 'av' ? 'Active' : 'In-active'); ?></span></td>
                     <td><?php echo date('Y-m-d',strtotime($row->created_at)); ?></td>
                     <td align="center">
-                        <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->amenities_id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
-                        <!-- <a href="<?php echo WEB_ROOT . 'admin-panel/?v=venues&id='.$row->amenities_id; ?>" class="btn btn-sm btn-primary" data-id="<?php echo $row->amenities_id; ?>" ><i class="fa fa-upload fa-fw"></i> Upload Photos </a>     -->
-                        <!-- <a href="javascript:void(0);" class="btn btn-danger btn-sm mt-1" data-id="<?php echo $row->amenities_id; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>    -->
+                        <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
+                        <!-- <a href="<?php echo WEB_ROOT . 'admin-panel/?v=amenities&id='.$row->id; ?>" class="btn btn-sm btn-primary" data-id="<?php echo $row->id; ?>" ><i class="fa fa-upload fa-fw"></i> Upload Photos </a>     -->
+                        <!-- <a href="javascript:void(0);" class="btn btn-danger btn-sm mt-1" data-id="<?php echo $row->id; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>    -->
                     </td>
                 </tr>
                         <?php } ?>

@@ -24,7 +24,7 @@
                     <h4>
                         <div class="mr-5">
                             <?php echo $data['conn']->query("SELECT COUNT(*) AS category FROM " . $tables['category'] . " ")->fetch(PDO::FETCH_OBJ)->category; ?> 
-                            Category
+                            Categories
                         </div>
                     </h4>
                 </div>

@@ -31,66 +31,47 @@ function status($status)
     </div>
     <div class="card-body">
         <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fullname</th>
-                <th>Venues</th>
-                <th>Events</th>
-                <th>Caterers</th>
-                <th>DateFrom</th>
-                <th>DateTo</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th style="width:15%;text-align:center;">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-              
-            <?php
-                $query = $data['conn']->query("SELECT 
-                cus.fullname,
-                res.id,
-                res.reservation_id, 
-                res.total_hours,
-                res.sub_total,
-                res.total,
-                res.date_from,
-                res.date_to,
-                res.date_applied,
-                res.status,
-                ev.name,
-                ven.name,
-                cat.caterers_name 
-                FROM tbl_reservations res 
-                INNER JOIN tbl_customers cus ON cus.customer_id = res.customer_id
-                INNER JOIN tbl_amenities ven ON ven.amenities_id = res.amenities_id 
-                INNER JOIN tbl_categories ev ON ev.category_id = res.category_id 
-                LEFT JOIN tbl_caterers cat ON cat.caterers_id = res.caterers_id");
-                while ($row = $query->fetch(PDO::FETCH_OBJ)) {
-                    ?>
-                <tr>
-                    <td><?php echo $row->reservation_id; ?></td>
-                    <td><?php echo $row->fullname; ?></td>
-                    <td><?php echo $row->name; ?></td>
-                    <td><?php echo $row->name; ?></td>
-                    <td><?php echo ($row->caterers_name) ? $row->caterers_name : 'NA'; ?></td>
-                    <td><?php echo $row->date_from; ?></td>
-                    <td><?php echo $row->date_to; ?></td>
-                    <td><strong><?php echo number_format($row->total, 2); ?></strong></td>
-                    <td><?php echo status($row->status); ?></td>
-
-                    <td align="center">
-                        <a href="javascript:void(0);" id="showDetails" class="btn btn-sm mt-1 btn-primary" data-resid="<?php echo $row->reservation_id; ?>" data-id="<?php echo $row->id; ?>" ><i class="fa fa-info"></i> Reservation  </a>
-                        <a href="javascript:void(0);" class="btn btn-danger btn-sm mt-1" data-id="<?php echo $row->id; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>   
-                    </td>
-                     
-                </tr>
-                        <?php 
-                    } ?>
-            </tbody>
-        </table>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reservation ID</th>
+                        <th>Fullname</th>
+                        <th>Contact</th>
+                        <th>Eamil</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $query = $data['conn']->query("SELECT 
+                        rr.id, rr.reservation_id, cc.fullname, cc.contact, cc.email_address,rr.date_applied FROM tbl_reservations rr 
+                        INNER JOIN tbl_customers cc ON rr.customer_id = cc.id OR rr.guest_id = cc.guest_id LIMIT 10");
+                        while ($row = $query->fetch(PDO::FETCH_OBJ)) {
+                            ?>
+                    <tr>
+                        <td><?php echo $row->id; ?></td>
+                        <td><?php echo $row->reservation_id; ?></td>
+                        <td><?php echo $row->fullname; ?></td>
+                        <td><?php echo $row->contact; ?></td>
+                        <td><?php echo $row->email_address; ?></td>
+                        <td>
+                            <strong>
+                                <?php echo @number_format($data['conn']->query("SELECT SUM(total_amount) AS total FROM tbl_details WHERE reservation_id = '".$row->id."'")->fetch(PDO::FETCH_OBJ)->total,2); ?> 
+                            </strong>
+                        </td>
+                        <td><?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></td>
+                        <td align="center">
+                            <a href="javascript:void(0);" id="showDetails1" class="btn btn-sm mt-1 btn-primary" data-resid="<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" ><i class="fa fa-info"></i> View Reservation  </a>
+                            <a href="javascript:void(0);" class="btn btn-warning btn-sm mt-1" data-id="<?php echo $row->id; ?>" id="deleteData1"><i class="fa fa-file"></i> Proof Payment </a>   
+                        </td>
+                    </tr>
+                    <?php 
+                        } ?>
+                </tbody>
+            </table>
         </div>
     </div>
     </div>

@@ -43,7 +43,12 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-vcard-o" style="font-size:10em;"></span></center>
                     <div class="table-responsive">
-                    <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports&page=customers'; ?>" class="btn btn-success btn-lg btn-block" ><span class="fa fa-fw fa-folder-open"></span> View Report</a>
+                        <a href="<?php 
+                        echo "javascript://;"
+                        //echo WEB_ROOT . 'admin-panel/?v=reports&page=customers';
+                         ?>" 
+                        class="btn btn-success btn-lg btn-block" >
+                        <span class="fa fa-fw fa-folder-open"></span> View Report</a>
                     </div>
                 </div>
             </div>
@@ -53,19 +58,22 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="text-center">
-                    <h4>Venues</h4>
+                    <h4>Amenities</h4>
                     </div>
                 </div>
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-home" style="font-size:10em;"></span></center>
                     <div class="table-responsive  text-center">
-                        <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports&page=venues'; ?>" class="btn btn-success btn-lg btn-block"><span class="fa fa-fw fa-folder-open"></span> View Reports</a>
+                        <a href="<?php 
+                        echo 'javascript://;'
+                        //WEB_ROOT . 'admin-panel/?v=reports&page=venues';
+                         ?>" class="btn btn-success btn-lg btn-block"><span class="fa fa-fw fa-folder-open"></span> View Reports</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3">
+        <!-- <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="text-center">
@@ -75,17 +83,19 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-line-chart" style="font-size:10em;"></span></center>
                     <div class="table-responsive">
-                    <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports&page=events'; ?>" class="btn btn-success btn-lg btn-block" id="editProfile"><span class="fa fa-fw fa-folder-open"></span> View Report</a>
+                    <a href="<?php echo 'javascript://;' 
+                        //WEB_ROOT . 'admin-panel/?v=reports&page=events'; 
+                        ?>" class="btn btn-success btn-lg btn-block" id="editProfile"><span class="fa fa-fw fa-folder-open"></span> View Report</a>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="text-center">
-                    <h4>Caterers</h4>
+                    <h4>Users</h4>
                     </div>
                 </div>
                 <div class="card-body">
@@ -107,7 +117,9 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-share-square-o" style="font-size:10em;"></span></center>
                     <div class="table-responsive">
-                    <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports&page=reservations'; ?>" class="btn btn-success btn-lg btn-block" id="editProfile"><span class="fa fa-fw fa-folder-open"></span> View Report</a>
+                    <a href="<?php echo 'javascript://;'
+                    //WEB_ROOT . 'admin-panel/?v=reports&page=reservations';
+                     ?>" class="btn btn-success btn-lg btn-block" id="editProfile"><span class="fa fa-fw fa-folder-open"></span> View Report</a>
                     </div>
                 </div>
             </div>
