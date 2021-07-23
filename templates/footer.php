@@ -170,6 +170,7 @@
                 obj.totalCount = function() {
                     return cart.length
                 }
+
                 // Total cart
                 obj.totalCart = function() {
                     var totalCart = 0;
@@ -178,6 +179,13 @@
                     }
                     return parseFloat(totalCart).toFixed(2);
                 }
+
+                // Clear cart
+                obj.clearCart = function() {
+                    cart = [];
+                    saveCart();
+                }
+
                 // List cart
                 obj.listCart = function() {
                     var cartCopy = [];
@@ -199,6 +207,7 @@
             displayCart()
 
             function displayCart() {
+                console.log(cart)
                 var cartArray = shoppingCart.listCart();
                 var output = "";
                 for(var i in cartArray) {
@@ -236,10 +245,6 @@
 
             $(document).on('submit', '#form-reservation', function(e){
                 e.preventDefault()
-                // var formData = new FormData();
-                // console.log($(this).serializeArray())
-
-
                 var id              = $("#input_amenity_id").val()  
                 var category        = $("#input_category").val()
                 var name            = $("#input_name").val()
@@ -262,26 +267,36 @@
                 })
             })
 
-            function reservationData(){
+            function reservationData(guest){
                 var fullname        = $("#fullname").val()
                 var email_address   = $("#email_address").val()
                 var contact         = $("#contact").val()
                 var address         = $("#fullname").val()
+                if(guest){
+                    var info = {
+                            fullname: fullname,
+                            email_address: email_address,
+                            contact:contact,
+                            address: address
+                        }
+                }
+                
                 $.ajax({
                     url: "execute/controller.php",
                     type: "post",
                     data: {
                         action:'reservation',
-                        info:{
-                            fullname: fullname,
-                            email_address: email_address,
-                            contact:contact,
-                            address: address
-                        }, 
+                        info:info, 
                         cart : cart
-                    } ,
-                    success: function (response) {
-
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.response == 'success'){
+                            shoppingCart.clearCart();
+                            location.replace("?v=receipt&reservation_id="+data.reservation_id+'&guest_id='+data.guest_id)
+                        } else {
+                            location.reload();
+                        }
                     // You will get response from your PHP page (what you echo or print)
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -292,8 +307,16 @@
 
             $(document).on('submit', '#form-guest-submit', function(e){
                 e.preventDefault()
-               reservationData()
+               reservationData(1)
             })
+
+            $(document).on('click', '#user_checkout', function(e){
+                e.preventDefault()
+               reservationData(0)
+            })
+
+            
+            
         })
     </script>
     <?php if (isset($data['page'])) if (file_exists('pages/js/' . $data['page'] . '_js.php')) include('pages/js/' . $data['page'] . '_js.php'); ?>	

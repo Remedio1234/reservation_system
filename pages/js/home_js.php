@@ -48,10 +48,7 @@
     document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
     document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
 
-    var dateFrom        = $("#txtDateFrom").val(); 
-    var dateTo          = $("#txtDateTo").val()
-    const date1         = new Date(dateFrom);
-    const date2         = new Date(dateTo);
+
 
     var myClass = function() {}
         myClass.prototype = {
@@ -131,15 +128,22 @@
             
         })
 
+        var dateFrom_default        = $("#txtDateFrom").val(); 
+        var dateTo_default          = $("#txtDateTo").val()
+
         var mapData = new myClass();
             mapData.loadMap({
-                txtDateFrom: dateFrom,
-                txtDateTo  : dateTo
+                txtDateFrom: dateFrom_default,
+                txtDateTo  : dateTo_default
             });
 
         $(document).on('click', '.book_now', function(e){
             e.preventDefault()
-
+            var dateFrom        = $("#txtDateFrom").val(); 
+            var dateTo          = $("#txtDateTo").val()
+            var date1         = new Date(dateFrom);
+            var date2         = new Date(dateTo);
+            
             var status      = $(this).data('status')
             var category    = $(this).data('category')
             var name        = $(this).data('name')
@@ -165,6 +169,14 @@
                 })
                 return;
             }   
+
+            if(date1.getTime() > date2.getTime()){
+                toastr.error('Invalid date.Please try again!','Message',{
+                    positionClass:'toast-bottom-right',
+                })
+                return;
+            }
+
             const diffTime      = Math.abs(date2 - date1);
             var diffDays        = parseInt(Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1); 
        
@@ -186,6 +198,10 @@
         
         $(document).on('submit', '#frmBeachSearch', function(e){
             e.preventDefault()
+            var dateFrom        = $("#txtDateFrom").val(); 
+            var dateTo          = $("#txtDateTo").val()
+            var date1         = new Date(dateFrom);
+            var date2         = new Date(dateTo);
             $("#txt_result").hide()
             if(dateFrom != "" && dateTo != ""){
                 if(date1.getTime() > date2.getTime()){

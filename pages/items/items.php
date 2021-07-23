@@ -23,9 +23,9 @@
         </table>
 
         <?php if(isset($_SESSION['customer']['isLoggedIn'])) : ?>
-            <button type="submit" class="btn btn-success" id="user_checkout">Submit</button>
+            <button type="button" class="btn btn-success" id="user_checkout">Submit</button>
         <?php else : ?>
-            <button type="submit" class="btn btn-success" id="guest_checkout">Continue</button>
+            <button type="button" class="btn btn-success" id="guest_checkout">Continue</button>
         <?php endif ?>
         </section>
     </div>
