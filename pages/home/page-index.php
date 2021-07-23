@@ -66,22 +66,22 @@
                         name="input_available" 
                         id="input_available"
                         />
-                    <input 
+                    <!-- <input 
                         type="hidden" 
                         name="input_category_id" 
                         id="input_category_id"
-                        />
+                        /> -->
                     <input 
                         type="hidden" 
                         name="input_amenity_id" 
                         id="input_amenity_id"
                         />
                     <div class="form-label-group mb-2">
-                        <label for="input_type">Type</label>
+                        <label for="input_category">Category</label>
                         <input 
                             type="text" 
-                            id="input_type" 
-                            name="input_type" 
+                            id="input_category" 
+                            name="input_category" 
                             class="form-control" 
                             style="background:#ffffff;"
                             readonly 

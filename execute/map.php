@@ -6,42 +6,41 @@
     //TENTS
     // $tents = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 2")->fetch(PDO::FETCH_ASSOC);
     //TABLES
-    $tables = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 6")->fetch(PDO::FETCH_ASSOC);
+    $tables = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE status = 'av' AND aa.category_id = 6")->fetch(PDO::FETCH_ASSOC);
     //CHAIRS
-    $chairs = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 1")->fetch(PDO::FETCH_ASSOC);
+    $chairs = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE status = 'av' AND aa.category_id = 1")->fetch(PDO::FETCH_ASSOC);
 
     if(isset($txtDateFrom) && isset($txtDateTo)) {
 
         //TENTS COTTAGES
-        $tents = $dbConn->query("SELECT aa.*, rr.r_a_id FROM tbl_amenities aa LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_reservations WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
+        $tents = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
+            SELECT amenities_id, amenities_id as r_a_id, cc.name as category_name FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
             ) as rr on aa.amenities_id = rr.amenities_id WHERE (aa.status = 'av' AND aa.category_id = 2)");
 
         //RESERVE COTTAGES
-        $cottages = $dbConn->query("SELECT aa.*, rr.r_a_id FROM tbl_amenities aa LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_reservations WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
+        $cottages = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
+            SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
             ) as rr on aa.amenities_id = rr.amenities_id WHERE (aa.status = 'av' AND aa.category_id = 3)");
         
          //RESERVE ROOMS
-         $rooms = $dbConn->query("SELECT aa.*, rr.r_a_id FROM tbl_amenities aa LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_reservations WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
+         $rooms = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
+            SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
             ) as rr on aa.amenities_id = rr.amenities_id WHERE (aa.status = 'av' AND aa.category_id = 5)");
 
         //RESERVE TENTS
-        // $reserve_tents = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_reservations WHERE category_id = 2 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
+        // $reserve_tents = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_details WHERE category_id = 2 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
         // RESERVE TABLES
-        $reserve_tables = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_reservations WHERE category_id = 6 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
+        $reserve_tables = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_details WHERE category_id = 6 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
         //RESERVE CHAIRS
-        $reserve_chairs = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_reservations WHERE category_id = 1 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
-      
-       
+        $reserve_chairs = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_details WHERE category_id = 1 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
+        
     } else {
         //tents
-        $tents = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 2");
+        $tents = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE status = 'av' AND aa.category_id = 2");
         //COTTAGES
-        $cottages = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 3");
+        $cottages = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE status = 'av' AND aa.category_id = 3");
         //ROOMS
-        $rooms = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 5");
+        $rooms = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE status = 'av' AND aa.category_id = 5");
     }
 
 
@@ -89,8 +88,8 @@
 
         <!-- =================== START TABLES ============================= -->
         <rect 
-            data-type="Table"
             class="cottages book_now" 
+            data-category="<?php echo @$tables['category_name'] ?>"
             data-amenityid="<?php echo @$tables['amenities_id'] ?>"
             data-categoryid="<?php echo @$tables['category_id'] ?>"
             data-available="<?php echo $total_tables ?>"
@@ -119,8 +118,8 @@
 
         <!-- =================== START CHAIRS ============================= -->
         <rect 
-            data-type="Chair"
             class="cottages book_now" 
+            data-category="<?php echo @$chairs['category_name'] ?>"
             data-amenityid="<?php echo @$chairs['amenities_id'] ?>"
             data-categoryid="<?php echo @$chairs['category_id'] ?>"
             data-available="<?php echo $total_chairs ?>"
@@ -154,7 +153,6 @@
         <?php 
             while ($cottage = $cottages->fetch(PDO::FETCH_OBJ)) { ?>
         <rect 
-            data-type="Cottage"
             data-amenityid="<?php echo $cottage->amenities_id ?>"
             data-categoryid="<?php echo $cottage->category_id ?>"
             data-quantity="<?php echo $cottage->quantity ?>"
@@ -182,7 +180,6 @@
         <?php 
         while ($tent = $tents->fetch(PDO::FETCH_OBJ)) { ?>
             <rect 
-                data-type="Tent"
                 data-amenityid="<?php echo $tent->amenities_id ?>"
                 data-categoryid="<?php echo $tent->category_id ?>"
                 data-quantity="<?php echo $tent->quantity ?>"
@@ -207,7 +204,6 @@
         <?php 
             while ($room = $rooms->fetch(PDO::FETCH_OBJ)) { ?>
         <rect 
-            data-type="Room"
             data-amenityid="<?php echo $room->amenities_id ?>"
             data-categoryid="<?php echo $room->category_id ?>"
             data-quantity="<?php echo $room->quantity ?>"

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2021 at 02:35 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Jul 23, 2021 at 05:10 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_amenities` (
-  `amenities_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `details` text,
+  `details` text DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `amount_per_hour` double DEFAULT NULL,
@@ -41,15 +40,15 @@ CREATE TABLE `tbl_amenities` (
   `y` varchar(10) DEFAULT NULL,
   `transform` varchar(100) DEFAULT NULL,
   `status` enum('av','na') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_amenities`
 --
 
-INSERT INTO `tbl_amenities` (`amenities_id`, `category_id`, `name`, `details`, `capacity`, `quantity`, `amount_per_hour`, `photo`, `x`, `y`, `transform`, `status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_amenities` (`id`, `category_id`, `name`, `details`, `capacity`, `quantity`, `amount_per_hour`, `photo`, `x`, `y`, `transform`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Chairs', 'N/A', 1, 300, 10, 'default.jpg', NULL, NULL, '', 'av', '2021-07-15 13:01:46', '2021-07-15 21:01:46'),
 (2, 6, 'Tables', 'N/A', 5, 50, 20, 'default.jpg', NULL, NULL, '', 'av', '2021-07-15 13:04:58', '2021-07-15 21:04:58'),
 (3, 3, '1', 'Cottage 1', 1, 1, 1, 'default.jpg', '516.5', '101.5', 'matrix(0.8675 0 0 1 530.6191 128.522)', 'av', '2021-07-18 01:57:53', '2021-07-18 09:57:53'),
@@ -124,25 +123,25 @@ INSERT INTO `tbl_amenities` (`amenities_id`, `category_id`, `name`, `details`, `
 --
 
 CREATE TABLE `tbl_categories` (
-  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `details` text,
+  `details` text DEFAULT NULL,
   `status` enum('av','na') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_categories`
 --
 
-INSERT INTO `tbl_categories` (`category_id`, `name`, `details`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Chairs', '300 Chairs Available', 'av', '2021-07-15 12:06:07', '2021-07-15 20:06:07'),
-(2, 'Tents', '29pcs Available', 'av', '2021-07-15 12:07:59', '2021-07-15 20:07:59'),
-(3, 'Cottages', '32 Cottages Available', 'av', '2021-07-15 12:08:40', '2021-07-15 20:08:40'),
-(4, 'Function Halls', 'Function Halls, 1 Swimming Pool', 'av', '2021-07-15 12:09:39', '2021-07-15 20:09:39'),
-(5, 'Rooms', '4 Rooms available', 'av', '2021-07-15 12:09:51', '2021-07-15 20:09:51'),
-(6, 'Tables', '29 Pcs Available', 'av', '2021-07-15 12:11:09', '2021-07-15 20:11:09');
+INSERT INTO `tbl_categories` (`id`, `name`, `details`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Chair', '300 Chairs', 'av', '2021-07-15 12:06:07', '2021-07-15 20:06:07'),
+(2, 'Tent', '29 Tents', 'av', '2021-07-15 12:07:59', '2021-07-15 20:07:59'),
+(3, 'Cottage', '32 Cottages Available', 'av', '2021-07-15 12:08:40', '2021-07-15 20:08:40'),
+(4, 'Function Hall', 'Function Halls, 1 Swimming Pool', 'av', '2021-07-15 12:09:39', '2021-07-15 20:09:39'),
+(5, 'Room', '4 Rooms available', 'av', '2021-07-15 12:09:51', '2021-07-15 20:09:51'),
+(6, 'Table', '29 Pcs Available', 'av', '2021-07-15 12:11:09', '2021-07-15 20:11:09');
 
 -- --------------------------------------------------------
 
@@ -151,7 +150,7 @@ INSERT INTO `tbl_categories` (`category_id`, `name`, `details`, `status`, `creat
 --
 
 CREATE TABLE `tbl_customers` (
-  `customer_id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email_address` varchar(50) NOT NULL,
@@ -160,7 +159,7 @@ CREATE TABLE `tbl_customers` (
   `address` text NOT NULL,
   `status` enum('pen','av','na') NOT NULL,
   `profile` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -168,9 +167,28 @@ CREATE TABLE `tbl_customers` (
 -- Dumping data for table `tbl_customers`
 --
 
-INSERT INTO `tbl_customers` (`customer_id`, `username`, `password`, `email_address`, `fullname`, `contact`, `address`, `status`, `profile`, `created_at`, `updated_at`) VALUES
-(1, 'test', '96e79218965eb72c92a549dd5a330112', 'test@yahoo.com', 'Testing', '', '', 'pen', '1626864055_homepage.png', '2021-07-21 10:40:55', '0000-00-00 00:00:00'),
-(2, 'sasasa', '9fc58423aa0341dd75c031e1b2fabe0a', 'ping@yahoo.com', 'aasas', '', '', 'pen', 'default.jpg', '2021-07-18 05:06:47', '0000-00-00 00:00:00');
+INSERT INTO `tbl_customers` (`id`, `username`, `password`, `email_address`, `fullname`, `contact`, `address`, `status`, `profile`, `created_at`, `updated_at`) VALUES
+(1, 'test', '96e79218965eb72c92a549dd5a330112', 'test@yahoo.com', 'Testing', '', '', 'pen', '1626864055_homepage.png', '2021-07-21 10:40:55', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_details`
+--
+
+CREATE TABLE `tbl_details` (
+  `id` int(11) NOT NULL,
+  `reservation_id` bigint(20) UNSIGNED NOT NULL,
+  `amenities_id` bigint(20) UNSIGNED NOT NULL,
+  `date_from` varchar(55) DEFAULT NULL,
+  `date_to` varchar(55) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `total_days` double DEFAULT NULL,
+  `total_amount` double DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -193,7 +211,21 @@ CREATE TABLE `tbl_profile` (
 --
 
 INSERT INTO `tbl_profile` (`profile_id`, `site_title`, `site_logo`, `company_name`, `contact`, `email_address`, `address`) VALUES
-(4, 'DBROR AND MAPPING MAPPING MANAGEMENT SYSTEM', '1626348918logo.jpg', 'Events Organizer', '+630123340334', 'company@gmail.com', 'Sample address');
+(1, 'DBROR AND MAPPING MAPPING MANAGEMENT SYSTEM', '1626348918logo.jpg', 'Events Organizer', '+630123340334', 'company@gmail.com', 'Sample address');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_proof_payment`
+--
+
+CREATE TABLE `tbl_proof_payment` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `reservation_id` bigint(20) UNSIGNED NOT NULL,
+  `file_proof` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -202,35 +234,15 @@ INSERT INTO `tbl_profile` (`profile_id`, `site_title`, `site_logo`, `company_nam
 --
 
 CREATE TABLE `tbl_reservations` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `customer_id` int(11) UNSIGNED DEFAULT NULL,
   `guest_id` int(11) DEFAULT NULL,
-  `reservation_id` varchar(55) DEFAULT NULL,
-  `amenities_id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `amenities_name` varchar(255) DEFAULT NULL,
-  `category_name` varchar(255) DEFAULT NULL,
-  `details` varchar(55) DEFAULT NULL,
-  `date_from` varchar(55) DEFAULT NULL,
-  `date_to` varchar(55) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `total_hours` double DEFAULT NULL,
-  `total_amount` double DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('pending','approved','cancelled') DEFAULT 'pending'
+  `reservation_id` bigint(20) UNSIGNED NOT NULL,
+  `date_applied` timestamp NULL DEFAULT current_timestamp(),
+  `status` enum('pending','approved','cancelled') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_reservations`
---
-
-INSERT INTO `tbl_reservations` (`id`, `customer_id`, `guest_id`, `reservation_id`, `amenities_id`, `category_id`, `amenities_name`, `category_name`, `details`, `date_from`, `date_to`, `quantity`, `total_hours`, `total_amount`, `date_applied`, `status`) VALUES
-(29, NULL, NULL, NULL, 3, 3, 'Cottage 1', 'Cottages', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(30, 2, NULL, NULL, 1, 1, 'Chairs', 'Chairs', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 299, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(31, 2, NULL, NULL, 1, 6, 'Tables', 'Tables', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 50, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(32, 2, NULL, NULL, 1, 2, 'Tents', 'Tents', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 4, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(33, 2, NULL, NULL, 34, 5, 'Room 1', 'rooms', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending'),
-(34, 2, NULL, NULL, 66, 2, 'Tent 1', 'Tents', NULL, '2021-07-19 13:26', '2021-07-20 13:26', 1, 1, 100, '2021-07-18 05:28:08', 'pending');
 
 -- --------------------------------------------------------
 
@@ -245,9 +257,9 @@ CREATE TABLE `tbl_users` (
   `password` char(128) NOT NULL,
   `salt` varchar(64) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `role` enum('admin') NOT NULL,
+  `role` enum('admin','cashier') NOT NULL,
   `status` enum('1','0') NOT NULL COMMENT '1 - is ACTIVE, 0 - INACTIVE',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_login` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -256,7 +268,7 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_id`, `fullname`, `username`, `password`, `salt`, `email`, `role`, `status`, `created_at`, `last_login`) VALUES
-(59, 'administrator', 'admin', '07b6b408a3d4c73353a722f9ffda37865f6478475f1c7d397392c44d5c1bb8a47a78de115aae4613f527a5453fccf24344a76078f62c9f64e8ef247f8171ad0e', 'du%b4vd6Ygu@E1Xfl38CBQ5uo6nJW0xARu26G51b1&PtZBCBcZsZO&N?gQLTzHYa', 'admin@yahoo.com', 'admin', '1', '2018-09-09 04:54:18', '2021/07/18 01:44:59');
+(1, 'administrator', 'admin', '07b6b408a3d4c73353a722f9ffda37865f6478475f1c7d397392c44d5c1bb8a47a78de115aae4613f527a5453fccf24344a76078f62c9f64e8ef247f8171ad0e', 'du%b4vd6Ygu@E1Xfl38CBQ5uo6nJW0xARu26G51b1&PtZBCBcZsZO&N?gQLTzHYa', 'admin@yahoo.com', 'admin', '1', '2018-09-09 04:54:18', '2021/07/18 01:44:59');
 
 --
 -- Indexes for dumped tables
@@ -266,20 +278,28 @@ INSERT INTO `tbl_users` (`user_id`, `fullname`, `username`, `password`, `salt`, 
 -- Indexes for table `tbl_amenities`
 --
 ALTER TABLE `tbl_amenities`
-  ADD PRIMARY KEY (`amenities_id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  ADD PRIMARY KEY (`category_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  ADD PRIMARY KEY (`customer_id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_details`
+--
+ALTER TABLE `tbl_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `amenities_id` (`amenities_id`),
+  ADD KEY `reservation_id` (`reservation_id`);
 
 --
 -- Indexes for table `tbl_profile`
@@ -288,12 +308,18 @@ ALTER TABLE `tbl_profile`
   ADD PRIMARY KEY (`profile_id`);
 
 --
+-- Indexes for table `tbl_proof_payment`
+--
+ALTER TABLE `tbl_proof_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reservation_id` (`reservation_id`);
+
+--
 -- Indexes for table `tbl_reservations`
 --
 ALTER TABLE `tbl_reservations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `amenities_id` (`amenities_id`);
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `tbl_users`
@@ -309,19 +335,25 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_amenities`
 --
 ALTER TABLE `tbl_amenities`
-  MODIFY `amenities_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  MODIFY `customer_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_details`
+--
+ALTER TABLE `tbl_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_profile`
@@ -330,16 +362,22 @@ ALTER TABLE `tbl_profile`
   MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tbl_proof_payment`
+--
+ALTER TABLE `tbl_proof_payment`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_reservations`
 --
 ALTER TABLE `tbl_reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -349,14 +387,26 @@ ALTER TABLE `tbl_users`
 -- Constraints for table `tbl_amenities`
 --
 ALTER TABLE `tbl_amenities`
-  ADD CONSTRAINT `tbl_amenities_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `tbl_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_amenities_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `tbl_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_details`
+--
+ALTER TABLE `tbl_details`
+  ADD CONSTRAINT `tbl_details_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `tbl_reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_details_ibfk_2` FOREIGN KEY (`amenities_id`) REFERENCES `tbl_amenities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_proof_payment`
+--
+ALTER TABLE `tbl_proof_payment`
+  ADD CONSTRAINT `tbl_proof_payment_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `tbl_reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_reservations`
 --
 ALTER TABLE `tbl_reservations`
-  ADD CONSTRAINT `tbl_reservations_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_reservations_ibfk_2` FOREIGN KEY (`amenities_id`) REFERENCES `tbl_amenities` (`amenities_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_reservations_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

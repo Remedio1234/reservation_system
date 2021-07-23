@@ -1,5 +1,14 @@
 <script>
     $(document).ready(function() {  
+    //     $('#dateFrom').dateTimePicker();
+    //     $('#dateTo').dateTimePicker();
+    //     var dateFrom = $("#dateFrom").text();
+    //     var dateTo = $("#dateFrom").text();
+    //     var a = dateFrom.replace(/(<([^>]+)>)/gi, "");
+    //     var b = dateFrom.replace(/(<([^>]+)>)/gi, "");
+    //     $("#txtDateFrom").val(a)
+    //    $("#txtDateTo").val(b)
+
     // Restricts input for the given textbox to the given inputFilter.
     function setInputFilter(textbox, inputFilter) {
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
@@ -37,13 +46,6 @@
     var minDate= year + '-' + month + '-' + day;
     $('#txtDateTo').attr('min', minDate);
     $('#txtDateFrom').attr('min', minDate);
-    document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
-    document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
-
-    var dateFrom        = $("#txtDateFrom").val(); 
-    var dateTo          = $("#txtDateTo").val()
-    const date1         = new Date(dateFrom);
-    const date2         = new Date(dateTo);
 
     var myClass = function() {}
         myClass.prototype = {
@@ -66,32 +68,49 @@
             },
             checkAuth: function(obj){
                 console.log(obj)
-                if(obj.category == 'Table' || obj.category == 'Chair'){
-                    $("#label_quantity").show()
-                    $("#label_name").hide()
-                } else {
-                    $("#label_quantity").hide()
-                    $("#label_name").show()
-                }
-                $("#input_amenity_id").val(obj.amenity_id)
-                $("#input_quantity").val('')
-                $("#input_available").val(obj.available)
-                $("#input_name").val(obj.name)
-                $("#input_category").val(obj.category)
-                $("#input_date_from").val(obj.date_from)
-                $("#input_date_to").val(obj.date_to)
-                $("#input_total_days").val(obj.days)
-                $("#input_amount_day").val(obj.amount)
-                
-                var total = parseFloat(obj.days * obj.amount)
+                // $.ajax({
+                //         type: "POST",
+                //          url: "<?php echo WEB_ROOT . 'execute/checker.php' ?>",
+                //         dataType: "json",
+                //         cache: false,
+                //         success: function(data) {
+                //             console.log(obj)
+                            if(obj.type == 'Table' || obj.type == 'Chair'){
+                                $("#label_quantity").show()
+                                $("#label_name").hide()
+                            } else {
+                                $("#label_quantity").hide()
+                                $("#label_name").show()
+                            }
+                            $("#input_amenity_id").val(obj.amenity_id)
+                            $("#input_category_id").val(obj.category_id)
+                            $("#input_quantity").val('')
+                            $("#input_available").val(obj.available)
+                            $("#input_name").val(obj.name)
+                            $("#input_type").val(obj.type)
+                            $("#input_date_from").val(obj.date_from)
+                            $("#input_date_to").val(obj.date_to)
+                            $("#input_total_days").val(obj.days)
+                            $("#input_amount_day").val(obj.amount)
+                            
+                            var total = parseFloat(obj.days * obj.amount)
 
 
-                $("#input_total_amount").val(parseFloat(total).toFixed(2))
-                
-                $("#reservationModal").modal({
-                    backdrop: 'static',
-                    keyboard: false
-                })
+                            $("#input_total_amount").val(parseFloat(total).toFixed(2))
+                            // if(data.login){
+                            //     console.log('true')
+                            // } else {
+                            //     console.log('false')
+                            // }
+                            $("#reservationModal").modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            })
+                    //     },
+                    //     error: function(xhr, status, error) {
+                    //         console.log("Error : " + xhr.status)
+                    //     }
+                    // });
                     return false
             }
         }
@@ -121,23 +140,22 @@
         })
 
         var mapData = new myClass();
-            mapData.loadMap({
-                txtDateFrom: dateFrom,
-                txtDateTo  : dateTo
-            });
-
+            mapData.loadMap({}); 
+        // https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html
         $(document).on('click', '.book_now', function(e){
             e.preventDefault()
 
             var status      = $(this).data('status')
-            var category    = $(this).data('category')
+            var dateFrom    = $("#txtDateFrom").val(); 
+            var dateTo      = $("#txtDateTo").val()
+            var type        = $(this).data('type')
             var name        = $(this).data('name')
             var amount      = $(this).data('amount')
             var quantity    = $(this).data('quantity')
             var amenity_id  = $(this).data('amenityid')
             var category_id = $(this).data('categoryid')
             var available   = 0;
-            if(category == 'Table' || category == 'Chair'){
+            if(type == 'Table' || type == 'Chair'){
                 available = $(this).data('available')
             }
             
@@ -155,11 +173,19 @@
                 })
                 return;
             }   
+
+            // $("#reservationModal").modal('show')
+            // toastr.success('available', 'Success', {
+            //     positionClass:'toast-bottom-right',
+            // })
+
+            const date1         = new Date(dateFrom);
+            const date2         = new Date(dateTo);
             const diffTime      = Math.abs(date2 - date1);
             var diffDays        = parseInt(Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1); 
        
             mapData.checkAuth({
-                category    : category,
+                type        : type,
                 name        : name,
                 date_from   : dateFrom,
                 date_to     : dateTo,
@@ -177,18 +203,39 @@
         
         $(document).on('submit', '#frmBeachSearch', function(e){
             e.preventDefault()
+            var dateFrom = $("#txtDateFrom").val(); 
+            var dateTo   = $("#txtDateTo").val()
             $("#txt_result").hide()
             if(dateFrom != "" && dateTo != ""){
+                var date1 = new Date(dateFrom);
+                var date2 = new Date(dateTo);
+                // if(date1.getTime() === date2.getTime()){
+                //     toastr.error('Invalid date.Please try again!','Message',{
+                //         positionClass:'toast-bottom-right',
+                //     })
+                //     return;
+                // }
+
+                // else 
                 if(date1.getTime() > date2.getTime()){
                     toastr.error('Invalid date.Please try again!','Message',{
                         positionClass:'toast-bottom-right',
                     })
                     return;
                 } else {
+                    // $("#txt_result").show()
+                    // $("#txt_date_from").text(dateFrom)
+                    // $("#txt_date_to").text(dateTo)
+                    // var total_hours = 1;
+                    // var hours    = (date2 - date1) / 1000 / 60 / 60;
+                    // if(parseFloat(hours) > 1 ){
+                    //     total_hours = hours
+                    // }
                     mapData.loadMap({
                         txtDateFrom: dateFrom,
                         txtDateTo  : dateTo
                     }); 
+                    // $("#txt_total_hour").text(total_hours)
                 }
             } else {
                 toastr.warning('Please select a date.','Message',{
@@ -238,21 +285,15 @@
             var obj = {};
             
             // Add to cart
-            obj.addItemToCart = function(amenities_id, date_from, date_to, price, quantity, total_days, total_amount) {
+            obj.addItemToCart = function(name, price, count) {
                 for(var item in cart) {
-                    // if(cart[item].name === name) {
-                    //     cart[item].count ++;
-                    //     saveCart();
-                    //     return;
-                    // }
-                    if(cart[item].amenities_id === amenities_id && cart[item].date_from === date_from && cart[item].date_to === date_to){
-                        toastr.error('Amenity Already added','Message', {
-                            positionClass:'toast-bottom-right',
-                        })
-                        return;
-                    }
+                if(cart[item].name === name) {
+                    cart[item].count ++;
+                    saveCart();
+                    return;
                 }
-                var item = new Item(amenities_id, date_from, date_to, price, quantity, total_days, total_amount);
+                }
+                var item = new Item(name, price, count);
                 cart.push(item);
                 saveCart();
             }
@@ -278,6 +319,7 @@
                 }
                 saveCart();
             }
+
             // Remove all items from cart
             obj.removeItemFromCartAll = function(name) {
                 for(var item in cart) {
@@ -288,11 +330,13 @@
                 }
                 saveCart();
             }
+
             // Clear cart
             obj.clearCart = function() {
                 cart = [];
                 saveCart();
             }
+
             // Count cart 
             obj.totalCount = function() {
                 var totalCount = 0;
@@ -301,6 +345,7 @@
                 }
                 return totalCount;
             }
+
             // Total cart
             obj.totalCart = function() {
                 var totalCart = 0;
@@ -309,6 +354,7 @@
                 }
                 return Number(totalCart.toFixed(2));
             }
+
             // List cart
             obj.listCart = function() {
                 var cartCopy = [];
@@ -324,6 +370,18 @@
                 }
                 return cartCopy;
             }
+
+            // cart : Array
+            // Item : Object/Class
+            // addItemToCart : Function
+            // removeItemFromCart : Function
+            // removeItemFromCartAll : Function
+            // clearCart : Function
+            // countCart : Function
+            // totalCart : Function
+            // listCart : Function
+            // saveCart : Function
+            // loadCart : Function
             return obj;
         })();
 
