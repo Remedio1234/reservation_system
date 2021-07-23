@@ -15,7 +15,7 @@
         });
 
         $(document).on('click', "#editModal", function(e){
-            $.post("<?php echo WEB_ROOT.'admin-panel/execute/loadforms.php'; ?>", {form:'category', category_id : $(this).attr('data-id')}, function(data){
+            $.post("<?php echo WEB_ROOT.'admin-panel/execute/loadforms.php'; ?>", {form:'category', id : $(this).attr('data-id')}, function(data){
                 $("#formModal").find(".modal-title").text("Update Category");
                 $("#formModal").find(".modal-body").html(data);    
                 $("#formModal").modal('show');
@@ -27,10 +27,10 @@
         $(document).on('click', '#deleteData', function(e){
             e.preventDefault();
             if(confirm("Delete this record?")){
-                var category_id = $(this).attr('data-id');
+                var id = $(this).attr('data-id');
                 var action    = 'category';
                 var params = {
-                    category_id : category_id,
+                    id : id,
                     action : action
                 }
                 $.post("<?php echo WEB_ROOT.'admin-panel/execute/deleteData.php'; ?>", params, function(data) {

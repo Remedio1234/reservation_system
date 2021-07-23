@@ -25,7 +25,7 @@
         break;
         /* ============= CATEGORIES MODULE =========== */
         case 'category':
-            if(empty($category_id)) :
+            if(empty($id)) :
                 $check_exist = $dbConn->query("SELECT * FROM ".$tables['categories']." WHERE name = '".$name."' ");
                 if($check_exist->rowCount() > 0) :
                     $response = [
@@ -51,7 +51,7 @@
                             'message'  => 'Category already exist.'
                         ];
                     else :
-                        $query = $dbConn->query("UPDATE ".$tables['categories']." SET name = '".$name. "',details = '" . $details . "',status = '".$status."' WHERE category_id = ".$category_id." ");
+                        $query = $dbConn->query("UPDATE ".$tables['categories']." SET name = '".$name. "',details = '" . $details . "',status = '".$status."' WHERE id = ".$id." ");
                         if($query) :
                             $response = [
                                 'response' => 'success',
@@ -60,7 +60,7 @@
                         endif;
                     endif;
                 else :
-                    $query = $dbConn->query("UPDATE ".$tables['categories']." SET name = '".$name. "',details = '" . $details . "',status = '".$status."' WHERE category_id = ".$category_id." ");
+                    $query = $dbConn->query("UPDATE ".$tables['categories']." SET name = '".$name. "',details = '" . $details . "',status = '".$status."' WHERE id = ".$id." ");
                     if($query) :
                         $response = [
                             'response' => 'success',

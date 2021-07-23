@@ -27,7 +27,7 @@ $tables = [
         break;
 
         case 'category':
-            $dbConn->query("DELETE FROM " . $tables['categories'] . " WHERE category_id = '" . $category_id . "' ");
+            $dbConn->query("DELETE FROM " . $tables['categories'] . " WHERE id = '" . $id . "' ");
             $response = [
                 'response' => 'success',
                 'message' => 'Record Successfully deleted.'

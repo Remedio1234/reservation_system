@@ -29,18 +29,18 @@
             </thead>
             <tbody>
                 <?php
-                    $query = $data['conn']->query("SELECT * FROM tbl_categories ORDER BY category_id DESC");
+                    $query = $data['conn']->query("SELECT * FROM tbl_categories ORDER BY id DESC");
                     while ($row = $query->fetch(PDO::FETCH_ASSOC)) { 
                 ?>
                 <tr>
-                    <td><?php echo $row['category_id']; ?></td>
+                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo ucfirst($row['name']); ?></td>
                     <td><?php echo ucfirst($row['details']); ?></td>
                     <td><span class="<?php echo ($row['status'] == 'av' ? 'text-success' : 'text-danger'); ?>"><?php echo ($row['status'] == 'av' ? 'Active' : 'In-active'); ?></span></td>
                     <td><?php echo date('Y-m-d',strtotime($row['created_at'])); ?></td>
                     <td align="center">
-                        <a href="javascript:void(0);" class="btn btn-success btn-sm" data-id="<?php echo $row['category_id']; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="javascript:void(0);" class="btn btn-danger btn-sm" data-id="<?php echo $row['category_id']; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>
+                        <a href="javascript:void(0);" class="btn btn-success btn-sm" data-id="<?php echo $row['id']; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
+                        <a href="javascript:void(0);" class="btn btn-danger btn-sm" data-id="<?php echo $row['id']; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>
                     </td>
                 </tr>
                 <?php } ?>

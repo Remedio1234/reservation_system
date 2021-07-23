@@ -77,7 +77,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a JOIN tbl_categories c ON a.category_id = c.category_id ORDER BY amenities_id DESC");
+                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a JOIN tbl_categories c ON a.category_id = c.id ORDER BY amenities_id DESC");
                         while ($row = $query->fetch(PDO::FETCH_OBJ)) { 
                     ?>
                 <tr>

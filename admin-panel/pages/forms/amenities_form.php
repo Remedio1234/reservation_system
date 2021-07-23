@@ -12,7 +12,7 @@
             <option>Select Category..</option>
            <?php 
             while ($val = $query->fetch(PDO::FETCH_OBJ)) { ?>
-            <option <?php echo ((@$row['category_id'] == $val->category_id) ? 'selected' : ''); ?> value="<?php echo $val->category_id; ?>"><?php echo $val->name?></option>
+            <option <?php echo ((@$row['id'] == $val->id) ? 'selected' : ''); ?> value="<?php echo $val->id; ?>"><?php echo $val->name?></option>
             <?php } ?>
        </select>
     </div>

@@ -1,6 +1,6 @@
 <form id="FormAction" name="FormAction" method="post">
     <input type="hidden" name="action" id="action" value="category">
-    <input type="hidden" value="<?php echo @$row['category_id']; ?>" name="category_id" id="category_id" >
+    <input type="hidden" value="<?php echo @$row['id']; ?>" name="id" id="id" >
     <div class="form-group">
         <label for="recipient-name" class="control-label">Category Name</label>
         <input type="text" value="<?php echo @$row['name']; ?>" class="form-control" id="name" name="name" required placeholder="Enter Category">

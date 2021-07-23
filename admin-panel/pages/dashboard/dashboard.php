@@ -143,7 +143,7 @@ $tables = [
                 FROM tbl_reservations res 
                 INNER JOIN tbl_customers cus ON cus.customer_id = res.customer_id
                 INNER JOIN tbl_amenities ven ON ven.amenities_id = res.amenities_id 
-                INNER JOIN tbl_categories ev ON ev.category_id = res.events_id 
+                INNER JOIN tbl_categories ev ON ev.id = res.events_id 
                 LEFT JOIN tbl_caterers cat ON cat.caterers_id = res.caterers_id LIMIT 10");
             while ($row = $query->fetch(PDO::FETCH_OBJ)) {
               ?>

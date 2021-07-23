@@ -13,8 +13,8 @@
     switch ($form) {
         
         case 'category':
-            if(isset($category_id)) :
-                $row = $dbConn->query("SELECT * FROM ".$tables['categories']." WHERE category_id = '".$category_id."' ")->fetch(PDO::FETCH_ASSOC);
+            if(isset($id)) :
+                $row = $dbConn->query("SELECT * FROM ".$tables['categories']." WHERE id = '".$id."' ")->fetch(PDO::FETCH_ASSOC);
             endif;
             include('../pages/forms/category_form.php');
         break;
@@ -49,7 +49,7 @@
                     FROM tbl_reservations res 
                      INNER JOIN tbl_customers cus ON cus.customer_id = res.customer_id 
                     INNER JOIN tbl_amenities ven ON ven.amenities_id = res.amenities_id 
-                    INNER JOIN tbl_categories ev ON ev.category_id = res.category_id 
+                    INNER JOIN tbl_categories ev ON ev.id = res.id 
                     LEFT JOIN tbl_caterers cat ON cat.caterers_id = res.caterers_id
                     WHERE id = " . $id . "
                     ")->fetch(PDO::FETCH_OBJ);
