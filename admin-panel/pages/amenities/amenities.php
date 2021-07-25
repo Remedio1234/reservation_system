@@ -53,9 +53,9 @@
             <div class="pull-left">
             <h4>List Of Amenities </h4>
             </div>
-            <div class="pull-right">
+            <!-- <div class="pull-right">
             <button class="btn btn-primary" id="showModal">+Add New</button>
-            </div>
+            </div> -->
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -68,7 +68,8 @@
                     <th>Details</th>
                     <th>Capacity</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Price Day</th>
+                    <th>Price Night</th>
                     <th>Status</th>
                     <th>Date Added</th>
                     <th style="width:300px;text-align:center;">Actions</th>
@@ -88,6 +89,7 @@
                     <td><?php echo $row->capacity; ?></td>
                     <td><?php echo $row->quantity; ?></td>
                     <td><?php echo number_format($row->amount_per_hour,2); ?></td>
+                    <td><?php echo number_format($row->amount_per_night,2); ?></td>
                     <td><span class="<?php echo ($row->status == 'av' ? 'text-success' : 'text-danger'); ?>"><?php echo ($row->status == 'av' ? 'Active' : 'In-active'); ?></span></td>
                     <td><?php echo date('Y-m-d',strtotime($row->created_at)); ?></td>
                     <td align="center">

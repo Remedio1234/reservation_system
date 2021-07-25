@@ -25,7 +25,7 @@
 
                     <div class="form-label-group">
                         <label for="contact">Mobile No</label>
-                        <input type="number" id="contact" name="contact" class="form-control" placeholder="Ex.0932xxxxxx" required >
+                        <input type="number" id="contact" name="contact" class="form-control" maxlength="11" placeholder="Ex.0932xxxxxx" required >
                     </div>
 
                     <div class="form-label-group">
@@ -34,12 +34,12 @@
                     </div>
 
 
-                <div class="custom-control custom-checkbox mb-3">
+                <!-- <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" name="terms_and_condition" id="terms_and_condition" required>
                     <label class="custom-control-label" for="terms_and_condition">I accept <a href="javascript:void(0);">Terms and Condition</a> </label>
-                </div>
+                </div> -->
 
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
                 </form>
             </div>
         </div>

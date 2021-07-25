@@ -53,13 +53,15 @@
                     [
                         'vendor/font-awesome/css/font-awesome.min.css',
                         'vendor/bootstrap/css/bootstrap.min.css',
-                        'css/heroic-features.css'
+                        'css/heroic-features.css',
+                        'vendor/toastr/toastr.css'
                     ]
                 ),
                 'js' => $temp->_js(
                     [
                         'vendor/jquery/jquery.min.js',
-                        'vendor/bootstrap/js/bootstrap.bundle.min.js'
+                        'vendor/bootstrap/js/bootstrap.bundle.min.js',
+                        'vendor/toastr/toastr.js'
                     ]
                 ),
 
@@ -265,6 +267,30 @@
             ];
         break;
 
+        case 'guest':
+            $page = 'pages/guest/reserved.php';
+            $data = [
+                'conn' => $dbConn,
+                'page' => 'reservations',
+                'active' => 'reservations',
+                'title' => 'Reservations | ' . $site_title,
+                'css' => $temp->_css(
+                    [
+                        'vendor/font-awesome/css/font-awesome.min.css',
+                        'vendor/bootstrap/css/bootstrap.min.css',
+                        'css/heroic-features.css'
+                    ]
+                ),
+                'js' => $temp->_js(
+                    [
+                        'vendor/jquery/jquery.min.js',
+                        'vendor/bootstrap/js/bootstrap.bundle.min.js'
+                    ]
+                ),
+
+            ];
+        break;
+
         case 'login':
             if (isset($_SESSION['customer']['isLoggedIn'])) {
 				header("location:?v=home");
@@ -308,13 +334,15 @@
                                 'vendor/font-awesome/css/font-awesome.min.css',
                                 'vendor/bootstrap/css/bootstrap.min.css',
                                 'css/heroic-features.css',
-                                'css/account-features.css'
+                                'css/account-features.css',
+                                'vendor/toastr/toastr.css'
                                 ]
                 ),
                 'js'        =>  $temp->_js(
                                 [
                                 'vendor/jquery/jquery.min.js',
-                                'vendor/bootstrap/js/bootstrap.bundle.min.js'
+                                'vendor/bootstrap/js/bootstrap.bundle.min.js',
+                                'vendor/toastr/toastr.js'
                                 ]
                 ),
 

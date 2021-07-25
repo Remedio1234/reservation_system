@@ -12,8 +12,8 @@
             include_once("pages/reports/customers.php");
         break;
 
-        case 'venues':
-            include_once("pages/reports/venues.php");
+        case 'amenities':
+            include_once("pages/reports/amenities.php");
         break;
 
         case 'events':
@@ -43,10 +43,7 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-vcard-o" style="font-size:10em;"></span></center>
                     <div class="table-responsive">
-                        <a href="<?php 
-                        echo "javascript://;"
-                        //echo WEB_ROOT . 'admin-panel/?v=reports&page=customers';
-                         ?>" 
+                        <a href="<?php echo  WEB_ROOT . 'admin-panel/?v=reports&page=customers';?>" 
                         class="btn btn-success btn-lg btn-block" >
                         <span class="fa fa-fw fa-folder-open"></span> View Report</a>
                     </div>
@@ -64,10 +61,7 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-home" style="font-size:10em;"></span></center>
                     <div class="table-responsive  text-center">
-                        <a href="<?php 
-                        echo 'javascript://;'
-                        //WEB_ROOT . 'admin-panel/?v=reports&page=venues';
-                         ?>" class="btn btn-success btn-lg btn-block"><span class="fa fa-fw fa-folder-open"></span> View Reports</a>
+                        <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports&page=amenities';?>" class="btn btn-success btn-lg btn-block"><span class="fa fa-fw fa-folder-open"></span> View Reports</a>
                     </div>
                 </div>
             </div>

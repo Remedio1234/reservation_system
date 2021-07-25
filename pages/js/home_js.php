@@ -1,5 +1,15 @@
 <script>
-    $(document).ready(function() {  
+    $(document).ready(function() {
+        
+        $('#dateFrom').dateTimePicker();
+        $('#dateTo').dateTimePicker();
+        var dateFrom = $("#dateFrom").text();
+        var dateTo = $("#dateFrom").text();
+        var a = dateFrom.replace(/(<([^>]+)>)/gi, "");
+        var b = dateFrom.replace(/(<([^>]+)>)/gi, "");
+        $("#txtDateFrom").val(a)
+       $("#txtDateTo").val(b)
+
     // Restricts input for the given textbox to the given inputFilter.
     function setInputFilter(textbox, inputFilter) {
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
@@ -25,28 +35,28 @@
         }
     );
 
-    var dtToday = new Date();
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
+    // var dtToday = new Date();
+    // var month = dtToday.getMonth() + 1;
+    // var day = dtToday.getDate();
+    // var year = dtToday.getFullYear();
 
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
+    // if(month < 10)
+    //     month = '0' + month.toString();
+    // if(day < 10)
+    //     day = '0' + day.toString();
     
-    var minDate= year + '-' + month + '-' + day;
-    $('#txtDateTo').attr('min', minDate);
-    $('#txtDateFrom').attr('min', minDate);
+    // var minDate= year + '-' + month + '-' + day;
+    // $('#txtDateTo').attr('min', minDate);
+    // $('#txtDateFrom').attr('min', minDate);
 
-    Date.prototype.toDateInputValue = (function() {
-        var local = new Date(this);
-        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-        return local.toJSON().slice(0,10);
-    });
+    // Date.prototype.toDateInputValue = (function() {
+    //     var local = new Date(this);
+    //     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    //     return local.toJSON().slice(0,10);
+    // });
 
-    document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
-    document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
+    // document.getElementById('txtDateTo').value      = new Date().toDateInputValue();
+    // document.getElementById('txtDateFrom').value    = new Date().toDateInputValue();
 
     var d1      = $("#txtDateFrom").val(); 
     var d2      = $("#txtDateTo").val()     
@@ -140,8 +150,8 @@
 
         var mapData = new myClass();
             mapData.loadMap({
-                txtDateFrom: dateFrom_default,
-                txtDateTo  : dateTo_default
+                txtDateFrom: dateFrom_default.trim(),
+                txtDateTo  : dateTo_default.trim()
             });
 
         $(document).on('click', '.book_now', function(e){
@@ -165,27 +175,59 @@
             
             if(status == 0){
                 toastr.error('Not Available','Message', {
-                    positionClass:'toast-bottom-right',
+                    positionClass:'toast-top-right',
+                })
+                return;
+            }
+
+            if(status == 2){
+                toastr.warning('Under Maintenance','Message', {
+                    positionClass:'toast-top-right',
                 })
                 return;
             }
 
             if(dateFrom == "" && dateTo == ""){
                 toastr.error('Please select a date','Message',{
-                    positionClass:'toast-bottom-right',
+                    positionClass:'toast-top-right',
                 })
                 return;
             }   
 
             if(date1.getTime() > date2.getTime()){
-                toastr.error('Invalid date.Please try again!','Message',{
-                    positionClass:'toast-bottom-right',
+                toastr.error('Invalid date.Please try again.','Message',{
+                    positionClass:'toast-top-right',
                 })
                 return;
             }
 
+            if(dateFrom == dateTo){
+                toastr.error('Invalid date.Please try again.','Message',{
+                    positionClass:'toast-bottom-right',
+                })
+                return;
+            }  
+
             const diffTime      = Math.abs(date2 - date1);
             var diffDays        = parseInt(Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1); 
+
+            function getNumberOfDays(start, end) {
+                const date1 = new Date(start);
+                const date2 = new Date(end);
+
+                // One day in milliseconds
+                const oneDay = 1000 * 60 * 60 * 24;
+
+                // Calculating the time difference between two dates
+                const diffInTime = date2.getTime() - date1.getTime();
+
+                // Calculating the no. of days between two dates
+                const diffInDays = Math.round(diffInTime / oneDay);
+
+                return diffInDays;
+            }
+
+            var days = getNumberOfDays(date1, date2)
        
             mapData.checkAuth({
                 category    : category,
@@ -197,7 +239,7 @@
                 amenity_id  : amenity_id,
                 category_id : category_id,
                 price       : 0,
-                days        : diffDays,
+                days        : (parseInt(days) == 0 ? 1 : days),
                 available   : available
             })
  
@@ -221,8 +263,8 @@
                     $("#txt_date_from").text(dateFrom)
                     $("#txt_date_to").text(dateTo)
                     mapData.loadMap({
-                        txtDateFrom: dateFrom,
-                        txtDateTo  : dateTo
+                        txtDateFrom: dateFrom.trim(),
+                        txtDateTo  : dateTo.trim()
                     }); 
                 }
             } else {

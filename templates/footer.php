@@ -24,7 +24,7 @@
 
                         <div class="form-label-group">
                             <label for="contact">Mobile No</label>
-                            <input type="number" id="contact" name="contact" class="form-control" placeholder="Ex.0932xxxxxx" required >
+                            <input type="number" id="contact" name="contact" class="form-control" maxlength="11" placeholder="09xxxxxxxxx" required >
                         </div>
 
                         <div class="form-label-group">
@@ -225,15 +225,28 @@
                         </tr>
                     `
                 }
-                output +=  `
+                
+                
+            
+                if(cart.length == 0){
+                    output +=  `
                     <tr>
-                        <td colspan='7'>&nbsp;</td>
-                        <td><strong>Total:</strong></td>
-                        <td><strong>${shoppingCart.totalCart()}</strong></td>
-                        <td>&nbsp;</td>
+                        <td colspan='10'>No records found.</td>
                     </tr>
                 `
-                $('.show-cart').find('tbody').html(output);
+                    $('.show-cart').find('tbody').html(output);
+                } else {
+                    output +=  `
+                        <tr>
+                            <td colspan='7'>&nbsp;</td>
+                            <td><strong>Total:</strong></td>
+                            <td><strong>${shoppingCart.totalCart()}</strong></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    `
+
+                    $('.show-cart').find('tbody').html(output);
+                }
             }
 
             $('.show-cart').on("click", ".delete-item", function(event) {
@@ -248,7 +261,7 @@
                 var category        = $("#input_category").val()
                 var name            = $("#input_name").val()
                 var date_from       = $("#input_date_from").val()
-                var date_to         = $("#input_date_from").val()
+                var date_to         = $("#input_date_to").val()
                 var price           = $("#input_price_per_day").val()
                 var days            = $("#input_total_days").val()
                 var quantity        = $("#input_quantity").val()
@@ -269,7 +282,7 @@
             })
 
             function reservationData(guest){
-                if(confirm("Are you sure?")) {
+                if(confirm("Are you sure to submit this data?")) {
                     var fullname        = $("#fullname").val()
                     var email_address   = $("#email_address").val()
                     var contact         = $("#contact").val()
@@ -311,7 +324,36 @@
             $(document).on('submit', '#form-guest-submit', function(e){
                 e.preventDefault()
                 if(cart.length){
-                    reservationData(1)
+                    if(!(/^(09|\+639)\d{9}$/.test($("#contact").val()))){
+                        toastr.error('Invalid Mobile No.Please try again.','Message', {
+                            positionClass:'toast-top-right',
+                        })
+                        return
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo WEB_ROOT . 'execute/checker.php' ?>",
+                        data: {
+                            email_address: $("#email_address").val()
+                        },
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                            if(data.response == 'success'){
+                                reservationData(1)
+                            } else {
+                                toastr.error('Email address Already Exist.Please check and try again.','Message', {
+                                    positionClass:'toast-top-right',
+                                })
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("Error : " + xhr.status)
+                        }
+                    });
+                    return false
+
+                    
                 }
             })
 

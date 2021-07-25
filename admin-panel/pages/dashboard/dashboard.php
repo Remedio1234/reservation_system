@@ -103,7 +103,7 @@
     <!-- Example DataTables Card-->
     <div class="card mb-3">
         <div class="card-header">
-            <h5>Recent Reservations</h5>
+            <h5>10 Recent Reservations</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">

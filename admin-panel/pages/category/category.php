@@ -10,9 +10,9 @@
         <div class="pull-left">
         <h4>List Of Category </h4>
         </div>
-        <div class="pull-right">
+        <!-- <div class="pull-right">
         <button class="btn btn-primary" id="showModal">+Add New</button>
-        </div>
+        </div> -->
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -40,7 +40,7 @@
                     <td><?php echo date('Y-m-d',strtotime($row['created_at'])); ?></td>
                     <td align="center">
                         <a href="javascript:void(0);" class="btn btn-success btn-sm" data-id="<?php echo $row['id']; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="javascript:void(0);" class="btn btn-danger btn-sm" data-id="<?php echo $row['id']; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>
+                        <!-- <a href="javascript:void(0);" class="btn btn-danger btn-sm" data-id="<?php echo $row['id']; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a> -->
                     </td>
                 </tr>
                 <?php } ?>

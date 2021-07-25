@@ -18,7 +18,7 @@
                                 <div class="form-group col-md-2">
                                     <select class="form-control" name="status" id="status">
                                         <?php
-                                            $options = ['' => 'All Status','pen' => 'pending', 'av' =>  'Active', 'na'=>'InActive'];
+                                            $options = ['' => 'All Status','active' =>  'Active', 'inactive'=>'InActive'];
                                         ?>
                                     <?php foreach ($options as $key => $status) { ?>
                                         <option <?php echo (@$_POST['status'] == $key ? 'selected' : ''); ?> value="<?php echo $key; ?>"><?php echo $status; ?></option>
@@ -57,7 +57,6 @@
                                                 <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Customer ID</th>
                                                     <th>Username</th>
                                                     <th>Fullname</th>
                                                     <th>Email</th>
@@ -71,14 +70,13 @@
                                                     if(isset($_POST['btn_search']) && !empty($_POST['status'])) :
                                                     $query = $data['conn']->query("SELECT * FROM tbl_customers WHERE status = '".$_POST['status']."' ORDER BY customer_id ASC");
                                                     else :
-                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers ORDER BY customer_id ASC");
+                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers ORDER BY id ASC");
                                                     endif;
                                                     if($query->rowCount() > 0) : 
                                                     $i = 0; while ($row = $query->fetch(PDO::FETCH_OBJ)) { $i++;
                                                         ?>
                                                         <tr>
-                                                            <td><?php echo $i; ?></td>
-                                                            <td><?php echo $row->customer_id; ?></td>
+                                                            <td><?php echo $row->id; ?></td>
                                                             <td><?php echo $row->username; ?></td>
                                                             <td><?php echo (($row->fullname) ? $row->fullname : 'NA'); ?></td>
                                                             <td><?php echo $row->email_address; ?></td>

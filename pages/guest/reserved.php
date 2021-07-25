@@ -1,4 +1,9 @@
-<?php 
+<?php
+    $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE reservation_id  = '".$_GET['reservation_id']."'");
+    // $profile = $dbConn->query("SELECT * FROM tbl_profile ")->fetch(PDO::FETCH_ASSOC);
+    // while ($row = $query->fetch(PDO::FETCH_OBJ)) {
+    //     echo $row->id;
+    // }
     function status($status)
     {
         switch ($status) {
@@ -13,25 +18,19 @@
         }
     }
 ?>
-<div class="container">
-    <div class="row my-5">
-       <?php include_once('pages/dashboard/menu.php'); ?>
-        <div class="col-lg-9" style="margin-bottom:5em;">
-            <div class="card card-outline-secondary">
-                <div class="card-header">
-                Reservations
-                </div>
-                <div class="card-body" style="padding-top:0em;">
-                    <?php include_once('pages/dashboard/profile.php'); ?>
-                    <hr>
-                    <h3>Reservations</h3>
-                    <table class="table table-stripped" id="dataTable" width="100%" cellspacing="0">
+    <div class="container">
+        <br/>
+        <div class="card mt-5 my-5" id="printArea">
+            <div class="card-body">
+                <h4 class="text-center"><strong>Reservation</strong></h4>
+                <div class="table-responsive-sm">
+                <table class="table table-stripped" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Reservation ID</th>
                             <th>Total</th>
-                            <th>Date</th>
+                            <th>Reserved Date</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -39,7 +38,7 @@
                         <tbody>
                         
                         <?php
-                        $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE customer_id  = '". @$_SESSION['customer']['customer_id'] ."'");
+                        // $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE customer_id  = '". @$_SESSION['customer']['customer_id'] ."'");
                         while ($row = $query->fetch(PDO::FETCH_OBJ)) {
                             ?>
                             <tr>
@@ -74,11 +73,9 @@
                     </table>
                 </div>
             </div>
-            <!-- /.card -->
         </div>
-            <!-- /.col-lg-9 -->
     </div>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="reservationDetailsModal" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

@@ -16,8 +16,9 @@
                                 class="control-label">
                                 <strong>Date From</strong>
                         </label>
+                            <div id="dateFrom"> </div>
                             <input 
-                                type="date" 
+                                type="hidden" 
                                 id="txtDateFrom" 
                                 class="form-control" 
                                 name="txtDateFrom"  
@@ -32,8 +33,9 @@
                                 class="control-label">
                                 <strong>Date To</strong>
                             </label>
+                            <div id="dateTo"> </div>
                             <input 
-                                type="date" 
+                                type="hidden" 
                                 id="txtDateTo" 
                                 class="form-control" 
                                 name="txtDateTo"
@@ -73,6 +75,16 @@
         </div>
         
         <div class="col-md-12" style="border: 1px solid #f3f3f3;background:#f9f9f9;">
+            <p class="mt-2">
+                <button type="button" class="btn btn-success">Available</button> 
+                <button type="button" class="btn btn-danger">Not Available</button> 
+                <button type="button" class="btn btn-warning">Under Maintenance</button> 
+            </p>
+            <div style="background: url(assets/images/bg-map.gif) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;height:50px"></div>
             <div id="load_map"></div>
         </div>
     </div>

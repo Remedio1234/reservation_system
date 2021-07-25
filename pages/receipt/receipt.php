@@ -1,6 +1,7 @@
 <?php
     if(!isset($_GET['reservation_id']))
         header("location:?v=home");
+        
         $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE id  = '".@$_GET['reservation_id']."'");
         $row = $query->fetch(PDO::FETCH_OBJ);
     if(!$row) {
@@ -22,19 +23,28 @@
     <div class="container">
         <div class="card mt-5 my-5" id="printArea">
             <div class="card-header">
-                Reservation ID:
-                <strong><?php echo $row->reservation_id; ?> &nbsp; Date:  <em style="color:darkred;">
-                <?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></em></strong> 
+            Reservation Details
+               
                 <span class="float-right"> <strong>Status:</strong> <span class="text-warning">Pending</span> </span>
             </div>
             <div class="card-body">
-                <h4 class="text-center"><strong>Reservation Details</strong></h4>
+                <h4 class="text-center"><strong>
+                Reservation ID:
+                <strong "><u style="color:green;"><?php echo $row->reservation_id; ?></u>
+                    <h6>Date:  <em style="color:darkred;">
+                    <?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></em></strong> 
+                </strong>
+                </h6>
+                </h4>
                 <div class="row mb-4">
                     <div class="col-sm-8">
                         <h6 class="mb-3">Hello, <?php echo ucfirst(@$profile['fullname']); ?></h6>
                         <div>
                             <p> Thank you for making your reservation with us. </p>
                             <p>If you have any questions, please call us or use the contact page for further help!</p>
+                            <h5>Note:
+                           <em style="color:#dc4242;"> Be sure to copy or save the <strong>RESERVATION ID</strong> for checking the status of your reservation.</em>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -60,8 +70,8 @@
                                 <td><?php echo $detail->name ?></td>
                                 <td><?php echo $detail->category ?></td>
                                 <td><?php echo $detail->date_from ?></td>
-                                <td><?php echo $detail->total_days ?></td>
                                 <td><?php echo $detail->date_to ?></td>
+                                <td><?php echo $detail->total_days ?></td>
                                 <td><?php echo $detail->price ?></td>
                                 <td><?php echo $detail->quantity ?></td>
                                 <td><strong><?php echo number_format($detail->total_amount,2) ?></strong></td>

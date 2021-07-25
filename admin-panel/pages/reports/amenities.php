@@ -3,7 +3,7 @@
 				<div class="card ">
 					<div class="card-body">
 						<div class="float-left">
-                            <h3 class="card-title m-b-0 mt-1">Venues Report</h3>
+                            <h3 class="card-title m-b-0 mt-1">Amenities Report</h3>
                         </div>
                         <div class="float-right">
                             <a href="<?php echo WEB_ROOT . 'admin-panel/?v=reports'; ?>" class="btn btn-secondary">Back to report</a>
@@ -52,18 +52,19 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Venues List</h4>
+                                        <h4 class="card-title">Amenities List</h4>
                                         <div class="scroll-table" style="padding-top:0px;overflow-y: auto;height: 800px;">
                                             <table class="table table-bordered" id="venue" width="100%" cellspacing="0">
                                                 <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Venue ID</th>
-                                                    <th>Venue Name</th>
-                                                    <th>Venue Type</th>
-                                                    <th>Locations</th>
+                                                    <th>Name</th>
+                                                    <th>Category</th>
+                                                    <th>Details</th>
                                                     <th>Capacity</th>
-                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price Day</th>
+                                                    <th>Price Night</th>
                                                     <th>Status</th>
                                                     <th>Date</th>
                                                 </tr>
@@ -71,9 +72,11 @@
                                                 <tbody>
                                                     <?php
                                                     if (isset($_POST['btn_search']) && !empty($_POST['status'])) :
-                                                        $query = $data['conn']->query("SELECT * FROM tbl_amenities WHERE status = '" . $_POST['status'] . "' ORDER BY amenities_id ASC");
+                                                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a 
+                                                        JOIN tbl_categories c ON a.category_id = c.id WHERE a.status = '" . $_POST['status'] . "' ORDER BY a.id DESC");
                                                     else :
-                                                        $query = $data['conn']->query("SELECT * FROM tbl_amenities ORDER BY amenities_id ASC");
+                                                        $query = $data['conn']->query("SELECT a.*, c.name as category FROM tbl_amenities a 
+                                                        JOIN tbl_categories c ON a.category_id = c.id ORDER BY a.id DESC");
                                                     endif;
                                                     if ($query->rowCount() > 0) :
                                                         $i = 0;
@@ -81,16 +84,16 @@
                                                         $i++;
                                                         ?>
                                                         <tr>
-                                                            <td><?php echo $i; ?></td>
-                                                            <td><?php echo $row->amenities_id; ?></td>
-                                                            <td><?php echo ucfirst($row->name); ?></td>
-                                                            <td><?php echo ucfirst($row->venue_type); ?></td>
-                                                            <td><?php echo ucfirst($row->location); ?></td>
-                                                            <td><?php echo $row->capacity; ?></td>
-                                                            <td><?php echo number_format($row->amount_per_hour, 2); ?></td>
-                                                            <td><span class="<?php echo ($row->status == 'av' ? 'text-success' : 'text-danger'); ?>"><?php echo ($row->status == 'av' ? 'Active' : 'In-active'); ?></span></td>
-                                                            <td><?php echo date('Y-m-d', strtotime($row->created_at)); ?></td>
-                                                            
+                                                        <td><?php echo $row->id; ?></td>
+                                                        <td><?php echo ucfirst($row->name); ?></td>
+                                                        <td><?php echo ucfirst($row->category); ?></td>
+                                                        <td><?php echo ucfirst($row->details); ?></td>
+                                                        <td><?php echo $row->capacity; ?></td>
+                                                        <td><?php echo $row->quantity; ?></td>
+                                                        <td><?php echo number_format($row->amount_per_hour,2); ?></td>
+                                                        <td><?php echo number_format($row->amount_per_night,2); ?></td>
+                                                        <td><span class="<?php echo ($row->status == 'av' ? 'text-success' : 'text-danger'); ?>"><?php echo ($row->status == 'av' ? 'Active' : 'In-active'); ?></span></td>
+                                                        <td><?php echo date('Y-m-d',strtotime($row->created_at)); ?></td>
                                                         </tr>
                                                             <?php 
                                                         } ?>

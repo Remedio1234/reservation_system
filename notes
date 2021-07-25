@@ -1,0 +1,67 @@
+ALTER TABLE `tbl_amenities` ADD `amount_per_night` DOUBLE NULL AFTER `amount_per_hour`;
+UPDATE `tbl_amenities` SET amount_per_night = amount_per_hour
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   admin-panel/pages/amenities/amenities.php      
+        modified:   admin-panel/pages/category/category.php        
+        modified:   admin-panel/pages/customers/customers.php      
+        modified:   admin-panel/pages/dashboard/dashboard.php      
+        modified:   admin-panel/pages/js/reservations_js.php       
+        modified:   admin-panel/pages/reports/customers.php        
+        modified:   admin-panel/pages/reports/reports.php
+        deleted:    admin-panel/pages/reports/venues.php
+        modified:   admin-panel/pages/reservations/reservations.php
+        deleted:    admin-panel/uploads/company/1627066048mail.jpg 
+        modified:   api/user.api.php
+        deleted:    assets/images/chicago.jpg
+        deleted:    assets/images/la.jpg
+        deleted:    assets/images/ny.jpg
+        modified:   assets/vendor/datepicker/js/datetimepicker.js
+        modified:   database/db_dbror.sql
+        modified:   execute/checker.php
+        modified:   execute/controller.php
+        modified:   execute/map.php
+        modified:   index.php
+        modified:   pages/account/page-login.php
+        modified:   pages/account/page-register.php
+        modified:   pages/dashboard/reservations.php
+        modified:   pages/home/page-index.php
+        modified:   pages/js/account_js.php
+        modified:   pages/js/home_js.php
+        modified:   pages/js/reservations_js.php
+        modified:   pages/receipt/receipt.php
+        deleted:    profile/1538140879_bigstock-1592301471.jpg
+        deleted:    profile/1538218485_product-3.jpg
+        deleted:    profile/1557545550_56578191_831082993916813_2436973690814988288_n.jpg
+        deleted:    profile/1626864055_homepage.png
+        deleted:    profile/1627065067_mail.jpg
+        deleted:    profile/1627066547_mail.jpg
+        modified:   templates/footer.php
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        account/guest.php
+        admin-panel/pages/reports/amenities.php
+        admin-panel/uploads/company/1627217762logo.jpg
+        assets/images/bg-map.gif
+        assets/vendor/datepicker/js/datetimepicker
+        database/db_dbror-old.sql
+        execute/notes
+        execute/proof.php
+        execute/proof_file.php
+        pages/guest/
+        profile/default.jpg
+        proof1627190275homepage.png
+        proof1627190275mail.jpg
+        proof1627190474cab891c36123db6db412da4abb0dceea.jpg
+        proof1627190474homepage.png
+        proof1627190474mail.jpg
+
+no changes added to commit (use "git add" and/or "git commit -a")

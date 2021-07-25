@@ -1,9 +1,11 @@
 <?php
-    session_start();
-    
-    $response = ['login' => false];
-    if (isset($_SESSION['customer']['isLoggedIn']))
-        $response = ['login' => true];
-
-    echo  json_encode($response);
+    require_once('../library/config.php');
+    extract($_POST);
+    $check_customer = $dbConn->query("SELECT * FROM tbl_customers WHERE guest_id IS NULL AND email_address = '". $email_address."' ");
+    if($check_customer->rowCount() > 0) {
+            $response = ['response' => 'exist'];
+    } else {
+            $response = ['response' => 'success'];
+    }
+    echo json_encode($response);
 ?>

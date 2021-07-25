@@ -7,6 +7,24 @@
     ];
     switch ($action) {
         /* ============= RESERVATIONS MODULE =========== */
+        case 'admin-details':
+            $details = $dbConn->query("SELECT * FROM tbl_details WHERE reservation_id   = '".$_POST['reservation_id']."'"); 
+            $data    = array();
+            while ($detail = $details->fetch(PDO::FETCH_OBJ)) {
+                $data[] = $detail;
+            }
+
+            $proof      = $dbConn->query("SELECT * FROM tbl_proof_payment WHERE reservation_id   = '".$_POST['reservation_id']."'"); 
+            $file       = array();
+            while ($row = $proof->fetch(PDO::FETCH_OBJ)) {
+                $file[] = $row;
+            }
+            $response = [
+                'response'  => 'success',
+                'data'      => $data,
+                'proof'     => $file
+            ];
+        break;
         case 'details':
             $details = $dbConn->query("SELECT * FROM tbl_details WHERE reservation_id   = '".$_POST['reservation_id']."'"); 
             $data    = array();

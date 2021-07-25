@@ -36,17 +36,33 @@
 					];
 				// }
 			} else {
-				$response = ['response' => 'failed', 'message' => '<div class="alert alert-danger" role="alert">Account not Exist. Please check and try again.!</div>'];
+				$response = ['response' => 'failed', 'message' => '<div class="alert alert-danger" role="alert">Invalid username or password. Please try again.</div>'];
+			}
+			echo json_encode($response);
+		}
+
+		public function guest($post) {
+			$customer = $this->db->query("SELECT * FROM tbl_customers WHERE email_address = '" . $post['email_address'] . "'");
+			if ($customer->rowCount() > 0) {
+				$reserved = $this->db->query("SELECT * FROM tbl_reservations WHERE reservation_id = '" . $post['reservation_id'] . "'");
+				if ($reserved->rowCount() > 0) {
+					$row = $reserved->fetch(PDO::FETCH_OBJ);
+					$response = ['response' => 'success', 'reservation_id' => $row->reservation_id];
+				} else {
+					$response = ['response' => 'failed', 'message' => '<div class="alert alert-danger" role="alert">Invalid Reservation ID or Email. Please try again.</div>'];
+				}
+			} else {
+				$response = ['response' => 'failed', 'message' => '<div class="alert alert-danger" role="alert">Invalid Reservation ID or Email. Please try again.</div>'];
 			}
 			echo json_encode($response);
 		}
 
 		public function register($post) {
-			$check_customer = $this->db->query("SELECT * FROM tbl_customers WHERE username = '". $post['username']."' ");
+			$check_customer = $this->db->query("SELECT * FROM tbl_customers WHERE username = '". $post['username']."' or email_address = '". $post['email_address']."' ");
 			if($check_customer->rowCount() > 0) {
-					$response = ['response' => 'exist', 'message' => '<div class="alert alert-danger" role="alert">Username already taken. Please check and try again.!</div>'];
+					$response = ['response' => 'exist', 'message' => '<div class="alert alert-danger" role="alert">Username or Email already taken. Please check and try again.!</div>'];
 			} else {
-				$register = $this->db->query("INSERT INTO tbl_customers(fullname,username,password,email_address,profile, contact, address)VALUES('".$post['fullname']."','" . $post['username'] . "','" . md5($post['password']) . "','" . $post['email_address'] . "','default.jpg','" . $post['contact'] . "','" . $post['address'] . "')");
+				$register = $this->db->query("INSERT INTO tbl_customers(fullname,username,password,email_address,profile, contact, address, status)VALUES('".$post['fullname']."','" . $post['username'] . "','" . md5($post['password']) . "','" . $post['email_address'] . "','default.jpg','" . $post['contact'] . "','" . $post['address'] . "', 'active')");
 				if ($register) {
 					$query = $this->db->query("SELECT * FROM tbl_customers WHERE username = '" . $post['username'] . "' AND password = '".md5($post['password'])."' ");
 					$row = $query->fetch(PDO::FETCH_OBJ);

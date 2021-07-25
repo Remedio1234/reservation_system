@@ -20,7 +20,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Type</th>
+                    <!-- <th>Type</th> -->
                     <th style="width:8%;">Profile</th>
                     <th>Username</th>
                     <th>Fullname</th>
@@ -33,12 +33,12 @@
                 </thead>
                 <tbody>
                     <?php
-                    $query = $data['conn']->query("SELECT * FROM tbl_customers ORDER BY id DESC");
+                    $query = $data['conn']->query("SELECT * FROM tbl_customers WHERE guest_id IS NULL ORDER BY id DESC");
                     while ($row = $query->fetch(PDO::FETCH_OBJ)) {
                         ?>
                     <tr>
                         <td><?php echo $row->id; ?></td>
-                        <td><?php echo (!$row->guest_id) ? 'Customer' : 'Guest'; ?></td>
+                        <!-- <td><?php echo (!$row->guest_id) ? 'Customer' : 'Guest'; ?></td> -->
                         <td>
                             <?php if(!$row->guest_id) :?>
                                 <img style="width:50%;" src="<?php echo WEB_ROOT . 'profile/' . $row->profile; ?>"/>
@@ -59,8 +59,12 @@
                             <?php } ?>
                         </td>
                         <td align="center">
-                            <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
+                            <?php if(!$row->guest_id): ?>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
                             <!-- <a href="javascript:void(0);" class="btn btn-danger btn-sm mt-1" data-id="<?php echo $row->id; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>    -->
+                            <?php else: ?>
+                                NA
+                            <?php endif ?>    
                         </td>
                     </tr>
                             <?php 
