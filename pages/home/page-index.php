@@ -129,7 +129,7 @@
                         />  
                     <div class="form-label-group mb-2">
                         <label for="select_type">Type</label>
-                        <select name="select_type" id="select_type">
+                        <select name="select_type" id="select_type" class="form-control">
                             <option value="day">Day</option>
                             <option value="night">Night</option>
                         </select>

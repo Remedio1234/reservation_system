@@ -54,6 +54,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Type</th>
                                 <th>Category</th>
                                 <th>Date From</th>
                                 <th>Date To</th>
@@ -68,6 +69,7 @@
                             <tr>
                                 <td><?php echo $detail->id ?></td>
                                 <td><?php echo $detail->name ?></td>
+                                <td><?php echo ucfirst($detail->type) ?></td>
                                 <td><?php echo $detail->category ?></td>
                                 <td><?php echo $detail->date_from ?></td>
                                 <td><?php echo $detail->date_to ?></td>

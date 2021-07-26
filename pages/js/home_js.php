@@ -107,8 +107,8 @@
                 $("#input_date_to").val(obj.date_to)
                 $("#input_total_days").val(obj.days)
                 $("#input_price_per_day").val(obj.amount)
-                $("#hidden_amount_day").val(amount)
-                $("#hidden_amount_night").val(amountnight)
+                $("#hidden_amount_day").val(obj.amount)
+                $("#hidden_amount_night").val(obj.amountnight)
 
                 var total = parseFloat(obj.days * obj.amount)
 
@@ -144,9 +144,9 @@
 
             if(parseInt(qty1) > 0){
                 var final_total = parseFloat(total * qty1) 
-                $("#input_total_amount").val(final_total)
+                $("#input_total_amount").val(parseFloat(final_total).toFixed(2))
             } else {
-                $("#input_total_amount").val(total)
+                $("#input_total_amount").val(parseFloat(total).toFixed(2))
             }
         })
 
