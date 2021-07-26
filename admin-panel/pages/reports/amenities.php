@@ -18,7 +18,7 @@
                                 <div class="form-group col-md-2">
                                     <select class="form-control" name="status" id="status">
                                         <?php
-                                        $options = ['' => 'All Status','av' => 'Active', 'na' => 'InActive'];
+                                        $options = ['' => 'All','av' => 'Active', 'na' => 'InActive'];
                                         ?>
                                     <?php foreach ($options as $key => $status) { ?>
                                         <option <?php echo (@$_POST['status'] == $key ? 'selected' : ''); ?> value="<?php echo $key; ?>"><?php echo $status; ?></option>
@@ -40,7 +40,7 @@
                                     <a class="dropdown-item" href="javascript://" onclick="exportToVenues('csv');">CSV File</a>
                                     <a class="dropdown-item" href="javascript://" onclick="exportToVenues('xls');">Excel File</a>
                                     <!-- <a class="dropdown-item" href="javascript://" onclick="exportToVenues('xlsx');">XLSX</a> -->
-                                    <a class="dropdown-item" href="javascript://" onclick="exportToVenues('txt');">Plain Text</a>
+                                    <!-- <a class="dropdown-item" href="javascript://" onclick="exportToVenues('txt');">Plain Text</a> -->
                                 </div>
                             </div>
                         </div>

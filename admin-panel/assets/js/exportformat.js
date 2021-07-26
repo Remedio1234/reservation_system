@@ -1,6 +1,6 @@
 function exportToCustomer(type) {
     $('#customer').tableExport({
-        filename: 'customer_%DD%-%MM%-%YY%',
+        filename: 'Customers_%DD%-%MM%-%YY%',
         format: type,
         cols: '1,2,3,4,5,6,7,8'
     });
@@ -8,9 +8,9 @@ function exportToCustomer(type) {
 
 function exportToVenues(type) {
     $('#venue').tableExport({
-        filename: 'Venues_%DD%-%MM%-%YY%',
+        filename: 'Amenities_%DD%-%MM%-%YY%',
         format: type,
-        cols: '1,2,3,4,5,6,7,8,9'
+        cols: '1,2,3,4,5,6,7,8,9,10'
     });
 }
 
@@ -34,6 +34,6 @@ function exportToReservations(type) {
     $('#reservations').tableExport({
         filename: 'Reservations_%DD%-%MM%-%YY%',
         format: type,
-        cols: '1,2,3,4,5,6,7,8,9,10'
+        cols: '1,2,3,4,5,6,7,8,9,10,11,12,13'
     });
 }

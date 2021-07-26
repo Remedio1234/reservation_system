@@ -33,7 +33,7 @@ function status($status)
                         <div class="form-group col-md-2">
                             <select class="form-control" name="status" id="status">
                                 <?php
-                                $options = ['' => 'All Status', 'pending' => 'Pending', 'approved' => 'Approved', 'cancelled' => 'Cancelled'];
+                                $options = ['' => 'All', 'pending' => 'Pending', 'approved' => 'Approved', 'cancelled' => 'Cancelled'];
                                 ?>
                             <?php foreach ($options as $key => $status) { ?>
                                 <option <?php echo (@$_POST['status'] == $key ? 'selected' : ''); ?> value="<?php echo $key; ?>"><?php echo $status; ?></option>
@@ -55,7 +55,7 @@ function status($status)
                             <a class="dropdown-item" href="javascript://" onclick="exportToReservations('csv');">CSV File</a>
                             <a class="dropdown-item" href="javascript://" onclick="exportToReservations('xls');">Excel File</a>
                             <!-- <a class="dropdown-item" href="javascript://" onclick="exportToReservations('xlsx');">XLSX</a> -->
-                            <a class="dropdown-item" href="javascript://" onclick="exportToReservations('txt');">Plain Text</a>
+                            <!-- <a class="dropdown-item" href="javascript://" onclick="exportToReservations('txt');">Plain Text</a> -->
                         </div>
                     </div>
                 </div>
@@ -75,12 +75,15 @@ function status($status)
                                             <th>ID</th>
                                             <th>Reservation ID</th>
                                             <th>Fullname</th>
-                                            <th>Venues</th>
-                                            <th>Events</th>
-                                            <th>Caterers</th>
-                                            <th>DateFrom</th>
-                                            <th>DateTo</th>
+                                            <th>Contact</th>
+                                            <th>Email</th>
+                                            <th>Date From</th>
+                                            <th>Date To</th>
+                                            <th>Price</th>
+                                            <th>Days</th>
+                                            <th>Quantity</th>
                                             <th>Total</th>
+                                            <th>Date</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
@@ -88,44 +91,18 @@ function status($status)
                                             <?php
                                             if (isset($_POST['btn_search']) && !empty($_POST['status'])) :
                                                 $query = $data['conn']->query("SELECT 
-                                                    cus.fullname,
-                                                    res.id,
-                                                    res.reservation_id, 
-                                                    res.total_hours,
-                                                    res.sub_total,
-                                                    res.total,
-                                                    res.date_from,
-                                                    res.date_to,
-                                                    res.date_applied,
-                                                    res.status,
-                                                    ev.name,
-                                                    ven.name,
-                                                    cat.caterers_name 
-                                                    FROM tbl_reservations res 
-                                                    INNER JOIN tbl_customers cus ON cus.customer_id = res.customer_id
-                                                    INNER JOIN tbl_amenities ven ON ven.amenities_id = res.amenities_id 
-                                                    INNER JOIN tbl_categories ev ON ev.category_id = res.category_id 
-                                                    LEFT JOIN tbl_caterers cat ON cat.caterers_id = res.caterers_id WHERE res.status = '" . $_POST['status'] . "' ORDER BY res.reservation_id ASC");
-                                                                                        else :
-                                                                                            $query = $data['conn']->query("SELECT 
-                                                    cus.fullname,
-                                                    res.id,
-                                                    res.reservation_id, 
-                                                    res.total_hours,
-                                                    res.sub_total,
-                                                    res.total,
-                                                    res.date_from,
-                                                    res.date_to,
-                                                    res.date_applied,
-                                                    res.status,
-                                                    ev.name,
-                                                    ven.name,
-                                                    cat.caterers_name 
-                                                    FROM tbl_reservations res 
-                                                    INNER JOIN tbl_customers cus ON cus.customer_id = res.customer_id
-                                                    INNER JOIN tbl_amenities ven ON ven.amenities_id = res.amenities_id 
-                                                    INNER JOIN tbl_categories ev ON ev.category_id = res.category_id 
-                                                    LEFT JOIN tbl_caterers cat ON cat.caterers_id = res.caterers_id ORDER BY res.reservation_id ASC");
+                                                dd.date_from,dd.date_to,dd.price, dd.quantity, dd.total_days,dd.total_amount,
+                                                dd.id, rr.reservation_id, rr.status, rr.date_applied, rr.customer_id, cc.fullname,
+                                                cc.contact, cc.email_address,cc.address, rr.date_applied FROM tbl_reservations rr 
+                                                INNER JOIN tbl_details dd ON dd.reservation_id = rr.id
+                                                INNER JOIN tbl_customers cc ON rr.customer_id = cc.id OR rr.guest_id = cc.guest_id where rr.status = '" . $_POST['status'] . "'");
+                                                    else :
+                                                    $query = $data['conn']->query("SELECT 
+                                                    dd.date_from,dd.date_to,dd.price, dd.quantity, dd.total_days,dd.total_amount,
+                                                    dd.id, rr.reservation_id, rr.status, rr.date_applied, rr.customer_id, cc.fullname,
+                                                    cc.contact, cc.email_address,cc.address, rr.date_applied FROM tbl_reservations rr 
+                                                    INNER JOIN tbl_details dd ON dd.reservation_id = rr.id
+                                                    INNER JOIN tbl_customers cc ON rr.customer_id = cc.id OR rr.guest_id = cc.guest_id");
                                             endif;
                                             if ($query->rowCount() > 0) :
                                                 $i = 0;
@@ -133,22 +110,25 @@ function status($status)
                                                 $i++;
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $row->id; ?></td>
                                                     <td><?php echo $row->reservation_id; ?></td>
                                                     <td><?php echo $row->fullname; ?></td>
-                                                    <td><?php echo $row->name; ?></td>
-                                                    <td><?php echo $row->name; ?></td>
-                                                    <td><?php echo ($row->caterers_name) ? $row->caterers_name : 'NA'; ?></td>
+                                                    <td><?php echo $row->contact; ?></td>
+                                                    <td><?php echo $row->email_address; ?></td>
                                                     <td><?php echo $row->date_from; ?></td>
                                                     <td><?php echo $row->date_to; ?></td>
-                                                    <td><strong><?php echo number_format($row->total, 2); ?></strong></td>
+                                                    <td><?php echo $row->price; ?></td>
+                                                    <td><?php echo $row->total_days; ?></td>
+                                                    <td><?php echo $row->quantity; ?></td>
+                                                    <td><strong><?php echo number_format($row->total_amount, 2); ?></strong></td>
+                                                    <td><?php echo date('M d, Y, d H:i:s', strtotime($row->date_applied)); ?></td>
                                                     <td><?php echo status($row->status); ?></td>
                                                 </tr>
                                                     <?php 
                                                 } ?>
                                                 <?php else : ?>
                                                 <tr>
-                                                    <td colspan="10">No records found.!</td>
+                                                    <td colspan="13">No records found.!</td>
                                                 </tr>
                                             <?php endif; ?>
                                     

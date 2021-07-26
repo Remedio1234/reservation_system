@@ -18,7 +18,7 @@
                                 <div class="form-group col-md-2">
                                     <select class="form-control" name="status" id="status">
                                         <?php
-                                            $options = ['' => 'All Status','active' =>  'Active', 'inactive'=>'InActive'];
+                                            $options = ['' => 'All','active' =>  'Active', 'inactive'=>'InActive'];
                                         ?>
                                     <?php foreach ($options as $key => $status) { ?>
                                         <option <?php echo (@$_POST['status'] == $key ? 'selected' : ''); ?> value="<?php echo $key; ?>"><?php echo $status; ?></option>
@@ -39,7 +39,7 @@
                                     <a class="dropdown-item" href="javascript://" onclick="exportToCustomer('csv');">CSV File</a>
                                     <a class="dropdown-item" href="javascript://" onclick="exportToCustomer('xls');">Excel File</a>
                                     <!-- <a class="dropdown-item" href="javascript://" onclick="exportToCustomer('xlsx');">XLSX</a> -->
-                                    <a class="dropdown-item" href="javascript://" onclick="exportToCustomer('txt');">Plain Text</a>
+                                    <!-- <a class="dropdown-item" href="javascript://" onclick="exportToCustomer('txt');">Plain Text</a> -->
                                 </div>
                             </div>
                         </div>
@@ -68,9 +68,9 @@
                                                 <tbody>
                                                     <?php
                                                     if(isset($_POST['btn_search']) && !empty($_POST['status'])) :
-                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers WHERE status = '".$_POST['status']."' ORDER BY customer_id ASC");
+                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers WHERE guest_id IS NULL AND status = '".$_POST['status']."' ORDER BY customer_id ASC");
                                                     else :
-                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers ORDER BY id ASC");
+                                                    $query = $data['conn']->query("SELECT * FROM tbl_customers WHERE guest_id IS NULL ORDER BY id ASC");
                                                     endif;
                                                     if($query->rowCount() > 0) : 
                                                     $i = 0; while ($row = $query->fetch(PDO::FETCH_OBJ)) { $i++;

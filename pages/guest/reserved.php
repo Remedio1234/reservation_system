@@ -1,9 +1,13 @@
 <?php
+    if(!isset($_GET['reservation_id']))
+        header("location:?v=home");
+        
     $query = $data['conn']->query("SELECT * FROM tbl_reservations WHERE reservation_id  = '".$_GET['reservation_id']."'");
-    // $profile = $dbConn->query("SELECT * FROM tbl_profile ")->fetch(PDO::FETCH_ASSOC);
-    // while ($row = $query->fetch(PDO::FETCH_OBJ)) {
-    //     echo $row->id;
-    // }
+    $row = $query->fetch(PDO::FETCH_OBJ);
+    if(!$row) 
+        header("location:?v=home");
+    
+
     function status($status)
     {
         switch ($status) {

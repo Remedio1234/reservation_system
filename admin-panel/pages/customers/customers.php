@@ -10,9 +10,11 @@
         <div class="pull-left">
         <h4>List Of Customers </h4>
         </div>
+        <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
         <div class="pull-right">
-        <button class="btn btn-primary" id="showModal">+Add New</button>
+            <button class="btn btn-primary" id="showModal">+Add New</button>
         </div>
+        <?php endif ?>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -28,7 +30,9 @@
                     <th>Contact</th>
                     <th>Address</th>
                     <th>Status</th>
+                    <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                     <th style="width:15%;text-align:center;">Actions</th>
+                    <?php endif ?>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,6 +62,7 @@
                             <span class="text-danger">In-Active</span>
                             <?php } ?>
                         </td>
+                        <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                         <td align="center">
                             <?php if(!$row->guest_id): ?>
                                 <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
@@ -66,6 +71,7 @@
                                 NA
                             <?php endif ?>    
                         </td>
+                        <?php endif ?>
                     </tr>
                             <?php 
                         } ?>

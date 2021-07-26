@@ -28,12 +28,14 @@
                         </div>
                     </h4>
                 </div>
+                <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                 <a class="card-footer text-white clearfix small z-1" href="<?php echo WEB_ROOT . 'admin-panel/?v=category'; ?>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
                 </span>
                 </a>
+                <?php endif ?>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -49,12 +51,14 @@
                         </div>
                     </h4>
                 </div>
+                <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                 <a class="card-footer text-white clearfix small z-1" href="<?php echo WEB_ROOT . 'admin-panel/?v=amenities'; ?>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
                 </span>
                 </a>
+                <?php endif ?>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -70,12 +74,14 @@
                         </div>
                     </h4>
                 </div>
+                <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                 <a class="card-footer text-white clearfix small z-1" href="<?php echo WEB_ROOT . 'admin-panel/?v=reservations'; ?>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
                 </span>
                 </a>
+                <?php endif ?>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -91,12 +97,14 @@
                         </div>
                     </h4>
                 </div>
+                <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
                 <a class="card-footer text-white clearfix small z-1" href="<?php echo WEB_ROOT . 'admin-panel/?v=customers'; ?>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
                 </span>
                 </a>
+                <?php endif ?>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@
     </ol>
     
     <div class="row">
+        <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
         <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header">
@@ -16,12 +17,12 @@
                 <div class="card-body">
                     <center><span class="fa fa-fw fa-gear" style="font-size:10em;"></span></center>
                     <div class="table-responsive">
-                    <a href="javascript:void(0);" class="btn btn-success btn-block" id="editProfile"><span class="fa fa-fw fa-pencil"></span> Edit Profile</a>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-block" id="editProfile"><span class="fa fa-fw fa-pencil"></span> Edit Profile</a>
                     </div>
                 </div>
             </div>
         </div>
-
+        <?php endif ?>    
         <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header">
@@ -32,7 +33,7 @@
                 <div class="card-body">
                 <center><span class="fa fa-fw fa-key" style="font-size:10em;"></span></center>
                     <div class="table-responsive  text-center">
-                        <a href="javascript:void(0);" class="btn btn-success btn-block" id="editAccount"><span class="fa fa-fw fa-pencil"></span>  Edit Account</a>
+                        <a href="javascript:void(0);" class="btn btn-primary btn-block" id="editAccount"><span class="fa fa-fw fa-pencil"></span>  Edit Account</a>
                     </div>
                 </div>
             </div>

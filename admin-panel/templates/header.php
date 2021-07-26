@@ -31,13 +31,14 @@
                 <span class="nav-link-text">Dashboard</span>
             </a>
             </li>
+            <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
+                <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'category' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Events">
+                <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=category'; ?>">
+                    <i class="fa fa-fw fa fa-hand-o-right"></i>
+                    <span class="nav-link-text">Categories</span>
+                </a>
+                </li>
             
-            <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'category' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Events">
-            <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=category'; ?>">
-                <i class="fa fa-fw fa fa-hand-o-right"></i>
-                <span class="nav-link-text">Category</span>
-            </a>
-            </li>
             
             <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'amenities' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Venues">
             <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=amenities'; ?>">
@@ -45,7 +46,7 @@
                 <span class="nav-link-text">Amenities</span>
             </a>
             </li>
-
+            <?php endif ?>
             
 
             <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'customers' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Customers">
