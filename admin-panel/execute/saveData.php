@@ -318,11 +318,12 @@
                     name,
                     details,
                     amount_per_hour,
+                    amount_per_night,
                     photo,
                     capacity,
                     quantity,
                     status)VALUES('". $category_id ."','". $name ."',
-                    '".$details."','". $amount_per_hour ."','". $photo . "','" . $capacity . "','" . $quantity . "','".$status."')");
+                    '".$details."','". $amount_per_hour ."','". $amount_per_night ."','". $photo . "','" . $capacity . "','" . $quantity . "','".$status."')");
                     if($query) :
                         $response = [
                             'response' => 'success',
@@ -366,6 +367,7 @@
                         capacity = '" . $capacity . "',
                         quantity = '" . $quantity . "',
                         amount_per_hour = '" . $amount_per_hour . "',
+                        amount_per_night = '" . $amount_per_night . "',
                         status = '".$status."' WHERE id = ".$amenities_id." ");
                         if($query) :
                             $response = [
@@ -401,6 +403,7 @@
                         capacity = '" . $capacity . "',
                         quantity = '" . $quantity . "',
                         amount_per_hour = '" . $amount_per_hour . "',
+                        amount_per_night = '" . $amount_per_night . "',
                         status = '".$status."' WHERE id = ".$amenities_id." ");
                     if($query) :
                         $response = [

@@ -107,7 +107,9 @@
                 $("#input_date_to").val(obj.date_to)
                 $("#input_total_days").val(obj.days)
                 $("#input_price_per_day").val(obj.amount)
-                
+                $("#hidden_amount_day").val(amount)
+                $("#hidden_amount_night").val(amountnight)
+
                 var total = parseFloat(obj.days * obj.amount)
 
 
@@ -120,6 +122,33 @@
                 return false
             }
         }
+
+        $(document).on('change', '#select_type', function(e){
+            e.preventDefault();
+
+            var selected_type   = $(this).val();
+            var total           = 0 
+            var day_price       = $("#hidden_amount_day").val()
+            var day_night       = $("#hidden_amount_night").val()
+            if(selected_type == 'day'){
+                $("#input_price_per_day").val(day_price)
+            } else {
+                $("#input_price_per_day").val(day_night)
+            }
+
+            var qty1 = $('#input_quantity').val()
+            var price = $("#input_price_per_day").val()
+            var days = $("#input_total_days").val()
+
+            var total = parseFloat(price) * parseFloat(days)
+
+            if(parseInt(qty1) > 0){
+                var final_total = parseFloat(total * qty1) 
+                $("#input_total_amount").val(final_total)
+            } else {
+                $("#input_total_amount").val(total)
+            }
+        })
 
         $(document).on('input', '#input_quantity', function(e){
             e.preventDefault();
@@ -141,8 +170,6 @@
             } else {
                 $("#input_total_amount").val(total)
             }
-
-            
         })
 
         var dateFrom_default        = $("#txtDateFrom").val(); 
@@ -165,6 +192,7 @@
             var category    = $(this).data('category')
             var name        = $(this).data('name')
             var amount      = $(this).data('amount')
+            var amountnight = $(this).data('amountnight')
             var quantity    = $(this).data('quantity')
             var amenity_id  = $(this).data('amenityid')
             var category_id = $(this).data('categoryid')
@@ -227,6 +255,7 @@
                 return diffInDays;
             }
 
+        
             var days = getNumberOfDays(date1, date2)
        
             mapData.checkAuth({
@@ -235,6 +264,7 @@
                 date_from   : dateFrom,
                 date_to     : dateTo,
                 amount      : amount,
+                amountnight : amountnight,
                 quantity    : quantity,
                 amenity_id  : amenity_id,
                 category_id : category_id,

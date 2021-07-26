@@ -60,7 +60,7 @@
             }
             
             foreach ($_POST['cart'] as $key => $value) {
-               $dbConn->query("INSERT INTO tbl_details(reservation_id, amenities_id, name, category, date_from, date_to, price, quantity, total_days, total_amount)VALUES('" . $LAST_ID . "','" . $value['id'] . "','" . $value['name'] . "','" . $value['category'] . "','" . $value['date_from'] . "','" . $value['date_to'] . "','" . $value['price'] . "','" . ($value['quantity'] == 0 ? 1 : $value['quantity']) . "','" . $value['days'] . "','" . $value['total'] . "')");
+               $dbConn->query("INSERT INTO tbl_details(reservation_id, amenities_id, name, type, category, date_from, date_to, price, quantity, total_days, total_amount)VALUES('" . $LAST_ID . "','" . $value['id'] . "','" . $value['name'] . "','" . $value['type'] . "','" . $value['category'] . "','" . $value['date_from'] . "','" . $value['date_to'] . "','" . $value['price'] . "','" . ($value['quantity'] == 0 ? 1 : $value['quantity']) . "','" . $value['days'] . "','" . $value['total'] . "')");
             }
 
             $response = [

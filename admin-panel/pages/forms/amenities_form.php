@@ -42,6 +42,11 @@
     </div>
 
     <div class="form-group">
+        <label for="details" class="control-label">Price (per night)</label>
+        <input type="number" value="<?php echo @$row['amount_per_night']; ?>" class="form-control" id="amount_per_night" name="amount_per_night" required placeholder="0.00">
+    </div>
+
+    <div class="form-group">
         <label for="message-text" class="control-label">Status</label>
        <select class="form-control" name="status" id="status" required>
            <option <?php echo (isset($row['status']) && $row['status'] == 'av' ? 'selected' : '' ); ?> value="av">Active</option>

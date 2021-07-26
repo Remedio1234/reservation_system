@@ -1,5 +1,6 @@
 ALTER TABLE `tbl_amenities` ADD `amount_per_night` DOUBLE NULL AFTER `amount_per_hour`;
 UPDATE `tbl_amenities` SET amount_per_night = amount_per_hour
+ALTER TABLE `tbl_details` ADD `type` ENUM('day','night') NOT NULL DEFAULT 'day' AFTER `category`;
 
 On branch main
 Your branch is up to date with 'origin/main'.

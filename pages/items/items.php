@@ -7,6 +7,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Type</th>
                         <th>Catgory</th>
                         <th>Date From</th>
                         <th>Date To</th>

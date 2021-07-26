@@ -108,9 +108,10 @@
                 cart = [];
                 
                 // Constructor
-                function Item(id, name, category, date_from, date_to, price, days, quantity, total) {
+                function Item(id, name, type, category, date_from, date_to, price, days, quantity, total) {
                     this.id         = id;
                     this.name       = name;
+                    this.type       = type;
                     this.category   = category;
                     this.date_from  = date_from;
                     this.date_to    = date_to;
@@ -142,7 +143,7 @@
                 var obj = {};
                 
                 // Add to cart
-                obj.addItemToCart = function(id, name, category, date_from, date_to, price, days, quantity, total) {
+                obj.addItemToCart = function(id, name, type, category, date_from, date_to, price, days, quantity, total) {
                     for(var item in cart) {
                         if(cart[item].id == id && cart[item].date_from == date_from && cart[item].date_to == date_to){
                             toastr.error('Amenity Already added','Message', {
@@ -151,7 +152,7 @@
                             return;
                         }
                     }
-                    var item = new Item(id, name, category, date_from, date_to, price, days, quantity, total);
+                    var item = new Item(id, name, type, category, date_from, date_to, price, days, quantity, total);
                     cart.push(item);
                     saveCart();
                     $("#reservationModal").modal('hide')
@@ -214,6 +215,7 @@
                         <tr>
                             <td>${cartArray[i].id}</td>
                             <td>${cartArray[i].name}</td>
+                            <td>${cartArray[i].type}</td>
                             <td>${cartArray[i].category}</td>
                             <td>${cartArray[i].date_from}</td>
                             <td>${cartArray[i].date_to}</td>
@@ -260,6 +262,7 @@
                 var id              = $("#input_amenity_id").val()  
                 var category        = $("#input_category").val()
                 var name            = $("#input_name").val()
+                var type            = $("#select_type").val()
                 var date_from       = $("#input_date_from").val()
                 var date_to         = $("#input_date_to").val()
                 var price           = $("#input_price_per_day").val()
@@ -269,7 +272,7 @@
 
                 // var name = $(this).data('name');
                 // var price = Number($(this).data('price'));
-                shoppingCart.addItemToCart(id, name, category, date_from, date_to, price, days, quantity, total);
+                shoppingCart.addItemToCart(id, name, type, category, date_from, date_to, price, days, quantity, total);
             })
 
             $(document).on('click', '#guest_checkout', function(e){

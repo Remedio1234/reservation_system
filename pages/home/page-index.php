@@ -117,6 +117,23 @@
                         name="input_amenity_id" 
                         id="input_amenity_id"
                         />
+                    <input 
+                        type="hidden" 
+                        name="hidden_amount_day" 
+                        id="hidden_amount_day"
+                        />    
+                    <input 
+                        type="hidden" 
+                        name="hidden_amount_night" 
+                        id="hidden_amount_night"
+                        />  
+                    <div class="form-label-group mb-2">
+                        <label for="select_type">Type</label>
+                        <select name="select_type" id="select_type">
+                            <option value="day">Day</option>
+                            <option value="night">Night</option>
+                        </select>
+                    </div>    
                     <div class="form-label-group mb-2">
                         <label for="input_category">Category</label>
                         <input 
