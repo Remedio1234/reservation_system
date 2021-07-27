@@ -50,34 +50,34 @@
             ];    
         break;
 
-        case 'category':
-            $page = 'pages/category/category.php';
-            $data = [
-                'conn'   => $dbConn,
-                'page'   => 'category',
-                'active' => 'category', 
-                'title'  => 'Category | Admin '.$site_title,
-                'css'    =>  $temp->_css(
-                    [
-                    'vendor/bootstrap/css/bootstrap.min.css',
-                    'vendor/font-awesome/css/font-awesome.min.css',
-                    'vendor/datatables/dataTables.bootstrap4.css',
-                    'css/sb-admin.css'
-                    ]
-                ),
-                'js' =>  $temp->_js(
-                    [
-                    'vendor/jquery/jquery.min.js',
-                    'vendor/bootstrap/js/bootstrap.bundle.min.js',
-                    'vendor/jquery-easing/jquery.easing.min.js',
-                    'vendor/datatables/jquery.dataTables.js',
-                    'vendor/datatables/dataTables.bootstrap4.js',
-                    'js/sb-admin.min.js',
-                    ]
-                ),
+        // case 'category':
+        //     $page = 'pages/category/category.php';
+        //     $data = [
+        //         'conn'   => $dbConn,
+        //         'page'   => 'category',
+        //         'active' => 'category', 
+        //         'title'  => 'Category | Admin '.$site_title,
+        //         'css'    =>  $temp->_css(
+        //             [
+        //             'vendor/bootstrap/css/bootstrap.min.css',
+        //             'vendor/font-awesome/css/font-awesome.min.css',
+        //             'vendor/datatables/dataTables.bootstrap4.css',
+        //             'css/sb-admin.css'
+        //             ]
+        //         ),
+        //         'js' =>  $temp->_js(
+        //             [
+        //             'vendor/jquery/jquery.min.js',
+        //             'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        //             'vendor/jquery-easing/jquery.easing.min.js',
+        //             'vendor/datatables/jquery.dataTables.js',
+        //             'vendor/datatables/dataTables.bootstrap4.js',
+        //             'js/sb-admin.min.js',
+        //             ]
+        //         ),
 
-            ];    
-        break;
+        //     ];    
+        // break;
 
         case 'amenities':
             $page = 'pages/amenities/amenities.php';
@@ -108,34 +108,34 @@
             ];    
         break;
 
-        case 'caterers':
-            $page = 'pages/caterers/caterers.php';
-            $data = [
-                'conn'   => $dbConn,
-                'page'   => 'caterers',
-                'active' => 'caterers', 
-                'title'  => 'Caterers | Admin '.$site_title,
-                'css'    =>  $temp->_css(
-                    [
-                    'vendor/bootstrap/css/bootstrap.min.css',
-                    'vendor/font-awesome/css/font-awesome.min.css',
-                    'vendor/datatables/dataTables.bootstrap4.css',
-                    'css/sb-admin.css'
-                    ]
-                ),
-                'js' =>  $temp->_js(
-                    [
-                    'vendor/jquery/jquery.min.js',
-                    'vendor/bootstrap/js/bootstrap.bundle.min.js',
-                    'vendor/jquery-easing/jquery.easing.min.js',
-                    'vendor/datatables/jquery.dataTables.js',
-                    'vendor/datatables/dataTables.bootstrap4.js',
-                    'js/sb-admin.min.js',
-                    ]
-                ),
+        // case 'caterers':
+        //     $page = 'pages/caterers/caterers.php';
+        //     $data = [
+        //         'conn'   => $dbConn,
+        //         'page'   => 'caterers',
+        //         'active' => 'caterers', 
+        //         'title'  => 'Caterers | Admin '.$site_title,
+        //         'css'    =>  $temp->_css(
+        //             [
+        //             'vendor/bootstrap/css/bootstrap.min.css',
+        //             'vendor/font-awesome/css/font-awesome.min.css',
+        //             'vendor/datatables/dataTables.bootstrap4.css',
+        //             'css/sb-admin.css'
+        //             ]
+        //         ),
+        //         'js' =>  $temp->_js(
+        //             [
+        //             'vendor/jquery/jquery.min.js',
+        //             'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        //             'vendor/jquery-easing/jquery.easing.min.js',
+        //             'vendor/datatables/jquery.dataTables.js',
+        //             'vendor/datatables/dataTables.bootstrap4.js',
+        //             'js/sb-admin.min.js',
+        //             ]
+        //         ),
 
-            ];    
-        break;
+        //     ];    
+        // break;
 
         case 'reservations':
             $page = 'pages/reservations/reservations.php';
@@ -166,34 +166,34 @@
             ];    
         break;
 
-        case 'customers':
-            $page = 'pages/customers/customers.php';
-            $data = [
-                'conn'   => $dbConn,
-                'page'   => 'customers',
-                'active' => 'customers', 
-                'title'  => 'Customers | Admin '.$site_title,
-                'css'    =>  $temp->_css(
-                    [
-                    'vendor/bootstrap/css/bootstrap.min.css',
-                    'vendor/font-awesome/css/font-awesome.min.css',
-                    'vendor/datatables/dataTables.bootstrap4.css',
-                    'css/sb-admin.css'
-                    ]
-                ),
-                'js' =>  $temp->_js(
-                    [
-                    'vendor/jquery/jquery.min.js',
-                    'vendor/bootstrap/js/bootstrap.bundle.min.js',
-                    'vendor/jquery-easing/jquery.easing.min.js',
-                    'vendor/datatables/jquery.dataTables.js',
-                    'vendor/datatables/dataTables.bootstrap4.js',
-                    'js/sb-admin.min.js',
-                    ]
-                ),
+        // case 'customers':
+        //     $page = 'pages/customers/customers.php';
+        //     $data = [
+        //         'conn'   => $dbConn,
+        //         'page'   => 'customers',
+        //         'active' => 'customers', 
+        //         'title'  => 'Customers | Admin '.$site_title,
+        //         'css'    =>  $temp->_css(
+        //             [
+        //             'vendor/bootstrap/css/bootstrap.min.css',
+        //             'vendor/font-awesome/css/font-awesome.min.css',
+        //             'vendor/datatables/dataTables.bootstrap4.css',
+        //             'css/sb-admin.css'
+        //             ]
+        //         ),
+        //         'js' =>  $temp->_js(
+        //             [
+        //             'vendor/jquery/jquery.min.js',
+        //             'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        //             'vendor/jquery-easing/jquery.easing.min.js',
+        //             'vendor/datatables/jquery.dataTables.js',
+        //             'vendor/datatables/dataTables.bootstrap4.js',
+        //             'js/sb-admin.min.js',
+        //             ]
+        //         ),
 
-            ];    
-        break;
+        //     ];    
+        // break;
 
         case 'settings':
             $page = 'pages/settings/profile.php';

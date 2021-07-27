@@ -32,12 +32,12 @@
             </a>
             </li>
             <?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin'): ?>
-                <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'category' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Events">
+                <!-- <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'category' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Events">
                 <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=category'; ?>">
                     <i class="fa fa-fw fa fa-hand-o-right"></i>
                     <span class="nav-link-text">Categories</span>
                 </a>
-                </li>
+                </li> -->
             
             
             <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'amenities' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Venues">
@@ -49,12 +49,12 @@
             <?php endif ?>
             
 
-            <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'customers' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Customers">
+            <!-- <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'customers' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Customers">
             <a class="nav-link" href="<?php echo WEB_ROOT . 'admin-panel/?v=customers'; ?>">
                 <i class="fa fa-fw fa-vcard-o"></i>
                 <span class="nav-link-text">Customers</span>
             </a>
-            </li>
+            </li> -->
 
             <li class="nav-item <?php echo (isset($data['active']) && $data['active'] == 'reservations' ? 'active' : ''); ?>" data-toggle="tooltip" data-placement="right" title="Reservations">
             <a class="nav-link" href="<?php echo WEB_ROOT. 'admin-panel/?v=reservations'; ?>">
