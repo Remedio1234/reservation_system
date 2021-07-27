@@ -33,7 +33,7 @@
     <?php else : ?>
     
     <div class="row">
-        <div class="col-lg-3">
+        <!-- <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="text-center">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-3">
             <div class="card mb-3">

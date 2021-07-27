@@ -64,7 +64,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Category</th>
+                    <!-- <th>Category</th> -->
                     <th>Details</th>
                     <th>Capacity</th>
                     <th>Quantity</th>
@@ -84,7 +84,7 @@
                 <tr>
                     <td><?php echo $row->id; ?></td>
                     <td><?php echo ucfirst($row->name); ?></td>
-                    <td><?php echo ucfirst($row->category); ?></td>
+                    <!-- <td><?php echo ucfirst($row->category); ?></td> -->
                     <td><?php echo ucfirst($row->details); ?></td>
                     <td><?php echo $row->capacity; ?></td>
                     <td><?php echo $row->quantity; ?></td>
