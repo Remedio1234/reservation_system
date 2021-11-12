@@ -9,9 +9,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 //database connection setup
-$dbHost = "mysql:host=localhost;dbname=id17288628_db_dbror";
-$dbUser = 'id17288628_root';
-$dbPass = '#vTYy8&zV1H]UjQ7';
+$dbHost = "mysql:host=localhost;dbname=db_dbror";
+$dbUser = 'root';
+$dbPass = '';
 
 //Project data
 $site_title 	= 'DBROR AND MAPPING MAPPING MANAGEMENT SYSTEM';

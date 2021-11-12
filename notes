@@ -71,3 +71,16 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 
 users
+
+
+
+ ---- changes ---- 
+    1.svg
+    execute/map copy.php
+    library/live-config.php
+    map_files/
+
+    modified:   execute/map.php
+    modified:   library/config.php
+    deleted:    library/local-config.php
+    modified:   pages/home/page-index.php        
