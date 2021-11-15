@@ -24,3 +24,6 @@ gmail allow less secure apps
 
 https://know.mailsbestfriend.com/smtp_error_password_command_failed_5345714-1194946499.shtml
 infinityfree
+
+
+ALTER TABLE `tbl_amenities` ADD `txt_transform` TEXT NOT NULL AFTER `transform`;

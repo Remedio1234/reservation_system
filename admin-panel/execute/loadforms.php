@@ -19,6 +19,13 @@
             include('../pages/forms/category_form.php');
         break;
 
+        case 'amenities_upload':
+            if (isset($amenities_id)) :
+                $row = $dbConn->query("SELECT * FROM " . $tables['amenities'] . " WHERE id = '" . $amenities_id . "' ")->fetch(PDO::FETCH_ASSOC);
+            endif;
+            include('../pages/forms/amenities_form_upload.php');
+        break;
+
         case 'amenities':
             if(isset($amenities_id)) :
                 $row = $dbConn->query("SELECT * FROM ".$tables['amenities']." WHERE id = '".$amenities_id."' ")->fetch(PDO::FETCH_ASSOC);

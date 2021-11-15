@@ -9,13 +9,15 @@
         'profile'           =>'tbl_profile',
         'user'              => 'tbl_users',
         'customers'         => 'tbl_customers',
-        'reservations'      => 'tbl_reservations'
+        'reservations'      => 'tbl_reservations',
+        'details'           => 'tbl_details'
     ];
     switch ($action) {
 
         /* ======== update reservation status */
         case 'reservations':
         $query = $dbConn->query("UPDATE " . $tables['reservations'] . " SET status = '" . $status . "' WHERE id = " . $id . " ");
+        $dbConn->query("UPDATE " . $tables['details'] . " SET status = '" . $status . "' WHERE reservation_id = " . $id . " ");
         if ($query) :
             $response = [
             'response' => 'success',

@@ -26,7 +26,7 @@
         </div>
          <div class="card-body">
                 <?php 
-                    $gallery = $data['conn']->query("SELECT * FROM tbl_gallery where id = '".$_GET['id']."' ORDER BY gallery_id DESC");
+                    $gallery = $data['conn']->query("SELECT * FROM tbl_gallery where amenities_id = '".$_GET['id']."' ORDER BY gallery_id DESC");
                     if ($gallery->rowCount() > 0) : 
                 ?>
                 <div class="row text-center text-lg-left">
@@ -94,7 +94,7 @@
                     <td><?php echo date('Y-m-d',strtotime($row->created_at)); ?></td>
                     <td align="center">
                         <a href="javascript:void(0);" class="btn btn-sm btn-success" data-id="<?php echo $row->id; ?>" id="editModal"><i class="fa fa-pencil"></i> Edit </a>
-                        <!-- <a href="<?php echo WEB_ROOT . 'admin-panel/?v=amenities&id='.$row->id; ?>" class="btn btn-sm btn-primary" data-id="<?php echo $row->id; ?>" ><i class="fa fa-upload fa-fw"></i> Upload Photos </a>     -->
+                        <a href="<?php echo WEB_ROOT . 'admin-panel/?v=amenities&id='.$row->id; ?>" class="btn btn-sm btn-primary" data-id="<?php echo $row->id; ?>" ><i class="fa fa-upload fa-fw"></i> Upload Photos </a>    
                         <!-- <a href="javascript:void(0);" class="btn btn-danger btn-sm mt-1" data-id="<?php echo $row->id; ?>" id="deleteData"><i class="fa fa-trash"></i> Delete </a>    -->
                     </td>
                 </tr>

@@ -1,80 +1,80 @@
+<!-- <button 
+    id="zoom-in-button" 
+    class="btn btn-info"><i class="fa fa-plus"></i></button>
+<button 
+    id="zoom-out-button" 
+    class="btn btn-info"><i class="fa fa-minus"></i></button> -->
+    <div id="example1" class="controls">
+        <div class="controls-pan" style="display: none;">
+            <p><i class="btn btn-success fa fa-arrow-up"></i></p>
+            <p>
+                <i class="btn btn-success fa fa-arrow-left"></i>
+                <i class="btn btn-success fa fa-arrow-right"></i>
+            </p>
+            <p><i class="btn btn-success fa fa-arrow-down"></i></p>
+        </div>
+        <div class="controls-zoom" style="display: none;">
+            <p><i class="btn btn-success fa fa-refresh"></i></p>
+            <p><i class="btn btn-success fa fa-plus"></i> </p>
+            <p><i class="btn btn-success fa fa-minus"></i></p>
+        </div>
+    </div>
 <?php
     /* database connection */
     require_once('../library/config.php');
     extract($_POST);
-    
-    //TENTS
-    // $tents = $dbConn->query("SELECT * FROM tbl_amenities WHERE status = 'av' AND category_id = 2")->fetch(PDO::FETCH_ASSOC);
+   
     //TABLES
     $tables = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE  aa.category_id = 6")->fetch(PDO::FETCH_ASSOC);
+    
     //CHAIRS
     $chairs = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE  aa.category_id = 1")->fetch(PDO::FETCH_ASSOC);
+    
     //FUNCTION HALL
     $hall = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE  aa.category_id = 4")->fetch(PDO::FETCH_ASSOC);
 
-    // if(isset($txtDateFrom) && isset($txtDateTo)) {
-
-        //RESERVE TENTS
-        $tents = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa INNER JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
-            ) as rr on aa.id = rr.amenities_id WHERE aa.category_id = 2");
-            
-
-        //RESERVE COTTAGES
-        $cottages = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa INNER JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
-            ) as rr on aa.id = rr.amenities_id WHERE aa.category_id = 3");
+    //RESERVE TENTS
+    $tents = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE  aa.category_id = 2")->fetch(PDO::FETCH_ASSOC);
         
-         //RESERVE ROOMS
-         $rooms = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
-            SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
-            ) as rr on aa.id = rr.amenities_id WHERE aa.category_id = 5");
+    //RESERVE COTTAGES
+    $cottages = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa INNER JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
+        SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE status != 'cancelled' AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
+        ) as rr on aa.id = rr.amenities_id WHERE aa.category_id = 3");
+    
+    //RESERVE ROOMS
+    $rooms = $dbConn->query("SELECT aa.*, rr.r_a_id, cc.name as category_name FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id LEFT JOIN (
+    SELECT amenities_id, amenities_id as r_a_id FROM tbl_details WHERE status != 'cancelled' AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))
+    ) as rr on aa.id = rr.amenities_id WHERE aa.category_id = 5");
 
-        //RESERVE TENTS
-        // $reserve_tents = $dbConn->query("SELECT SUM(quantity) as quantity FROM tbl_details WHERE category_id = 2 AND (('".$txtDateFrom."' BETWEEN date_from AND date_to) OR ('".$txtDateTo."' BETWEEN date_from AND date_to))")->fetch(PDO::FETCH_ASSOC);
-        // RESERVE TABLES
-        $reserve_tables = $dbConn->query("SELECT SUM(dd.quantity) as quantity FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE aa.category_id = 6 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
-        //RESERVE CHAIRS
-        $reserve_chairs = $dbConn->query("SELECT SUM(dd.quantity) as quantity FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE aa.category_id = 1 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
-        
-    // } else {
-    //     //tents
-    //     $tents = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE aa.status = 'av' AND aa.category_id = 2");
-    //     //COTTAGES
-    //     $cottages = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE aa.status = 'av' AND aa.category_id = 3");
-    //     //ROOMS
-    //     $rooms = $dbConn->query("SELECT aa.*, cc.name as category_name  FROM tbl_amenities aa JOIN tbl_categories cc ON aa.category_id = cc.id  WHERE aa.status = 'av' AND aa.category_id = 5");
-    // }
+    // RESERVED TABLES
+    $reserve_tables = $dbConn->query("SELECT SUM(dd.quantity) as quantity FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE dd.status != 'cancelled' AND aa.category_id = 6 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
+    //RESERVED CHAIRS
+    $reserve_chairs = $dbConn->query("SELECT SUM(dd.quantity) as quantity FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE dd.status != 'cancelled' AND aa.category_id = 1 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
+    //RESERVED TENTS
+    $reserve_tents = $dbConn->query("SELECT SUM(dd.quantity) as quantity FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE dd.status != 'cancelled' AND aa.category_id = 2 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
+    
 
-
-    // $total_tents    = 0;
-    $total_chairs   = 0;
-    $total_tables   = 0;
-    // if(isset($txtDateFrom) && isset($txtDateTo)) { 
-        // $total_tents  = (isset($tents['quantity']) > 0 ? $tents['quantity'] : 0) - (isset($reserve_tents['quantity']) > 0 ? $reserve_tents['quantity'] : 0);
-        $total_chairs = (isset($chairs['quantity']) > 0 ? $chairs['quantity'] : 0) - (isset($reserve_chairs['quantity']) > 0 ? $reserve_chairs['quantity'] : 0);
-        $total_tables = (isset($tables['quantity']) > 0 ? $tables['quantity'] : 0) - (isset($reserve_tables['quantity']) > 0 ? $reserve_tables['quantity'] : 0);
-    // } else {   
-    //     // $total_tents = isset($tents['quantity']) > 0 ? $tents['quantity'] : 0;
-    //     $total_chairs = isset($chairs['quantity']) > 0 ? $chairs['quantity'] : 0;
-    //     $total_tables = isset($tables['quantity']) > 0 ? $tables['quantity'] : 0;
-    // } 
-
+    // $total_tents     = 0;
+    $total_chairs       = 0;
+    $total_tables       = 0;
+    $total_tents        = 0;
+   
+    $total_tents  = (isset($tents['quantity']) > 0 ? $tents['quantity'] : 0) - (isset($reserve_tents['quantity']) > 0 ? $reserve_tents['quantity'] : 0);
+    $total_chairs = (isset($chairs['quantity']) > 0 ? $chairs['quantity'] : 0) - (isset($reserve_chairs['quantity']) > 0 ? $reserve_chairs['quantity'] : 0);
+    $total_tables = (isset($tables['quantity']) > 0 ? $tables['quantity'] : 0) - (isset($reserve_tables['quantity']) > 0 ? $reserve_tables['quantity'] : 0);
+  
 
     // FUNCTION HALL
     $reserve_function_hall = $dbConn->query("SELECT COUNT(*) as ff_all FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE aa.category_id = 4 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to))")->fetch(PDO::FETCH_ASSOC);
-    // $function_hall = $dbConn->query("SELECT * FROM tbl_details dd INNER JOIN tbl_amenities aa ON aa.id = dd.amenities_id  WHERE aa.category_id = 4 AND (('".$txtDateFrom."' BETWEEN dd.date_from AND dd.date_to) OR ('".$txtDateTo."' BETWEEN dd.date_from AND dd.date_to)) LIMIT 1");
-    // $checker       = $function_hall->fetch(PDO::FETCH_OBJ);
-    // $func_hall     = $function_hall->rowCount();
-
+   
     function status($id1, $id2, $status){
         if($status == 'na'){
-            return '#ec9c0a';
+            return '#f0ad4e';
         } else {
             if(isset($id1) && $id1 == $id2){
-                return '#de0000';
+                return '#d9534f';
             } else {
-                return '#0dd00d';
+                return '#5cb85c';
             }
         }
     }
@@ -141,9 +141,35 @@
     
 ?>
 <style>
-    .cottages:hover {fill: #FFFFFF;cursor: pointer;}
+    .cottages:hover {fill: #000000;cursor: pointer;}
+    svg {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+    div.controls {
+            text-align: center;
+        }
+
+        div.controls i {
+            margin: 3px;
+        }
+
+        div.controls p {
+
+        }
+
+        div.controls-zoom, div.controls-pan {
+            display: inline-block;
+        }
+
+        div.controls-zoom {
+            margin-left: 20px;
+        }
+
 </style>
-<div id="map_design">
+<div id="map_design" style="overflow: hidden;">
     <svg 
         version="1.1" 
         id="Layer_1" 
@@ -334,7 +360,7 @@
         <text 
             transform="matrix(1 0 0 1 1202.583 175.1074)" 
             font-family="'arial'" 
-            font-size="20">DISCO BAR</text>
+            font-size="20" font-weight="bold">DISCO BAR</text>
         <image 
             overflow="visible" 
             width="1024" 
@@ -346,7 +372,7 @@
         <text 
             transform="matrix(1 0 0 1 1427.6719 225.293)" 
             font-family="'arial'" 
-            font-size="20">MILKTEA</text>
+            font-size="20" font-weight="bold">MILKTEA</text>
         <image 
             overflow="visible" 
             width="275" 
@@ -1418,8 +1444,8 @@
         </g>
 
         <text transform="matrix(1 0 0 1 1604.5361 613)">
-            <tspan x="0" y="0" font-family="'arial'" font-size="20">GRILL</tspan>
-            <tspan x="0" y="24" font-family="'arial'" font-size="20">HOUSE</tspan>
+            <tspan x="0" y="0" font-family="'arial'" font-size="20" font-weight="bold">GRILL</tspan>
+            <tspan x="0" y="24" font-family="'arial'" font-size="20" font-weight="bold">HOUSE</tspan>
         </text>
         <image 
             overflow="visible" 
@@ -2502,7 +2528,7 @@
             xlink:href="map_files/care-taker.jpg" 
             transform="matrix(0.079 0 0 0.1002 1845.376 682.9258)">
         </image>
-        <text transform="matrix(1 0 0 1 1809.2705 695.5)" font-family="'arial'" font-size="20">CARE TAKER HOUSE</text>
+        <text transform="matrix(1 0 0 1 1750 695.5)" font-family="'arial'" font-size="20" font-weight="bold">CARE TAKER HOUSE</text>
         <g>
             <g>
                 <g>
@@ -4465,16 +4491,16 @@
             transform="matrix(0.0817 0 0 0.0817 1762.0361 940.4961)">
         </image>
         <text transform="matrix(1 0 0 1 1072.0869 884.0713)">
-            <tspan x="0" y="0" font-family="'arial'" font-size="14">C</tspan>
-            <tspan x="0" y="16.8" font-family="'arial'" font-size="14">A</tspan>
-            <tspan x="0" y="33.6" font-family="'arial'" font-size="14">S</tspan>
-            <tspan x="0" y="50.4" font-family="'arial'" font-size="14">H</tspan>
-            <tspan x="0" y="67.2" font-family="'arial'" font-size="14">I</tspan>
-            <tspan x="0" y="84" font-family="'arial'" font-size="14">E</tspan>
-            <tspan x="0" y="100.8" font-family="'arial'" font-size="14">R</tspan>
+            <tspan x="0" y="0" font-family="'arial'" font-size="14" font-weight="bold">C</tspan>
+            <tspan x="0" y="16.8" font-family="'arial'" font-size="14" font-weight="bold">A</tspan>
+            <tspan x="0" y="33.6" font-family="'arial'" font-size="14" font-weight="bold">S</tspan>
+            <tspan x="0" y="50.4" font-family="'arial'" font-size="14" font-weight="bold">H</tspan>
+            <tspan x="0" y="67.2" font-family="'arial'" font-size="14" font-weight="bold">I</tspan>
+            <tspan x="0" y="84" font-family="'arial'" font-size="14" font-weight="bold">E</tspan>
+            <tspan x="0" y="100.8" font-family="'arial'" font-size="14" font-weight="bold">R</tspan>
         </text>
 
-        <text transform="matrix(1 0 0 1 1354.0713 690.2871)" font-family="'arial'" font-size="18">PARKING AREA</text>
+        <text transform="matrix(1 0 0 1 1354.0713 690.2871)" font-family="'arial'" font-size="18" font-weight="bold">PARKING AREA</text>
         <image 
             overflow="visible" 
             width="311" 
@@ -4482,7 +4508,7 @@
             xlink:href="map_files/parking.jpg"
             transform="matrix(0.5221 0 0 0.5221 1366.0752 823.9316)">
         </image>
-        <text transform="matrix(1 0 0 1 1389.042 927.7461)" font-family="'arial'" font-size="18">PARKING AREA</text>
+        <text transform="matrix(1 0 0 1 1389.042 927.7461)" font-family="'arial'" font-size="18" font-weight="bold">PARKING AREA</text>
         <image 
             overflow="visible" 
             width="311" 
@@ -4490,7 +4516,7 @@
             xlink:href="map_files/parking.jpg"
             transform="matrix(0.5221 0 0 0.5221 1773.4746 829.2871)">
         </image>
-        <text transform="matrix(1 0 0 1 1802.5195 933.21)" font-family="'arial'" font-size="18">PARKING AREA</text>
+        <text transform="matrix(1 0 0 1 1802.5195 933.21)" font-family="'arial'" font-size="18" font-weight="bold">PARKING AREA</text>
         <image 
             overflow="visible" 
             width="311" 
@@ -5616,8 +5642,33 @@
         <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1017" y1="865.5" x2="1035" y2="865.5"/>
         
         <!-- start table here -->
-        <text transform="matrix(1 0 0 1 654.6069 530)" font-family="'arial'" font-size="20">50 TABLES</text>
+        <text 
+            data-category="<?php echo @$tables['category_name'] ?>"
+            data-amenityid="<?php echo @$tables['id'] ?>"
+            data-categoryid="<?php echo @$tables['category_id'] ?>"
+            data-available="<?php echo $total_tables ?>"
+            data-quantity="<?php echo @$tables['quantity'] ?>"
+            data-amount="<?php echo @$tables['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$tables['amount_per_night'] ?>"
+            data-name="<?php echo @$tables['name'] ?>"
+            data-status="<?php echo checker_other($total_tables,@$tables['status']) ?>"
+            fill="<?php echo other_status($total_tables, @$tables['status']) ?>"
+            class="cottages book_now"  
+            transform="matrix(1 0 0 1 654.6069 530)"
+            font-family="'arial'"
+            font-size="20"
+            font-weight="bold"><?php echo $total_tables; ?> TABLE<?php echo ($total_tables > 0) ? 'S':''?></text>
         <image 
+            data-category="<?php echo @$tables['category_name'] ?>"
+            data-amenityid="<?php echo @$tables['id'] ?>"
+            data-categoryid="<?php echo @$tables['category_id'] ?>"
+            data-available="<?php echo $total_tables ?>"
+            data-quantity="<?php echo @$tables['quantity'] ?>"
+            data-amount="<?php echo @$tables['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$tables['amount_per_night'] ?>"
+            data-name="<?php echo @$tables['name'] ?>"
+            data-status="<?php echo checker_other($total_tables,@$tables['status']) ?>"
+            class="cottages book_now"
             overflow="visible" 
             width="225" 
             height="225" 
@@ -5627,8 +5678,34 @@
         <!-- end table here -->
 
         <!-- start chair here -->
-        <text transform="matrix(1 0 0 1 650.6069 611.585)" font-family="'arial'" font-size="20">300 CHAIRS</text>
+        <text 
+            data-category="<?php echo @$chairs['category_name'] ?>"
+            data-amenityid="<?php echo @$chairs['id'] ?>"
+            data-categoryid="<?php echo @$chairs['category_id'] ?>"
+            data-available="<?php echo $total_chairs ?>"
+            data-quantity="<?php echo @$chairs['quantity'] ?>"
+            data-amount="<?php echo @$chairs['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$chairs['amount_per_night'] ?>"
+            data-name="<?php echo @$chairs['name'] ?>"
+            data-status="<?php echo checker_other($total_chairs,@$chairs['status']) ?>"
+            fill="<?php echo other_status($total_chairs, @$chairs['status']) ?>" 
+            class="cottages book_now" 
+            transform="matrix(1 0 0 1 650.6069 611.585)" 
+            font-family="'arial'" 
+            font-size="20" 
+            font-weight="bold"><?php echo $total_chairs; ?> CHAIR<?php echo ($total_chairs > 0) ? 'S':''?></text>
         <image 
+            data-category="<?php echo @$chairs['category_name'] ?>"
+            data-amenityid="<?php echo @$chairs['id'] ?>"
+            data-categoryid="<?php echo @$chairs['category_id'] ?>"
+            data-available="<?php echo $total_chairs ?>"
+            data-quantity="<?php echo @$chairs['quantity'] ?>"
+            data-amount="<?php echo @$chairs['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$chairs['amount_per_night'] ?>"
+            data-name="<?php echo @$chairs['name'] ?>"
+            data-status="<?php echo checker_other($total_chairs,@$chairs['status']) ?>"
+            fill="<?php echo other_status($total_chairs, @$chairs['status']) ?>" 
+            class="cottages book_now" 
             overflow="visible" 
             width="480" 
             height="480" 
@@ -5638,8 +5715,34 @@
         <!-- end chair here -->
 
         <!-- start tents here -->
-        <text transform="matrix(1 0 0 1 412.5 519.7822)" font-family="'arial'" font-size="20">29 TENTS</text>
+        <text 
+            data-category="<?php echo @$tents['category_name'] ?>"
+            data-amenityid="<?php echo @$tents['id'] ?>"
+            data-categoryid="<?php echo @$tents['category_id'] ?>"
+            data-available="<?php echo $total_tents ?>"
+            data-quantity="<?php echo @$tents['quantity'] ?>"
+            data-amount="<?php echo @$tents['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$tents['amount_per_night'] ?>"
+            data-name="<?php echo @$tents['name'] ?>"
+            data-status="<?php echo checker_other($total_tents,@$tents['status']) ?>"
+            fill="<?php echo other_status($total_tents, @$tents['status']) ?>" 
+            class="cottages book_now" 
+            font-weight="bold"
+            transform="matrix(1 0 0 1 412.5 519.7822)"
+            font-family="'arial'"
+            font-size="20"
+            ><?php echo $total_tents ?> TENT<?php echo (($total_tents > 0) ? 'S' : '') ?></text>
         <image 
+            data-category="<?php echo @$tents['category_name'] ?>"
+            data-amenityid="<?php echo @$tents['id'] ?>"
+            data-categoryid="<?php echo @$tents['category_id'] ?>"
+            data-available="<?php echo $total_tents ?>"
+            data-quantity="<?php echo @$tents['quantity'] ?>"
+            data-amount="<?php echo @$tents['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$tents['amount_per_night'] ?>"
+            data-name="<?php echo @$tents['name'] ?>"
+            data-status="<?php echo checker_other($total_tents,@$tents['status']) ?>"
+            class="cottages book_now" 
             overflow="visible" 
             width="480" 
             height="480" 
@@ -5650,43 +5753,62 @@
 
         
         <!-- start room here -->
-        <text transform="matrix(1 0 0 1 97.6353 924.0703)" font-family="'arial'" font-size="20">ROOM1 </text>
+        <?php 
+        while ($room = $rooms->fetch(PDO::FETCH_OBJ)) { ?>
+        <text 
+            data-amenityid="<?php echo $room->id ?>"
+            data-categoryid="<?php echo $room->category_id ?>"
+            data-category="<?php echo $room->category_name ?>"
+            data-quantity="<?php echo $room->quantity ?>"
+            data-amount="<?php echo $room->amount_per_hour ?>"
+            data-amountnight="<?php echo $room->amount_per_night ?>"
+            data-name="<?php echo $room->name ?>" 
+            data-status="<?php echo checker_status($room->r_a_id, $room->id, $room->status);?>"    
+            transform="<?php echo $room->txt_transform ?>" 
+            fill="<?php echo status($room->r_a_id, $room->id, $room->status);?>"
+            class="cottages book_now" 
+            font-family="'arial'" 
+            font-size="20" 
+            font-weight="bold"><?php echo $room->name ?> </text>
         <image 
+            class="cottages book_now" 
             overflow="visible" 
             width="281" 
             height="180" 
             xlink:href="map_files/room.jpg"
-            transform="matrix(0.257 0 0 0.257 175.1235 741.2344)">
+            transform="<?php echo $room->transform ?>">
         </image>
-        <text transform="matrix(1 0 0 1 97.6353 872.4424)" font-family="'arial'" font-size="20">ROOM2 </text>
-        <image 
-            overflow="visible" 
-            width="281" 
-            height="180" 
-            xlink:href="map_files/room.jpg"
-            transform="matrix(0.257 0 0 0.257 175.1235 793.4092)">
-        </image>
-        <text transform="matrix(1 0 0 1 97.6353 819.6748)" font-family="'arial'" font-size="20">ROOM3 </text>
-        <image 
-            overflow="visible" 
-            width="281" 
-            height="180" 
-            xlink:href="map_files/room.jpg"
-            transform="matrix(0.257 0 0 0.257 175.1235 846.3086)">
-        </image>
-        <text transform="matrix(1 0 0 1 97.6353 769)" font-family="'arial'" font-size="20">ROOM4 </text>
-        <image 
-            overflow="visible" 
-            width="281" 
-            height="180" 
-            xlink:href="map_files/room.jpg"
-            transform="matrix(0.257 0 0 0.257 175.1235 899.6445)">
-        </image>
+        <?php } ?>
         <!-- end room here -->
 
         <!-- start function hall here -->
-        <text transform="matrix(1 0 0 1 576.1113 823.5762)" font-family="'arial'" font-size="20">FUNCTION HALL</text>
+        <text 
+            data-category="<?php echo @$hall['category_name'] ?>"
+            data-amenityid="<?php echo @$hall['id'] ?>"
+            data-categoryid="<?php echo @$hall['category_id'] ?>"
+            data-available="0"
+            data-quantity="<?php echo @$hall['quantity'] ?>"
+            data-amount="<?php echo @$hall['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$hall['amount_per_night'] ?>"
+            data-name="<?php echo @$hall['name'] ?>"
+            data-status="<?php echo checker_other1($reserve_function_hall['ff_all'], @$hall['status']) ?>"
+            fill="<?php echo other_status1($reserve_function_hall['ff_all'],@$hall['status']) ?>"
+            class="cottages book_now" 
+            transform="matrix(1 0 0 1 576.1113 823.5762)" 
+            font-family="'arial'" 
+            font-size="20" 
+            font-weight="bold">FUNCTION HALL</text>
         <image 
+            data-category="<?php echo @$hall['category_name'] ?>"
+            data-amenityid="<?php echo @$hall['id'] ?>"
+            data-categoryid="<?php echo @$hall['category_id'] ?>"
+            data-available="0"
+            data-quantity="<?php echo @$hall['quantity'] ?>"
+            data-amount="<?php echo @$hall['amount_per_hour'] ?>"
+            data-amountnight="<?php echo @$hall['amount_per_night'] ?>"
+            data-name="<?php echo @$hall['name'] ?>"
+            data-status="<?php echo checker_other1($reserve_function_hall['ff_all'], @$hall['status']) ?>"
+            class="cottages book_now" 
             overflow="visible" 
             width="500" 
             height="285" 
@@ -5696,293 +5818,42 @@
         <!-- end function hall here -->
 
         <!-- start cottages here -->
-        <text transform="matrix(1 0 0 1 1527.2539 332.4219)" font-family="'arial'" font-size="20">COTTAGES</text>
+        <text transform="matrix(1 0 0 1 1527.2539 332.4219)" font-family="'arial'" font-size="20" font-weight="bold">COTTAGES</text>
+        <text transform="matrix(1 0 0 1 63.2944 409.0981)" font-family="'arial'" font-size="20" font-weight="bold">COTTAGES</text>
+        <?php 
+        while ($cottage = $cottages->fetch(PDO::FETCH_OBJ)) { ?>
         <text 
-            transform="matrix(1 0 0 1 1217.7676 362.457)" 
+            data-amenityid="<?php echo $cottage->id ?>"
+            data-categoryid="<?php echo $cottage->category_id ?>"
+            data-category="<?php echo $cottage->category_name ?>"
+            data-quantity="<?php echo $cottage->quantity ?>"
+            data-amount="<?php echo $cottage->amount_per_hour ?>"
+            data-amountnight="<?php echo $cottage->amount_per_night ?>"
+            data-name="<?php echo $cottage->name ?>"
+            data-status="<?php echo checker_status($cottage->r_a_id, $cottage->id, $cottage->status);?>"
+            fill="<?php echo status($cottage->r_a_id, $cottage->id, $cottage->status);?>"
+            transform="<?php echo $cottage->txt_transform ?>" 
+            class="cottages book_now" 
             font-family="'arial'" 
-            font-size="20">1</text>
+            font-weight="bold"
+            font-size="25"><?php echo $cottage->name ?></text>
         <image 
+            data-amenityid="<?php echo $cottage->id ?>"
+            data-categoryid="<?php echo $cottage->category_id ?>"
+            data-category="<?php echo $cottage->category_name ?>"
+            data-quantity="<?php echo $cottage->quantity ?>"
+            data-amount="<?php echo $cottage->amount_per_hour ?>"
+            data-amountnight="<?php echo $cottage->amount_per_night ?>"
+            data-name="<?php echo $cottage->name ?>"
+            data-status="<?php echo checker_status($cottage->r_a_id, $cottage->id, $cottage->status);?>"
+            class="cottages book_now" 
             overflow="visible" 
             width="297" 
             height="170" 
             xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1255.2979 361.4561)">
+            transform="<?php echo $cottage->transform ?>">
         </image>
-
-        <text 
-            transform="matrix(1 0 0 1 1298.3828 360.4565)" 
-            font-family="'arial'" 
-            font-size="20">2</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1342.4688 362.457)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1375.7383 360.4565)" font-family="'arial'" font-size="20">3</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1429.2676 362.457)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1464.6895 360.4565)" font-family="'arial'" font-size="20">4</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1512.2822 361.4561)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1552.3672 362.457)" font-family="'arial'" font-size="20">5</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1597.082 361.4561)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1633.7266 361.4565)" font-family="'arial'" font-size="20">6</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1686.7998 362.457)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1720.7217 361.4565)" font-family="'arial'" font-size="20">7</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1776.5195 362.457)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1812.2168 361.4565)" font-family="'arial'" font-size="20">8</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1848.7432 360.4561)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1884.1553 360.4565)" font-family="'arial'" font-size="20">9</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.2901 0 0 0.2901 1181.127 361.4561)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1221.9941 425.5425)" font-family="'arial'" font-size="22.684">17</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1173.127 426.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1301.7314 425.5425)" font-family="'arial'" font-size="22.684">16</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1263.9961 427.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1402.6191 425.5425)" font-family="'arial'" font-size="22.684">15</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1362.4434 427.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1502.0635 427.811)" font-family="'arial'" font-size="22.684">14</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1456.5986 426.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1594.3408 426.6763)" font-family="'arial'" font-size="22.684">13</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1552.7783 426.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1693.0117 426.6763)" font-family="'arial'" font-size="22.684">12</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1654.5361 427.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1796.7842 426.6763)" font-family="'arial'" font-size="22.684">11</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1756.2969 427.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1880.6592 425.5425)" font-family="'arial'" font-size="22.684">10</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170"
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1840.4941 425.5425)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1219.9941 494.5425)" font-family="'arial'" font-size="22.684">18</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1171.127 496.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1299.7314 494.5425)" font-family="'arial'" font-size="22.684">19</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1261.9961 497.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1400.6191 494.5425)" font-family="'arial'" font-size="22.684">20</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1360.4434 497.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1500.0635 496.811)" font-family="'arial'" font-size="22.684">21</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1454.5986 496.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1592.3408 495.6763)" font-family="'arial'" font-size="22.684">22</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1550.7783 496.6772)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1691.0117 495.6763)" font-family="'arial'" font-size="22.684">23</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1652.5361 496.811)">
-        </image>
-
-
-        <text transform="matrix(1 0 0 1 1794.7842 495.6763)" font-family="'arial'" font-size="22.684">24</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1754.2969 496.811)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1878.6592 494.5425)" font-family="'arial'" font-size="22.684">25</text>
-        <image 
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1838.4941 494.5425)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1223.9941 572.543)" font-family="'arial'" font-size="22.684">29</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1175.127 573.6777)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1303.7314 572.543)" font-family="'arial'" font-size="22.684">28</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1265.9961 574.8105)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1404.6191 572.543)" font-family="'arial'" font-size="22.684">27</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1364.4434 574.8105)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 1504.0635 574.8105)" font-family="'arial'" font-size="22.684">26</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 1458.5986 573.6777)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 63.2944 409.0981)" font-family="'arial'" font-size="20">COTTAGES</text>
-        <text transform="matrix(1 0 0 1 58.8677 438.0845)" font-family="'arial'" font-size="22.684">31</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 10 439.2192)">
-        </image>
-
-        <text transform="matrix(1 0 0 1 137.8696 442.0845)" font-family="'arial'" font-size="22.684">30</text>
-        <image  
-            overflow="visible" 
-            width="297" 
-            height="170" 
-            xlink:href="map_files/cottage.jpg" 
-            transform="matrix(0.3291 0 0 0.3291 100.1338 444.353)">
-        </image>
+        <?php } ?>        
         <!-- end cottages here -->
 
         <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="254" y1="582.5" x2="283" y2="582.5"/>
@@ -6403,7 +6274,7 @@
             </g>
         </g>
         
-        <text transform="matrix(1 0 0 1 210.1279 715)" font-family="'arial'" font-size="20">RESTO BAR</text>
+        <text transform="matrix(1 0 0 1 210.1279 715)" font-family="'arial'" font-size="20" font-weight="bold">RESTO BAR</text>
         <image 
             overflow="visible" 
             width="550" 
@@ -6420,7 +6291,7 @@
             transform="matrix(0.1259 0 0 0.0839 134.2563 641.6152)">
         </image>
         
-        <text transform="matrix(1 0 0 1 437.5 769.5703)" font-family="'arial'" font-size="20">SWIMMING POOL</text>
+        <text transform="matrix(1 0 0 1 437.5 769.5703)" font-family="'arial'" font-size="20" font-weight="bold">SWIMMING POOL</text>
         <image 
             overflow="visible" 
             width="680" 
@@ -6494,3 +6365,92 @@
         <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="342" y1="582.5" x2="370" y2="582.5"/>`
     </svg>
 </div>
+<script>
+
+    // const svg = document.getElementById("Layer_1");
+
+    // const getTransformParameters = (element) => {
+    // const transform = element.style.transform;
+    // let scale = 1,
+    //     x = 0,
+    //     y = 0;
+
+    // if (transform.includes("scale"))
+    //     scale = parseFloat(transform.slice(transform.indexOf("scale") + 6));
+    // if (transform.includes("translateX"))
+    //     x = parseInt(transform.slice(transform.indexOf("translateX") + 11));
+    // if (transform.includes("translateY"))
+    //     y = parseInt(transform.slice(transform.indexOf("translateY") + 11));
+
+    // return { scale, x, y };
+    // };
+
+    // const getTransformString = (scale, x, y) =>
+    // "scale(" + scale + ") " + "translateX(" + x + "%) translateY(" + y + "%)";
+
+    // const pan = (direction) => {
+    // const { scale, x, y } = getTransformParameters(svg);
+    // let dx = 0,
+    //     dy = 0;
+    // switch (direction) {
+    //     case "left":
+    //     dx = -3;
+    //     break;
+    //     case "right":
+    //     dx = 3;
+    //     break;
+    //     case "up":
+    //     dy = -3;
+    //     break;
+    //     case "down":
+    //     dy = 3;
+    //     break;
+    // }
+    // svg.style.transform = getTransformString(scale, x + dx, y + dy);
+    // };
+
+    // const zoom = (direction) => {
+    // const { scale, x, y } = getTransformParameters(svg);
+    // let dScale = 0.1;
+    // if (direction == "out") dScale *= -1;
+    // if (scale == 0.1 && direction == "out") dScale = 0;
+    // svg.style.transform = getTransformString(scale + dScale, x, y);
+    // };
+
+
+    // document.getElementById("zoom-in-button").onclick = () => zoom("in");
+    // document.getElementById("zoom-out-button").onclick = () => zoom("out");
+    </script>
+    <script>
+        var example1, example2; //globals so we can manipulate them in the debugger
+        $(function() {
+            "use strict";
+            // var examples = 
+            // $("svg").svgPanZoom();
+
+            // var callback= function(example) {
+            //     return function(event) {
+            //         if ($(event.target).hasClass("fa-arrow-up"))
+            //             example.panUp()
+            //         if ($(event.target).hasClass("fa-arrow-down"))
+            //             example.panDown()
+            //         if ($(event.target).hasClass("fa-arrow-left"))
+            //             example.panLeft()
+            //         if ($(event.target).hasClass("fa-arrow-right"))
+            //             example.panRight()
+            //         if ($(event.target).hasClass("fa-plus"))
+            //             example.zoomIn()
+            //         if ($(event.target).hasClass("fa-minus"))
+            //             example.zoomOut()
+            //         if ($(event.target).hasClass("fa-refresh"))
+            //             example.reset()
+            //     }
+            // };
+
+            // example1= examples[0]
+            // example2= examples[1]
+
+            // $(document).on("click", callback(example1));
+            // $("div#example2 i").click(callback(example2));
+        });
+    </script>

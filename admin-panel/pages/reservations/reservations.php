@@ -55,7 +55,9 @@ function status($status)
                     <tr>
                         <td><?php echo $row->id; ?></td>
                         <td>
-                            <a href="javascript://;" title="<?php echo ($row->customer_id == 0 ? 'Guest' : 'Customer') ?>">
+                            <a style="text-decoration: none;"
+                                href="javascript://;" 
+                                title="<?php echo ($row->customer_id == 0 ? 'Guest' : 'Customer') ?>">
                                 <?php echo $row->reservation_id; ?>
                             </a>
                         </td>
@@ -130,8 +132,8 @@ function status($status)
                                     <label for="status"><strong>Status</strong></label>
                                     <select name="txt_status" id="txt_status" class="form-control" id="status">
                                         <option value="pending">Pending</option>
-                                        <option value="approved">Approve</option>
-                                        <option value="cancelled">Cancel</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="cancelled">Cancelled</option>
                                     </select>
                                     <br/>
                                     <button class="btn btn-success" id="reservation_status_confirm">Submit</button>

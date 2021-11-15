@@ -84,9 +84,9 @@
                 return false;
             },
             checkAuth: function(obj){
-                console.log(obj)
+                
                 var qty = 0;
-                if(['Table','Chair'].indexOf(obj.category) !== -1){
+                if(['Table','Chair', 'Tent'].indexOf(obj.category) !== -1){
                     var qty = 1;
                     $("#label_quantity").show()
                     $("#label_name").hide()
@@ -114,6 +114,28 @@
 
 
                 $("#input_total_amount").val(parseFloat(total).toFixed(2))
+                var images = JSON.stringify($("#images_data").data('details'));
+                var files  = JSON.parse(images);
+                var newItems = files.filter(function(item) {
+                    return obj.amenity_id == item.amenities_id;
+                });
+                $("#slider_images").html("")
+                if(newItems.length){
+                    var html = "";
+                    $.each(newItems, function(index, row){
+                        console.log(index, row)
+                        html += `<div>
+                                    <img src="admin-panel/uploads/gallery/${row.photos}" alt="slides">
+                                </div>`
+                    })
+                    $("#slider_images").append(html);
+                }
+                setTimeout(() => {
+                    $("#slider-container").sliderUi({
+                        speed: 700,
+                        cssEasing: "cubic-bezier(0.285, 1.015, 0.165, 1.000)"
+                    });
+                }, 100);
                 
                 $("#reservationModal").modal({
                     backdrop: 'static',
@@ -197,7 +219,7 @@
             var amenity_id  = $(this).data('amenityid')
             var category_id = $(this).data('categoryid')
             var available   = 0;
-            if(['Table','Chair'].indexOf(category) !== -1){
+            if(['Table','Chair', 'Tent'].indexOf(category) !== -1){
                 available = $(this).data('available')
             }
             
