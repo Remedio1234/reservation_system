@@ -20,3 +20,7 @@ username:root
 password:4JzJcfSFQyE{nEFn /// #vTYy8&zV1H]UjQ7
 
 gmail allow less secure apps
+
+
+https://know.mailsbestfriend.com/smtp_error_password_command_failed_5345714-1194946499.shtml
+infinityfree

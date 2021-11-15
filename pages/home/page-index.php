@@ -74,17 +74,26 @@
         </p>
         </div>
         
-        <div class="col-md-12" style="border: 1px solid #f3f3f3;background:#f9f9f9;">
+        <div class="col-md-12" 
+            style="border: 1px solid #f3f3f3;background:#FFFFFF;border-radius:10px;
+
+  -moz-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  -webkit-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+
+  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+  zoom: 1;">
             <p class="mt-2">
                 <button type="button" class="btn btn-success">Available</button> 
                 <button type="button" class="btn btn-danger">Not Available</button> 
                 <button type="button" class="btn btn-warning">Under Maintenance</button> 
             </p>
-            <div style="background: url(assets/images/bg-map.gif) no-repeat center center fixed; 
+            <!-- <div style="background: url(assets/images/bg-map.gif) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;height:50px"></div>
+  background-size: cover;height:50px"></div> -->
             <div id="load_map"></div>
         </div>
     </div>
