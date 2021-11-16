@@ -23,10 +23,19 @@
                 $message = "Your reservation {$data['reservation_id']} has been successfully {$status}.";
                 $dbConn->query("INSERT INTO tbl_notifications(customer_id, message)VALUES('" . $data['customer_id'] . "','" . $message . "')");
             }
+
+            require_once("../../mail/mailer.php");
+            $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$data['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
+            $customer_name  = $user['fullname'];
+            $customer_email = $user['email_address']; 
+            $subject        = "Your reservation {$data['reservation_id']} has been successfully {$status}."; 
+            $mymessage      = $status == "cancelled" ? "We're sorry that this reservation didn't work out for you. <br> But we hope we'll hear from you again." : ""; 
+            $final_message  = $subject . "<br>".$mymessage;
             if ($query) :
                 $response = [
-                'response' => 'success',
-                'message' => 'Reservation successfully changed.'
+                'result'    => ($status != 'pending' ? sendMail($customer_name, $customer_email, $subject , $final_message) : "N/A"),   
+                'response'  => 'success',
+                'message'   => 'Reservation successfully submitted.'
             ];
             endif;
         break;

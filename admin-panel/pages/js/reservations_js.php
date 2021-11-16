@@ -136,18 +136,20 @@
         $(document).on('click', '#reservation_status_confirm', function(e){
             e.preventDefault();
 
-            var params = { 
-                id      : $("#reservation_id_hide").val(),
-                status  : $("#txt_status").val(),
-                action  : 'reservations'
-            }
-
-            $.post("<?php echo WEB_ROOT . 'admin-panel/execute/saveData.php'; ?>", params , function(data){
-                if(data.response == "success"){
-                    alert(data.message)
-                    window.location.reload(true)
+            if(confirm("Are you sure you want to submit this data?")){
+                var params = { 
+                    id      : $("#reservation_id_hide").val(),
+                    status  : $("#txt_status").val(),
+                    action  : 'reservations'
                 }
-            },"json");
+
+                $.post("<?php echo WEB_ROOT . 'admin-panel/execute/saveData.php'; ?>", params , function(data){
+                    if(data.response == "success"){
+                        alert(data.message)
+                        window.location.reload(true)
+                    }
+                },"json");
+            }
         });
 
 

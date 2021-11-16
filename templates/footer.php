@@ -97,6 +97,29 @@
 
     <script>
         $(document).ready(function(){
+            // check if reservation more than 12hrs
+            function toBeCancelled(){
+                $.ajax({
+                    url: "execute/controller.php",
+                    type: "post",
+                    data: {
+                        action:'to_be_cancelled'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.response == 'success'){
+                            
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            }
+            toBeCancelled()
+            setInterval(function(){ 
+                toBeCancelled()
+            }, 8000);
 
             <?php if(isset($_SESSION['customer']['isLoggedIn'])) : ?>
                 $(document).on('click', '#update_notification_count', function(e){

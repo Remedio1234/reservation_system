@@ -37,6 +37,29 @@
                 'data'      => $data
             ];
         break;
+        case 'to_be_cancelled':
+            $to_be_cancelled = $dbConn->query("SELECT * FROM tbl_reservations WHERE status  = 'pending' AND date_applied <= '" . date('Y-m-d H:i:s', strtotime("-12 hours")) . "'"); 
+            $data    = array();
+            while ($detail = $to_be_cancelled->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $detail;
+                if($detail['id']){
+                    require_once("../mail/mailer.php");
+                    $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$detail['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
+                    $customer_name  = $user['fullname'];
+                    $customer_email = $user['email_address']; 
+                    $subject        = "Your reservation {$detail['reservation_id']} has been successfully cancelled.<br>"; 
+                    $mymessage      = "Because it was not paid. <br> But we hope we'll hear from you again."; 
+                    $final_message  = $subject . "<br>".$mymessage;
+                    sendMail($customer_name, $customer_email, $subject , $final_message);
+                    $dbConn->query("UPDATE tbl_reservations SET status = 'cancelled' WHERE id = '".$detail['id']."' ");
+                    $dbConn->query("UPDATE tbl_details SET status = 'cancelled' WHERE reservation_id  = '".$detail['id']."' ");
+                }
+            }
+            $response = [
+                'response'  => 'success',
+                'data'      => $data
+            ];
+        break;    
         case 'update_notifications':
             $dbConn->query("UPDATE tbl_notifications SET status = 'read' WHERE customer_id   = '".$_SESSION['customer']['customer_id']."' ");
             $response = [
@@ -92,8 +115,8 @@
                     $customer_email = $_POST['info']['email_address']; 
                 }
                 if($customer_id){
-                    $message = "Your reservation {$reservation_id} has been received and is now being processed.  <br>
-                                     You can check details of your order in your Account Dashboard anytime.";
+                    $message = "Your reservation {$reservation_id} has been received.  <br>
+                                    you have 12 hours to pay the reservation and it will be automatically canceled if not paid";
                     $dbConn->query("INSERT INTO tbl_notifications(customer_id, message)VALUES('" . $customer_id . "','" . $message . "')");
                 }
                 $dbConn->query("UPDATE tbl_reservations SET reservation_id = '" . $reservation_id . "' WHERE id = " . $LAST_ID . " ");
@@ -104,7 +127,7 @@
             }
 
             $response = [
-                    'result'            => sendMail($customer_name, $customer_email, "Thank you for your order reservation - {$reservation_id}", "Your reservation {$reservation_id} has been received and is now being processed. <br/> You can check details of your order in your Account Dashboard anytime."),
+                    'result'            => sendMail($customer_name, $customer_email, "Thank you for your  reservation - {$reservation_id}", "Your reservation {$reservation_id} has been received. <br/> you have 12 hours to pay the reservation and it will be automatically canceled if not paid."),
                     'response'          => 'success',
                     'reservation_id'    => $LAST_ID,
                     'guest_id'          => $guest_id,

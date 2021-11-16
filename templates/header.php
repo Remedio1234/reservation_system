@@ -82,7 +82,8 @@
                                 <div 
                                     id="notification_data"
                                     class="dropdown-menu" 
-                                    aria-labelledby="account"></div>
+                                    aria-labelledby="account" 
+                                    style="overflow:scroll; height:400px;"></div>
                             <?php endif ?>
                         </li>
                         <li class="nav-item dropdown">
