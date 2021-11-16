@@ -42,9 +42,12 @@
                         <div>
                             <p> Thank you for making your reservation with us. </p>
                             <p>If you have any questions, please call us or use the contact page for further help!</p>
-                            <h5>Note:
-                           <em style="color:#dc4242;"> Be sure to copy or save the <strong>RESERVATION ID</strong> for checking the status of your reservation.</em>
+                            <?php if(!isset($_SESSION['customer']['isLoggedIn'])) : ?>
+                            <h5>
+                                Note:
+                                <em style="color:#dc4242;"> Be sure to copy or save the <strong>RESERVATION ID</strong> for checking the status of your reservation.</em>
                             </h5>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>

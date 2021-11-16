@@ -97,6 +97,64 @@
 
     <script>
         $(document).ready(function(){
+
+            <?php if(isset($_SESSION['customer']['isLoggedIn'])) : ?>
+                $(document).on('click', '#update_notification_count', function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        url: "execute/controller.php",
+                        type: "post",
+                        data: {
+                            action:'update_notifications'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#notification_count").text(0)
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                })
+                function getNotifications(){
+                    $("#notification_count").text(0)
+                    $("#notification_data").html("")
+                    $.ajax({
+                        url: "execute/controller.php",
+                        type: "post",
+                        data: {
+                            action:'notifications'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.response == 'success'){
+                                $("#notification_count").text(data.count)
+                                var html = ''
+                                var url_link = "<?php echo WEB_ROOT ?>?v=reservations";
+                                $.each(data.notif, function(index, item){
+                                    html += `
+                                        <a 
+                                            style="font-size:12px;"
+                                            class="dropdown-item" 
+                                            href="${url_link}">
+                                            ${item.message}
+                                        </a>
+                                    `
+                                });
+                                $(document).find("#notification_data").append(html)
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                }
+                getNotifications()
+                setInterval(function()
+                { 
+                    getNotifications()
+                }, 5000);
+            <?php endif; ?>
             // ************************************************
             // Shopping Cart API
             // ************************************************

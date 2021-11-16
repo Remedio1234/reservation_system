@@ -11,6 +11,16 @@
             <?php } ?>
         <?php endif; ?>
         <link rel="shortcut icon" href="<?php echo WEB_ROOT . 'admin-panel/uploads/company/' . @$data['site_logo'] ?>" />
+        <style>
+            .badge {
+                position: relative;
+                top: -12px;
+                left: -12px;
+                border: 1px solid black;
+                border-radius: 50%;
+                font-size: 9px;
+            }
+        </style>
     </head>
     <body>
     <!-- Navigation -->
@@ -42,27 +52,67 @@
                 <ul class="navbar-nav ml-auto" id="head-menu">
                     <li class="nav-item">
                         <a 
-                            class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'items' ? 'active' : ''); ?>" 
-                            href="<?php echo WEB_ROOT ?>?v=items">Item\s (<span class="total-count">0</span>)</a>
+                            class="nav-link"
+                            href="<?php echo WEB_ROOT ?>?v=items">
+                            <i class="fa fa-shopping-cart fa-lg"></i>
+                            <span class="badge badge-light total-count">0</span>
+                        </a>
                     </li>
                     <?php if(!isset($_SESSION['customer']['isLoggedIn'])) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'login' ? 'active' : ''); ?>" href="<?php echo WEB_ROOT ?>?v=login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'register' ? 'active' : ''); ?>" href="<?php echo WEB_ROOT ?>?v=register">Register</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'login' ? 'active' : ''); ?>" href="<?php echo WEB_ROOT ?>?v=login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo (isset($data['active']) && $data['active'] == 'register' ? 'active' : ''); ?>" href="<?php echo WEB_ROOT ?>?v=register">Register</a>
+                        </li>
                     <?php else : ?>  
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="<?php echo WEB_ROOT; ?>" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
-                        <div class="dropdown-menu" aria-labelledby="account">
-                        <a class="dropdown-item" href="javascript:void(0);">Hello, <?php echo ucfirst(@$_SESSION['customer']['username']); ?>!</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?php echo WEB_ROOT ?>?v=dashboard">View Dasboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="<?php echo WEB_ROOT. 'account/logout.php'?>">Logout</a>
-                        </div>
-                    </li>
+   
+                        <li class="nav-item dropdown">
+                            <a 
+                                class="nav-link"
+                                href="javascript://;" 
+                                data-toggle="dropdown" 
+                                id="update_notification_count"
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                                <i class="fa fa-bell fa-lg"></i>
+                                <span class="badge badge-light" id="notification_count">0</span>
+                            </a>
+                            <?php if(isset($_SESSION['customer']['isLoggedIn'])) : ?>
+                                <div 
+                                    id="notification_data"
+                                    class="dropdown-menu" 
+                                    aria-labelledby="account"></div>
+                            <?php endif ?>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a 
+                                class="nav-link dropdown-toggle"
+                                href="javascript://;" 
+                                id="account" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                                <i class="fa fa-user fa-lg"></i></a>
+                            <div 
+                                style="font-size:12px;"
+                                class="dropdown-menu" 
+                                aria-labelledby="account">
+                                <a 
+                                    class="dropdown-item" 
+                                    href="javascript:void(0);">
+                                        <i class="fa fa-smile-o" aria-hidden="true"></i> 
+                                        Hello, <?php echo ucfirst(@$_SESSION['customer']['username']); ?>!</a>
+                                <div class="dropdown-divider"></div>
+                                <a 
+                                    class="dropdown-item" 
+                                    href="<?php echo WEB_ROOT ?>?v=dashboard"><i class="fa fa-angle-left" aria-hidden="true"></i> Dasboard </a>
+                                <div class="dropdown-divider"></div>
+                                <a 
+                                    class="dropdown-item text-danger" 
+                                    href="<?php echo WEB_ROOT. 'account/logout.php'?>"> <i class="fa fa-angle-left" aria-hidden="true"></i> Logout </a>
+                            </div>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>

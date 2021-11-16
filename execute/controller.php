@@ -36,6 +36,31 @@
                 'data'      => $data
             ];
         break;
+        case 'update_notifications':
+            $dbConn->query("UPDATE tbl_notifications SET status = 'read' WHERE customer_id   = '".$_SESSION['customer']['customer_id']."' ");
+            $response = [
+                'response'      => 'success'
+            ];
+        break;    
+        case 'notifications':
+            function getNotif($dbConn, $type){
+                if($type == 'all'){
+                    $details = $dbConn->query("SELECT * FROM tbl_notifications WHERE customer_id   = '".$_SESSION['customer']['customer_id']."' ORDER BY id DESC"); 
+                } else {
+                    $details = $dbConn->query("SELECT * FROM tbl_notifications WHERE status = 'unread' and customer_id   = '".$_SESSION['customer']['customer_id']."' ORDER BY id DESC"); 
+                }
+                $data    = array();
+                while ($detail = $details->fetch(PDO::FETCH_OBJ)) {
+                    $data[] = $detail;
+                }
+                return $data;
+            }
+            $response = [
+                'response'      => 'success',
+                'count'         => count(getNotif($dbConn, 'unread')),
+                'notif'         => getNotif($dbConn, 'all')
+            ];
+        break;
         case 'reservation':
             $customer_id = 0; 
             $guest_id    = 0;
@@ -56,6 +81,11 @@
             $reservation_id = '01' . date('ymd') . $uId;
 
             if($LAST_ID){
+                if($customer_id){
+                    $message = "Your reservation {$reservation_id} has been received and is now being processed.  <br>
+                                     You can check details of your order in your Account Dashboard anytime.";
+                    $dbConn->query("INSERT INTO tbl_notifications(customer_id, message)VALUES('" . $customer_id . "','" . $message . "')");
+                }
                 $dbConn->query("UPDATE tbl_reservations SET reservation_id = '" . $reservation_id . "' WHERE id = " . $LAST_ID . " ");
             }
             
