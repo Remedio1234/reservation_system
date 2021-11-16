@@ -118,7 +118,6 @@
                 })
                 function getNotifications(){
                     $("#notification_count").text(0)
-                    $("#notification_data").html("")
                     $.ajax({
                         url: "execute/controller.php",
                         type: "post",
@@ -139,9 +138,10 @@
                                             href="${url_link}">
                                             ${item.message}
                                         </a>
+                                        <div class="dropdown-divider"></div>
                                     `
                                 });
-                                $(document).find("#notification_data").append(html)
+                                $(document).find("#notification_data").html(html)
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -356,7 +356,7 @@
                                 address: address
                             }
                     }
-                    
+                    $("#btn_guest_submit").prop("disabled", true).text("Processing..")
                     $.ajax({
                         url: "execute/controller.php",
                         type: "post",

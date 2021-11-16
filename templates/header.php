@@ -100,7 +100,7 @@
                                 aria-labelledby="account">
                                 <a 
                                     class="dropdown-item" 
-                                    href="javascript:void(0);">
+                                    href="<?php echo WEB_ROOT ?>?v=information">
                                         <i class="fa fa-smile-o" aria-hidden="true"></i> 
                                         Hello, <?php echo ucfirst(@$_SESSION['customer']['username']); ?>!</a>
                                 <div class="dropdown-divider"></div>

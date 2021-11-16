@@ -1,4 +1,5 @@
 <?php
+    $response = array();
     require_once('../library/config.php');
     extract($_POST);
     $tables = [
@@ -81,6 +82,15 @@
             $reservation_id = '01' . date('ymd') . $uId;
 
             if($LAST_ID){
+                require_once("../mail/mailer.php");
+                if (isset($_SESSION['customer']['isLoggedIn'])) {
+                    $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$_SESSION['customer']['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
+                    $customer_name  = $user['fullname'];
+                    $customer_email = $user['email_address']; 
+                } else {
+                    $customer_name  = $_POST['info']['fullname'];
+                    $customer_email = $_POST['info']['email_address']; 
+                }
                 if($customer_id){
                     $message = "Your reservation {$reservation_id} has been received and is now being processed.  <br>
                                      You can check details of your order in your Account Dashboard anytime.";
@@ -94,6 +104,7 @@
             }
 
             $response = [
+                    'result'            => sendMail($customer_name, $customer_email, "Thank you for your order reservation - {$reservation_id}", "Your reservation {$reservation_id} has been received and is now being processed. <br/> You can check details of your order in your Account Dashboard anytime."),
                     'response'          => 'success',
                     'reservation_id'    => $LAST_ID,
                     'guest_id'          => $guest_id,

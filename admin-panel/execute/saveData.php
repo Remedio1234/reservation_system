@@ -16,14 +16,19 @@
 
         /* ======== update reservation status */
         case 'reservations':
-        $query = $dbConn->query("UPDATE " . $tables['reservations'] . " SET status = '" . $status . "' WHERE id = " . $id . " ");
-        $dbConn->query("UPDATE " . $tables['details'] . " SET status = '" . $status . "' WHERE reservation_id = " . $id . " ");
-        if ($query) :
-            $response = [
-            'response' => 'success',
-            'message' => 'Reservation successfully changed.'
-        ];
-        endif;
+            $query = $dbConn->query("UPDATE " . $tables['reservations'] . " SET status = '" . $status . "' WHERE id = " . $id . " ");
+            $dbConn->query("UPDATE " . $tables['details'] . " SET status = '" . $status . "' WHERE reservation_id = " . $id . " ");
+            $data = $dbConn->query("SELECT * FROM " . $tables['reservations'] . " WHERE id = " . $id . "")->fetch(PDO::FETCH_ASSOC);
+            if($data['customer_id'] && $status != 'pending'){
+                $message = "Your reservation {$data['reservation_id']} has been successfully {$status}.";
+                $dbConn->query("INSERT INTO tbl_notifications(customer_id, message)VALUES('" . $data['customer_id'] . "','" . $message . "')");
+            }
+            if ($query) :
+                $response = [
+                'response' => 'success',
+                'message' => 'Reservation successfully changed.'
+            ];
+            endif;
         break;
         /* ============= CATEGORIES MODULE =========== */
         case 'category':
