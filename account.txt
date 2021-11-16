@@ -27,3 +27,5 @@ infinityfree
 
 
 ALTER TABLE `tbl_amenities` ADD `txt_transform` TEXT NOT NULL AFTER `transform`;
+
+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
