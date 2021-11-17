@@ -116,7 +116,7 @@
                 }
                 if($customer_id){
                     $message = "Your reservation {$reservation_id} has been received.  <br>
-                                    You will have 12 hours to pay the reservation or else it will be automatically canceled if it is not paid";
+                                You will have 12 hours to pay the reservation or else it will be automatically canceled if it is not paid";
                     $dbConn->query("INSERT INTO tbl_notifications(customer_id, message)VALUES('" . $customer_id . "','" . $message . "')");
                 }
                 $dbConn->query("UPDATE tbl_reservations SET reservation_id = '" . $reservation_id . "' WHERE id = " . $LAST_ID . " ");

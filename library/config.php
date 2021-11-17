@@ -4,12 +4,12 @@ ini_set('display_errors', 'on');
 //error_reporting(E_ALL);
 
 //start the session
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
-if(session_status() == PHP_SESSION_ACTIVE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+// if(session_status() == PHP_SESSION_ACTIVE) {
+//     session_start();
+// }
 
 //database connection setup
 $dbHost = "mysql:host=localhost;dbname=db_dbror";

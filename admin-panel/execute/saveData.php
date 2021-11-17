@@ -25,7 +25,11 @@
             }
 
             require_once("../../mail/mailer.php");
-            $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$data['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
+            if($data['customer_id']){
+                $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$data['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
+            } else {
+                $user = $dbConn->query("SELECT * FROM tbl_customers where guest_id = '".$data['guest_id']."' ")->fetch(PDO::FETCH_ASSOC);
+            }
             $customer_name  = $user['fullname'];
             $customer_email = $user['email_address']; 
             $subject        = "Your reservation {$data['reservation_id']} has been successfully {$status}."; 
