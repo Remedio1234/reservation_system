@@ -4,7 +4,10 @@ ini_set('display_errors', 'on');
 //error_reporting(E_ALL);
 
 //start the session
-if (session_status() === PHP_SESSION_NONE) {
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
+if(session_status() == PHP_SESSION_ACTIVE) {
     session_start();
 }
 
