@@ -47,9 +47,9 @@
                     $user = $dbConn->query("SELECT * FROM tbl_customers where id = '".$detail['customer_id']."' ")->fetch(PDO::FETCH_ASSOC);
                     $customer_name  = $user['fullname'];
                     $customer_email = $user['email_address']; 
-                    $subject        = "Your reservation {$detail['reservation_id']} has been successfully cancelled.<br>"; 
+                    $subject        = "Your reservation {$detail['reservation_id']} has been successfully cancelled."; 
                     $mymessage      = "Because it was not paid. <br> But we hope we'll hear from you again."; 
-                    $final_message  = $subject . "<br>".$mymessage;
+                    $final_message  = "<br>" . $subject . "<br>".$mymessage;
                     sendMail($customer_name, $customer_email, $subject , $final_message);
                     $dbConn->query("UPDATE tbl_reservations SET status = 'cancelled' WHERE id = '".$detail['id']."' ");
                     $dbConn->query("UPDATE tbl_details SET status = 'cancelled' WHERE reservation_id  = '".$detail['id']."' ");
